@@ -1,0 +1,531 @@
+/*------------------------------- PreTestQuestion & PostTestQuestion & SEQQuestion --------------------------------*/
+#PreTestQuestion, #PostTestQuestion, #SEQQuestion{
+    display: none;
+    width: 110rem;
+    position: relative;
+    height: 60rem;
+    background: #FFFFFF;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    margin-left: -55rem;
+    margin-top: -30rem;
+}
+
+#PreTestQuestion .title, #PostTestQuestion .title, #SEQQuestion .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#PreTestQuestion .title h2, #PostTestQuestion .title h2, #SEQQuestion .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 8rem;
+    color: #6F6F6F;
+}
+
+#PreTestQuestion .question .question-text, #PostTestQuestion .question .question-text, #SEQQuestion .question .question-text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    margin-bottom: 2rem;
+    color: #605F5F;
+}
+
+#PreTestQuestion .radioGroup, #PostTestQuestion .radioGroup, #SEQQuestion .radioGroup{
+    display: inline-block;
+}
+
+#PreTestQuestion .radioButtons, #PostTestQuestion .radioButtons, #SEQQuestion .radioButtons{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+#PreTestQuestion .radioButtons .wrap, #PostTestQuestion .radioButtons .wrap, #SEQQuestion .radioButtons .wrap{
+    display: inline-block;
+    margin: 0 4rem;
+}
+
+#PreTestQuestion .radioButtons .wrap:first-of-type, #PostTestQuestion .radioButtons .wrap:first-of-type, #SEQQuestion .radioButtons .wrap:first-of-type{
+    margin-left: 0;
+}
+
+#PreTestQuestion .radioButtons .wrap:last-of-type, #PostTestQuestion .radioButtons .wrap:last-of-type, #SEQQuestion .radioButtons .wrap:last-of-type{
+    margin-right: 0;
+}
+
+#PreTestQuestion .radioButtons label, #PostTestQuestion .radioButtons label, #SEQQuestion .radioButtons label{
+    display: block;
+    text-align: center;
+    margin: 0 0.2em;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#PreTestQuestion .radioButtons input[type="radio"], #PostTestQuestion .radioButtons input[type="radio"], #SEQQuestion .radioButtons input[type="radio"]{
+    display: block;
+    margin: 0.5em auto;
+}
+
+#PreTestQuestion .left-text, #PostTestQuestion .left-text, #SEQQuestion .left-text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: center;
+    float: left;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#PreTestQuestion .right-text, #PostTestQuestion .right-text, #SEQQuestion .right-text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: center;
+    float: right;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#PreTestQuestion-nextBtn, #PostTestQuestion-nextBtn, #SEQQuestion-nextBtn{
+    width: 30rem;
+    height: 5rem;
+    position: absolute;
+    bottom: 5rem;
+    margin-left: -15rem;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+
+
+
+
+/*------------------------------- SUSQuestion --------------------------------*/
+#SUSQuestion{
+    margin: auto;
+    width: 60%;
+    background: #FFFFFF;
+    text-align: center;
+    display: none;
+}
+
+#SUSQuestion .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#SUSQuestion .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 8rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#SUSQuestion .question1, .question2, .question3, .question4, .question5, .question6, .question7, .question8, .question9, .question10{
+    margin-bottom: 10rem;
+}
+
+#SUSQuestion .question{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    margin-bottom: 2rem;
+    color: #605F5F;
+}
+
+#SUSQuestion .radioGroup{
+    display: inline-block;
+}
+
+#SUSQuestion .radioButtons{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+#SUSQuestion .radioButtons .wrap {
+    display: inline-block;
+    margin: 0 4rem;
+}
+
+#SUSQuestion .radioButtons .wrap:first-of-type{
+    margin-left: 0;
+}
+
+#SUSQuestion .radioButtons .wrap:last-of-type{
+    margin-right: 0;
+}
+
+#SUSQuestion .radioButtons label {
+    display: block;
+    text-align: center;
+    margin: 0 0.2em;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#SUSQuestion .radioButtons input[type="radio"] {
+    display: block;
+    margin: 0.5em auto;
+}
+
+#SUSQuestion .left-text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: center;
+    float: left;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#SUSQuestion .right-text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: center;
+    float: right;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#SUSQuestion-nextBtn{
+    width: 30rem;
+    height: 5rem;
+    margin-top: 2rem;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+    margin-bottom: 5rem;
+}
+
+/*------------------------------- PreCustomQuestions & PostCustomQuestions --------------------------------*/
+#PreCustomQuestions, #PostCustomQuestions{
+    min-height: 100%;
+    margin: auto;
+    width: 60%;
+    background: #FFFFFF;
+    text-align: center;
+    display: none;
+}
+
+#PreCustomQuestions .title, #PostCustomQuestions .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#PreCustomQuestions .title h2, #PostCustomQuestions .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 8rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#PreCustomQuestions .question1, .question2, .question3, .question4, .question5{
+    margin-bottom: 10rem;
+}
+
+#PostCustomQuestions .question1, .question2, .question3, .question4, .question5{
+    margin-bottom: 10rem;
+}
+
+#PreCustomQuestions .question, #PostCustomQuestions .question{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    margin-bottom: 2rem;
+    color: #605F5F;
+}
+
+#PreCustomQuestions .radioGroup, #PostCustomQuestions .radioGroup{
+    display: inline-block;
+}
+
+#PreCustomQuestions .radioButtons, #PostCustomQuestions .radioButtons{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+#PreCustomQuestions .radioButtons .wrap, #PostCustomQuestions .radioButtons .wrap{
+    display: inline-block;
+    margin: 0 4rem;
+}
+
+#PreCustomQuestions .radioButtons .wrap:first-of-type, #PostCustomQuestions .radioButtons .wrap:first-of-type{
+    margin-left: 0;
+}
+
+#PreCustomQuestions .radioButtons .wrap:last-of-type, #PostCustomQuestions .radioButtons .wrap:last-of-type{
+    margin-right: 0;
+}
+
+#PreCustomQuestions .radioButtons label, #PostCustomQuestions .radioButtons label{
+    display: block;
+    text-align: center;
+    margin: 0 0.2em;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+#PreCustomQuestions .radioButtons input[type="radio"], #PostCustomQuestions .radioButtons input[type="radio"]{
+    display: block;
+    margin: 0.5em auto;
+}
+
+#PreCustomQuestions .left-text, #PostCustomQuestions .left-text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: center;
+    float: left;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#PreCustomQuestions .right-text, #PostCustomQuestions .right-text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: center;
+    float: right;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#PreCustomQuestions .textures, #PostCustomQuestions .textures{
+    width: 100%;
+/*    background: purple;*/
+}
+
+#PreCustomQuestions .textures input, #PostCustomQuestions .textures input{
+    width: 30rem;
+    height: 4.5rem;
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    border-radius: 1rem;
+    border: 0.1rem solid #cccccc;
+    background: #F5F5F5;
+}
+
+#PreCustomQuestions-nextBtn, #PostCustomQuestions-nextBtn{
+    width: 30rem;
+    height: 5rem;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+
+/*------------------------------- NASAQuestion --------------------------------*/
+#NASAQuestion{
+    min-height: 100%;
+    margin: auto;
+    width: 60%;
+    background: #FFFFFF;
+    text-align: center;
+    display: none;
+}
+
+#NASAQuestion .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#NASAQuestion .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 8rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#NASAQuestion .question1, .question2, .question3, .question4{
+    margin-bottom: 10rem;
+}
+
+#NASAQuestion .question{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    margin-bottom: 2rem;
+    color: #605F5F;
+}
+
+#NASAQuestion .slider-area{
+    width: 50rem;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+#NASAQuestion .slider-area .slider{
+    margin-bottom: 5rem;
+}
+
+#NASAQuestion .slider-area .left-text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: left;
+    float: left;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#NASAQuestion .slider-area .right-text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: right;
+    float: right;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+
+#NASAQuestion-nextBtn{
+    width: 30rem;
+    height: 5rem;
+    margin-top: 2rem;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+    margin-bottom: 5rem;
+}
+
+/*------------------------------- CommentQuestion --------------------------------*/
+#CommentQuestion{
+    display: none;
+    width: 90rem;
+    position: relative;
+    height: 50rem;
+    background: #FFFFFF;
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+    margin-left: -45rem;
+    margin-top: -25rem;
+}
+
+#CommentQuestion .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#CommentQuestion .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 8rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#CommentQuestion .content{
+    width: 100%;
+/*    background: red;*/
+    height: 30rem;
+}
+
+#CommentQuestion .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#CommentQuestion-comment{
+    resize: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 0.1rem solid #cccccc;
+    background: #F5F5F5;
+}
+
+
+#CommentQuestion-nextBtn{
+    width: 30rem;
+    height: 5rem;
+    margin-top: 2rem;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}

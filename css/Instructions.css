@@ -1,0 +1,403 @@
+#Instruction1, #Instruction2, #Instruction3, #Instruction4, #PreTask, #Task{
+    display: none;
+    width: 110rem;
+    position: relative;
+    height: 60rem;
+    background: #FFFFFF;
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+    margin-left: -55rem;
+    margin-top: -30rem;
+}
+
+
+#Instruction1-nextBtn, #Instruction2-nextBtn, #Instruction3-nextBtn, #Instruction4-nextBtn, #PreTask-nextBtn, #Task-nextBtn, #End1-nextBtn{
+    width: 30rem;
+    height: 5rem;
+    position: absolute;
+    bottom: 5rem;
+    margin-left: -15rem;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+
+#Instruction4-nextBtn img{
+    position: absolute;
+    left: 2rem;
+    width: 3rem;
+    top: 1rem;
+}
+
+#Instruction1 .progress{
+    height: 1rem;
+    width: 18rem;
+    background: #5174A6;
+}
+
+#Instruction1 .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#Instruction1 .title h2:nth-child(1){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 1rem;
+    color: #6F6F6F;
+
+}
+
+#Instruction1 .title h2:nth-child(2){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#Instruction1 .content{
+    width: 100%;
+    /*background: red;*/
+    height: 30rem;
+    margin-top: 1rem;
+}
+
+#Instruction1 .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#Instruction1 .content img{
+    width: 60rem;
+    margin-top: 6rem;
+}
+
+
+
+#Instruction2 .progress{
+    height: 1rem;
+    width: 36rem;
+    background: #5174A6;
+}
+
+#Instruction2 .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#Instruction2 .title h2:nth-child(1){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 1rem;
+    color: #6F6F6F;
+
+}
+
+#Instruction2 .title h2:nth-child(2){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#Instruction2 .content{
+    width: 100%;
+    /*background: red;*/
+    height: 30rem;
+    margin-top: 1rem;
+}
+
+#Instruction2 .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#Instruction2 .content img{
+    width: 40rem;
+    margin-top: 4rem;
+}
+
+
+#Instruction3 .progress{
+    height: 1rem;
+    width: 54rem;
+    background: #5174A6;
+}
+
+#Instruction3 .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#Instruction3 .title h2:nth-child(1){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 1rem;
+    color: #6F6F6F;
+
+}
+
+#Instruction3 .title h2:nth-child(2){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#Instruction3 .content{
+    width: 100%;
+    /*background: red;*/
+    height: 30rem;
+    margin-top: 1rem;
+}
+
+#Instruction3 .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#Instruction3 .content img{
+    width: 80rem;
+    margin-top: 4rem;
+}
+
+#Instruction4 .progress{
+    height: 1rem;
+    width: 72rem;
+    background: #5174A6;
+}
+
+#Instruction4 .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#Instruction4 .title h2:nth-child(1){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 1rem;
+    color: #6F6F6F;
+
+}
+
+#Instruction4 .title h2:nth-child(2){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#Instruction4 .content{
+    width: 100%;
+    /*background: red;*/
+    height: 30rem;
+    margin-top: 1rem;
+}
+
+#Instruction4 .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#Instruction4 .content img{
+    width: 60rem;
+    margin-top: 2rem;
+}
+
+
+
+#PreTask .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+
+#PreTask .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 8rem;
+    color: #6F6F6F;
+}
+
+#PreTask .content{
+    width: 100%;
+    /*background: red;*/
+    height: 30rem;
+    margin-top: 1rem;
+}
+
+#PreTask .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    margin-bottom: 2rem;
+    color: #605F5F;
+}
+
+#PreTask .content img{
+    width: 80rem;
+    margin-top: 4rem;
+}
+
+#Task .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+
+#Task .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 8rem;
+    color: #6F6F6F;
+}
+
+#Task .content{
+    width: 100%;
+    margin-top: 1rem;
+}
+
+#Task .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+
+#Task .instructions{
+    width: 80rem;
+    height: 35rem;
+    background: #FDFBFB;
+    margin: 2rem auto 0;
+}
+
+#Task .instructions p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: left;
+    padding-left: 2rem;
+    padding-top: 2rem;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#End1{
+    display: block;
+    width: 110rem;
+    position: relative;
+    height: 60rem;
+    background: #FFFFFF;
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+    margin-left: -55rem;
+    margin-top: -30rem;
+}
+
+#End1 .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+
+#End1 .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 8rem;
+    color: #6F6F6F;
+}
+
+#End1 .content{
+    width: 100%;
+    /*background: red;*/
+    height: 30rem;
+    margin-top: 15rem;
+}
+
+#End1 .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    margin-bottom: 2rem;
+    color: #605F5F;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/Calibration.css">
+
+    <script src="js/Calibration.js"></script>
+    <script src="js/Task.js"></script>
+</head>
+<body>
+<section id="calibration-video">
+    <div>Please follow the circle.</div>
+    <svg height="60" width="60">
+        <circle cx="30" cy="30" r="25" stroke="black" stroke-width="0" fill="blue" />
+    </svg>
+    <button onclick="startCalibration()">Start Calibration</button>
+</section>
+<div id="calibration-circle"></div>
+
+
+<section id="task">
+    <div>Once on the website, please do the following:</div>
+    <div id="task-content">
+        <p>1. blablabla</p>
+        <p>2. blablabla</p>
+        <p>3. blablabla</p>
+    </div>
+    <button id="task-gotoWebsite" onclick="gotoWebsite()">Visit Website</button>
+</section>
+<script>
+
+
+
+</script>
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>animation</title>
+    <style type="text/css" media="screen">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        #box{
+            height: 5rem;
+            width: 5rem;
+            background: #f00;
+            border-radius: 50%;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="box" style="top:0;left:0"></div>
+
+</body>
+<script>
+    var box=document.getElementById('box');
+    var xSpeed=2;
+    setInterval(function(){
+        var x=parseInt(box.style.left)+xSpeed;
+        //给动画设置边界
+        if(x>window.innerWidth) xSpeed*=-1;
+        else if(x<0) xSpeed*=-1;
+        box.style.left=x+'px';
+    },1000/60);
+</script>
+</html>
+-->

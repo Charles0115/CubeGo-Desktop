@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.2/jquery-ui.min.js"></script>
+
+
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
+
+    <script type='text/javascript' >
+        let PAGES = [
+            ['', 'StartPage', 'Agreement'],
+            ['StartPage', 'Agreement', 'PreCustomQuestions'],
+            ['Agreement', 'PreCustomQuestions', 'Instruction1'],
+            ['PreCustomQuestions', 'Instruction1', 'Instruction2']
+        ];
+
+        let CURRENT_PAGE = 0;
+    </script>
+
+    <script src="js/index.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/buttons.js"></script>
+    <script src="js/Calibration.js"></script>
+
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+<button id="GO-BACK" onclick="goBack()">Go Back</button>
+
+<section id="StartPage">
+    <div class="logo">
+        <img src="images/cubego_logo.png" alt="">
+    </div>
+    <h2 class="title">WELCOME</h2>
+    <p class="text">To start a test, enter your email address and the test PIN</p>
+
+    <form class="PINForm">
+        <div class="input-field">
+            <h4>Email</h4>
+            <label>
+                <input name="email" id="StartPage-email" type="text" placeholder="EMAIL">
+            </label>
+        </div>
+
+        <div class="input-field">
+            <h4>Test PIN</h4>
+            <label>
+                <input name="token" type="text" id="StartPage-pin" placeholder="PIN" maxlength="4">
+            </label>
+        </div>
+        <button id="StartPage-nextBtn" type="button" onclick="StartPageNextPage()">Start</button>
+    </form>
+</section>
+
+<section id="Agreement">
+    <div class="important">
+        <h2>IMPORTANT</h2>
+    </div>
+
+    <div class="content">
+        <p>You will now see instructions on how to prepare for the test.</p>
+        <p>Payment is <b>conditional</b> upon following these instructions.</p>
+        <p>Please note that you will not have a second chance to submit a test.</p>
+    </div>
+
+    <div class="submit-section">
+        <div class="checkbox">
+            <input type="checkbox" id="Agreement-checkbox" onclick="AgreementCheckBox()"/>
+            <label>I understand that I may not receive payment if I do not follow the next instructions.</label>
+        </div>
+
+
+        <button id="Agreement-nextBtn" disabled onclick="AgreementNextPage()">Start</button>
+    </div>
+</section>
+
+<section id="PreTestQuestion">
+    <div class="title">
+        <h2>Please answer the question below</h2>
+    </div>
+    <div class="question">
+        <p class="question-text"></p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>0</label>
+                    <input type="radio" name="rate" value="0" />
+                </div>
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate" value="5" />
+                </div>
+                <div class="wrap">
+                    <label>6</label>
+                    <input type="radio" name="rate" value="6" />
+                </div>
+                <div class="wrap">
+                    <label>7</label>
+                    <input type="radio" name="rate" value="7" />
+                </div>
+                <div class="wrap">
+                    <label>8</label>
+                    <input type="radio" name="rate" value="8" />
+                </div>
+                <div class="wrap">
+                    <label>9</label>
+                    <input type="radio" name="rate" value="9" />
+                </div>
+                <div class="wrap">
+                    <label>10</label>
+                    <input type="radio" name="rate" value="10" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+    </div>
+
+    <button id="PreTestQuestion-nextBtn" onclick="PreTestQuestionNextPage()">Next</button>
+</section>
+
+<section id="PreCustomQuestions">
+    <div class="title">
+        <h2>Custom Questions</h2>
+    </div>
+
+    <div class="question1">
+        <p class="question">question 1</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate1" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate1" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate1" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate1" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate1" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PreCustomQuestion1T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+    <div class="question2">
+        <p class="question">question 2</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate2" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate2" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate2" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate2" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate2" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PreCustomQuestion2T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+    <div class="question3">
+        <p class="question">question 3</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate3" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate3" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate3" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate3" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate3" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PreCustomQuestion3T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+    <div class="question4">
+        <p class="question">question 4</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate4" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate4" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate4" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate4" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate4" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PreCustomQuestion4T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+    <div class="question5">
+        <p class="question">question 5</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate5" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate5" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate5" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate5" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate5" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PreCustomQuestion5T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+    <button id="PreCustomQuestions-nextBtn" onclick="PreCustomQuestionsNextPage('PreCustomQuestions', 'Instruction1')">Next</button>
+</section>
+
+<section id="Instruction1">
+    <div class="progress"></div>
+    <div class="title">
+        <h2>1</h2>
+        <h2>Eliminate distractions</h2>
+    </div>
+
+    <div class="content">
+        <p>Make sure that there are no noises in the room and that you will not be interrupted for the next 10-20 minutes.</p>
+        <img src="images/instruction1.png" alt="">
+    </div>
+
+    <button id="Instruction1-nextBtn" onclick="gotoNextPage('Instruction1', 'Instruction2')">NEXT</button>
+</section>
+<section id="Instruction2">
+    <div class="progress"></div>
+    <div class="title">
+        <h2>2</h2>
+        <h2>Face your webcam</h2>
+    </div>
+
+    <div class="content">
+        <p>Make sure that your webcam is in front of you, and not to the side.</p>
+        <img src="images/instruction2.png" alt="">
+    </div>
+
+    <button id="Instruction2-nextBtn" onclick="gotoNextPage('Instruction2', 'Instruction3')">NEXT</button>
+</section>
+<section id="Instruction3">
+    <div class="progress"></div>
+    <div class="title">
+        <h2>3</h2>
+        <h2>Close other open tabs</h2>
+    </div>
+
+    <div class="content">
+        <p>Close any other open tabs in your browser window.</p>
+        <img src="images/instruction3.png" alt="">
+    </div>
+
+    <button id="Instruction3-nextBtn" onclick="gotoNextPage('Instruction3', 'Instruction4')">NEXT</button>
+</section>
+<section id="Instruction4">
+    <div class="progress"></div>
+    <div class="title">
+        <h2>4</h2>
+        <h2>Start the recordings</h2>
+    </div>
+
+    <div class="content">
+        <p>When you’re ready, press ‘Start Recording’ and select <b>‘Entire Screen’ or ‘Application Window’</b></p>
+        <img src="images/instruction4.png" alt="">
+    </div>
+
+    <button id="Instruction4-nextBtn" onclick="gotoNextPage('Instruction4', 'PostTestQuestion')"><img src="images/video-camera.png" alt="">Start Recording</button>
+</section>
+
+<section id="calibration-video">
+    <div class="title">
+        <h2>Please follow the circle with your eyes.</h2>
+    </div>
+    <svg height="60" width="60">
+        <circle cx="30" cy="30" r="25" stroke="black" stroke-width="0" fill="blue" />
+    </svg>
+    <button id="start-calibration" onclick="startCalibration()">Start Calibration</button>
+</section>
+<div id="calibration-circle"></div>
+
+
+<section id="PreTask">
+    <div class="title">
+        <h2>Almost Ready!</h2>
+    </div>
+
+    <div class="content">
+        <p>You will now complete a test on a different website.</p>
+        <p>The website will open on a new tab.</p>
+        <img src="images/preTask.png" alt="">
+    </div>
+
+    <button id="PreTask-nextBtn" onclick="gotoNextPage('PreTask', 'Task')">NEXT</button>
+</section>
+
+
+<section id="Task">
+    <div class="title">
+        <h2>Your Task</h2>
+    </div>
+
+    <div class="content">
+        <p>Once on the website, please do the following: </p>
+    </div>
+
+    <div class="instructions">
+
+    </div>
+
+    <button id="Task-nextBtn">START</button>
+</section>
+
+<div id="EndTestModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>End the test?</h2>
+        </div>
+        <div class="modal-body">
+            <p>Did you complete the task?</p>
+            <p>If you’re not done yet, press ‘Cancel’ and then select the test tab on your browser (this is the tab that opened after you started the test)</p>
+        </div>
+        <div class="modal-footer">
+           <button id="EndTestModal-cancel">CANCEL</button>
+            <button id="EndTestModal-end">END THE TEST</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Get the modal
+    let modal = document.getElementById("EndTestModal");
+
+    // Get the button that opens the modal
+    let btn = document.getElementById("Task-nextBtn");
+
+    let cancel = document.getElementById("EndTestModal-cancel");
+    let end = document.getElementById("EndTestModal-end");
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        if (localStorage.getItem("startTest") === "1") {
+            //window.open(localStorage.getItem("invitation"));
+            window.open("https://www.google.ca/");
+            document.getElementById("Task-nextBtn").innerText = "END THE TEST";
+            localStorage.setItem("startTest", "0");
+        } else if (localStorage.getItem("startTest") === "0") {
+            modal.style.display = "block";
+        }
+    };
+
+    cancel.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    end.onclick = function() {
+        modal.style.display = "none";
+        gotoNextPage("Task", "End1");
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<section id="End1">
+    <div class="title">
+        <h2>You have completed the test. </h2>
+    </div>
+
+    <div class="content">
+        <p>We will now ask you to answer a few short questions. </p>
+    </div>
+
+    <button id="End1-nextBtn" onclick="gotoNextPage('End1', 'Demographic')">NEXT</button>
+</section>
+
+
+<section id="Demographic">
+    <div class="title">
+        <h2>Tell us about yourself</h2>
+    </div>
+    <button id="Demographic-nextBtn" onclick="DemographicNextPage()">Next</button>
+</section>
+
+
+
+
+
+
+<section id="PostTestQuestion">
+    <div class="title">
+        <h2>Please answer the question below</h2>
+    </div>
+
+    <div class="question">
+        <p class="question-text"></p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>0</label>
+                    <input type="radio" name="rate" value="0" />
+                </div>
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate" value="5" />
+                </div>
+                <div class="wrap">
+                    <label>6</label>
+                    <input type="radio" name="rate" value="6" />
+                </div>
+                <div class="wrap">
+                    <label>7</label>
+                    <input type="radio" name="rate" value="7" />
+                </div>
+                <div class="wrap">
+                    <label>8</label>
+                    <input type="radio" name="rate" value="8" />
+                </div>
+                <div class="wrap">
+                    <label>9</label>
+                    <input type="radio" name="rate" value="9" />
+                </div>
+                <div class="wrap">
+                    <label>10</label>
+                    <input type="radio" name="rate" value="10" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+    </div>
+
+    <button id="PostTestQuestion-nextBtn" onclick="PostTestQuestionNextPage()">NEXT</button>
+</section>
+
+<section id="SEQQuestion">
+    <div class="title">
+        <h2>Please answer the question below</h2>
+    </div>
+
+    <div class="question">
+        <p class="question-text">Overall, this task was?</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate" value="5" />
+                </div>
+                <div class="wrap">
+                    <label>6</label>
+                    <input type="radio" name="rate" value="6" />
+                </div>
+                <div class="wrap">
+                    <label>7</label>
+                    <input type="radio" name="rate" value="7" />
+                </div>
+            </div>
+            <p class="left-text">Very Difficult</p>
+            <p class="right-text">Very Easy</p>
+        </div>
+    </div>
+
+    <button id="SEQQuestion-nextBtn" onclick="SEQQuestionNextPage()">NEXT</button>
+</section>
+
+<section id="SUSQuestion">
+    <div class="title">
+        <h2>Please answer the questions below</h2>
+    </div>
+
+    <div class="question1">
+        <p class="question">I think that I would like to use this website frequently.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate1" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate1" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate1" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate1" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate1" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <div class="question2">
+        <p class="question">I found the website unnecessarily complex.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate2" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate2" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate2" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate2" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate2" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <div class="question3">
+        <p class="question">I thought the website was easy to use.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate3" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate3" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate3" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate3" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate3" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <div class="question4">
+        <p class="question">I think that I would need the support of a technical person to be able to use this website.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate4" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate4" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate4" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate4" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate4" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <div class="question5">
+        <p class="question">I found the various functions of this website were well integrated.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate5" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate5" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate5" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate5" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate5" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <div class="question6">
+        <p class="question">I thought there was too much inconsistency in this website.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate6" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate6" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate6" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate6" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate6" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <div class="question7">
+        <p class="question">I would imagine that most people would learn to used this website very quickly.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate7" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate7" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate7" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate7" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate7" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <div class="question8">
+        <p class="question">I found the website vert awkward to use.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate8" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate8" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate8" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate8" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate8" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <div class="question9">
+        <p class="question">I felt very confident using this website.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate9" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate9" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate9" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate9" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate9" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <div class="question10">
+        <p class="question">I needed to learn a lot of things before I could get going with this website.</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate10" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate10" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate10" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate10" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate10" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Strongly Disagree</p>
+            <p class="right-text">Strongly Agree</p>
+        </div>
+    </div>
+
+    <button id="SUSQuestion-nextBtn" onclick="SUSQuestionNextPage()">Next</button>
+</section>
+
+<section id="NASAQuestion">
+    <div class="title">
+        <h2>Please answer the questions below</h2>
+    </div>
+
+    <div class="question1">
+        <p class="question">How mentally demanding was the task?</p>
+        <div class="slider-area">
+            <div class="slider"></div>
+            <p class="left-text">Not at all<br>Demanding</p>
+            <p class="right-text">Extremely<br>Demanding</p>
+        </div>
+    </div>
+
+    <div class="question2">
+        <p class="question">How hurried or rushed was the pace of the task?</p>
+        <div class="slider-area">
+            <div class="slider"></div>
+            <p class="left-text">Not at all<br>Rushed</p>
+            <p class="right-text">Extremely<br>Rushed</p>
+        </div>
+    </div>
+
+    <div class="question3">
+        <p class="question">How successful were you in accomplishing what you were asked to do?</p>
+        <div class="slider-area">
+            <div class="slider"></div>
+            <p class="left-text">Extremely<br>Unsuccessful</p>
+            <p class="right-text">Extremely<br>Successful</p>
+        </div>
+    </div>
+
+    <div class="question4">
+        <p class="question">How hard did you have to work to accomplish your level of performance?</p>
+        <div class="slider-area">
+            <div class="slider"></div>
+            <p class="left-text">Not at all<br>Hard</p>
+            <p class="right-text">Extremely<br>Hard</p>
+        </div>
+    </div>
+    <button id="NASAQuestion-nextBtn" onclick="NASAQuestionNextPage()">Next</button>
+</section>
+
+<script>
+    $(".slider")
+
+        .slider({
+            min: 0,
+            max: 10,
+            step: 0.5
+        })
+
+        .slider("pips", {
+            rest: "label",
+            step: 2
+        })
+
+        .slider("float");
+
+    $("#NASAQuestion .question1 .slider").on("slidechange", function(k, v) {
+        localStorage.setItem("", v['value']);
+    });
+    $("#NASAQuestion .question2 .slider").on("slidechange", function(k, v) {
+        localStorage.setItem("", v['value']);
+    });
+    $("#NASAQuestion .question3 .slider").on("slidechange", function(k, v) {
+        localStorage.setItem("", v['value']);
+    });
+    $("#NASAQuestion .question4 .slider").on("slidechange", function(k, v) {
+        localStorage.setItem("", v['value']);
+    });
+</script>
+
+<section id="PostCustomQuestions">
+    <div class="title">
+        <h2>Custom Questions</h2>
+    </div>
+
+    <div class="question1">
+        <p class="question">question 1</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate1" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate1" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate1" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate1" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate1" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PostCustomQuestion1T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+
+    <div class="question2">
+        <p class="question">question 2</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate2" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate2" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate2" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate2" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate2" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PostCustomQuestion2T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+    <div class="question3">
+        <p class="question">question 3</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate3" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate3" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate3" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate3" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate3" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PostCustomQuestion3T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+    <div class="question4">
+        <p class="question">question 4</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate4" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate4" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate4" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate4" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate4" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PostCustomQuestion4T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+    <div class="question5">
+        <p class="question">question 5</p>
+        <div class="radioGroup">
+            <div class="radioButtons">
+                <div class="wrap">
+                    <label>1</label>
+                    <input type="radio" name="rate5" value="1" />
+                </div>
+                <div class="wrap">
+                    <label>2</label>
+                    <input type="radio" name="rate5" value="2" />
+                </div>
+                <div class="wrap">
+                    <label>3</label>
+                    <input type="radio" name="rate5" value="3" />
+                </div>
+                <div class="wrap">
+                    <label>4</label>
+                    <input type="radio" name="rate5" value="4" />
+                </div>
+                <div class="wrap">
+                    <label>5</label>
+                    <input type="radio" name="rate5" value="5" />
+                </div>
+            </div>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
+        </div>
+
+        <form class="textures">
+            <input type="text" id="PostCustomQuestion5T-answer" name="answer" placeholder="Please type your answer here."><br>
+        </form>
+    </div>
+
+    <button id="PostCustomQuestions-nextBtn" onclick="PostCustomQuestionsNextPage('PostCustomQuestions', 'CommentQuestion')">Next</button>
+</section>
+
+<section id="CommentQuestion">
+    <div class="title">
+        <h2>The test has ended.</h2>
+    </div>
+
+    <div class="content">
+        <p>Did you experience any difficulties with this test?</p>
+        <textarea name="comment" id="CommentQuestion-comment" cols="60" rows="15" placeholder="Let us know if you encountered any bugs, if the instructions were unclear, or if something went wrong."></textarea>
+    </div>
+
+    <button id="CommentQuestion-nextBtn" onclick="CommentQuestionNextPage('CommentQuestion', 'Upload')">Next</button>
+</section>
+
+<section id="Upload">
+    <div class="title">
+        <h2>Upload</h2>
+    </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+<script>
+    //things that do when page loads
+    window.onload = function () {
+        localStorage.clear();
+        localStorage.setItem("currentPage", "StartPage");
+        localStorage.setItem("startTest", "1");
+    };
+</script>
+
+<!--full screen-->
+<script>
+    //<button onclick="openFullscreen();">Open Fullscreen</button>
+    //<button onclick="closeFullscreen();">Close Fullscreen</button>
+    var elem = document.documentElement;
+    function openFullscreen() {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    }
+
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+    }
+</script>
+</body>
+</html>

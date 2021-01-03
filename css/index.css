@@ -1,0 +1,383 @@
+@import "Instructions.css";
+@import "Qustions.css";
+@import "Calibration.css";
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+.clearfix::before,
+.clearfix::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+input, button{
+    outline: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+html{
+    font-size: 10px;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background: #E5E5E5;
+}
+
+#GO-BACK{
+    width: 10rem;
+    height: 5rem;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    position: absolute;
+    color: #FFFFFF;
+    left: 3rem;
+    top: 3rem;
+}
+
+#StartPage{
+    height: 100%;
+    margin: auto;
+    width: 60%;
+    background: #FFFFFF;
+    text-align: center;
+    display: none;
+
+}
+
+#StartPage .logo{
+    width: 40.5rem;
+    height: 13.5rem;
+/*    background: #0ffc03;*/
+    text-align: center;
+    margin: auto;
+
+}
+
+#StartPage .logo img{
+    width: 100%;
+    height: 100%;
+    margin-top: 4rem;
+}
+
+#StartPage .title{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 5rem;
+    letter-spacing: 0.05em;
+    color: #6F6F6F;
+    margin-top: 10rem;
+}
+
+#StartPage .text{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    margin-top: 1rem;
+    color: #6F6F6F;
+}
+
+#StartPage .PINForm{
+    margin: 3rem auto;
+    max-width: fit-content;
+/*    background: #0ffc03;*/
+}
+
+#StartPage .PINForm .input-field{
+    /*background-color: red;*/
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+#StartPage .PINForm .input-field h4{
+    /*background-color: red;*/
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.6rem;
+    letter-spacing: 0.01em;
+
+    color: #605F5F;
+}
+
+#StartPage .PINForm .input-field input{
+    width: 45.5rem;
+    height: 4.5rem;
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    border-radius: 1rem;
+    border: 0.1rem solid #cccccc;
+    background: #F5F5F5;
+}
+
+#StartPage-nextBtn{
+    width: 45.5rem;
+    height: 5.8rem;
+    margin-top: 2rem;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+
+    color: #FFFFFF;
+
+}
+
+#Agreement{
+    display: none;
+    width: 90rem;
+    position: relative;
+    height: 50rem;
+    background: #FFFFFF;
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+    margin-left: -45rem;
+    margin-top: -25rem;
+}
+
+#Agreement .important{
+    width: 100%;
+    height: 8rem;
+    background: red;
+    text-align: center;
+}
+
+#Agreement .important h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 4rem;
+    line-height: 8rem;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+
+#Agreement .content{
+    width: 70%;
+    /*background: #0ffc03;*/
+    text-align: left;
+    margin: 6rem auto;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #6F6F6F;
+}
+
+
+#Agreement .content p{
+    margin-bottom: 3rem;
+}
+
+#Agreement .content p:nth-child(2){
+     color: red;
+}
+
+#Agreement .submit-section{
+    width: 100%;
+    height: 16rem;
+    background: #F2F2F2;
+    vertical-align: bottom;
+    position: absolute;
+    bottom: 0;
+}
+
+#Agreement .submit-section .checkbox{
+    width: 80%;
+    margin: 2rem auto;
+    display: block;
+    text-align: left;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    letter-spacing: 0.01em;
+    color: #6F6F6F;
+}
+
+#Agreement .submit-section .checkbox label{
+    margin-left: 0.5rem;
+}
+
+#Agreement .submit-section .checkbox input[type=checkbox]
+{
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    transform: scale(2);
+    padding: 1rem;
+}
+
+#Agreement-nextBtn{
+    width: 45.5rem;
+    height: 5rem;
+    margin-top: 2rem;
+    background: #E0E0E0;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #9A9A9A;
+}
+
+
+#Demographic{
+    display: none;
+}
+
+
+#Upload{
+    height: 100%;
+    margin: auto;
+    width: 60%;
+    background: #FFFFFF;
+    text-align: center;
+    display: none;
+}
+
+
+
+
+
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 20rem; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50rem;
+    height: 25rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+.modal-header {
+    padding-top: 1rem;
+    background: #FFFFFF;
+    color: white;
+}
+
+.modal-header h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 1rem;
+    color: #6F6F6F;
+}
+
+.modal-body {
+    margin: 2rem auto;
+    display: inline-block;
+}
+
+.modal-body p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+    margin-bottom: 2rem;
+}
+
+.modal-footer {
+    background: #FFFFFF;
+    color: white;
+    width: 100%;
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
+#EndTestModal-cancel{
+    width: 20rem;
+    height: 4rem;
+    float: left;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+
+#EndTestModal-end{
+    width: 20rem;
+    height: 4rem;
+    float: right;
+    background: #FFFFFF;
+    border: medium solid #5174A6;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #5174A6;
+}

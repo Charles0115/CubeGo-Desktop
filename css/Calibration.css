@@ -1,0 +1,64 @@
+#calibration-video{
+    display: none;
+    width: 110rem;
+    position: relative;
+    height: 60rem;
+    background: #FFFFFF;
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+    margin-left: -55rem;
+    margin-top: -30rem;
+}
+
+#calibration-video .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#calibration-video .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 8rem;
+    color: #6F6F6F;
+}
+
+#calibration-video svg{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -30px;
+    margin-left: -30px;
+}
+
+#start-calibration{
+    width: 30rem;
+    height: 5rem;
+    position: absolute;
+    bottom: 5rem;
+    margin-left: -15rem;
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+
+#calibration-circle{
+    top:5px;
+    left:5px;
+    height: 30px;
+    width: 30px;
+    background: #0ffc03;
+    border-radius: 50%;
+    position: absolute;
+    display: none;
+}
