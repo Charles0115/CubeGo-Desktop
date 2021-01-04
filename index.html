@@ -378,8 +378,24 @@
         <img src="images/instruction4.png" alt="">
     </div>
 
-    <button id="Instruction4-nextBtn" onclick="gotoNextPage('Instruction4', 'PostTestQuestion')"><img src="images/video-camera.png" alt="">Start Recording</button>
+    <button id="Instruction4-nextBtn"><img src="images/video-camera.png" alt="">Start Recording</button>
 </section>
+<section id="Instruction5">
+    <div class="progress"></div>
+    <div class="title">
+        <h2>5</h2>
+        <h2>Center your face on the square</h2>
+    </div>
+
+    <div class="content">
+        <p>Make sure you can hold this position during the test.</p>
+        <video class="video" autoplay playsinline></video>
+        <img src="images/cross.png" alt="">
+    </div>
+
+    <button id="Instruction5-nextBtn" onclick="gotoNextPage('Instruction5', 'calibration-video')">NEXT</button>
+</section>
+
 
 <section id="calibration-video">
     <div class="title">
@@ -406,7 +422,6 @@
 
     <button id="PreTask-nextBtn" onclick="gotoNextPage('PreTask', 'Task')">NEXT</button>
 </section>
-
 
 <section id="Task">
     <div class="title">
@@ -471,6 +486,7 @@
 
     end.onclick = function() {
         modal.style.display = "none";
+        cameraRecorder.stopRecording(stopCameraRecordingCallback);
         gotoNextPage("Task", "End1");
     };
 
@@ -479,6 +495,165 @@
         if (event.target === modal) {
             modal.style.display = "none";
         }
+    };
+
+
+
+    var cameraRecorder; // globally accessible
+    var video = document.querySelector('video');
+    function captureCamera(callback) {
+        navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
+            callback(camera);
+        }).catch(function(error) {
+            alert('Unable to capture your camera. Please check console logs.');
+            console.error(error);
+        });
+    }
+
+    function stopCameraRecordingCallback() {
+        //video.src = video.srcObject = null;
+        //video.muted = true;
+        //video.volume = 0;
+        //video.src = URL.createObjectURL(recorder.getBlob());
+        //console.log("hello");
+        this.save('file.mp4');
+
+        cameraRecorder.camera.stop();
+        cameraRecorder.destroy();
+        cameraRecorder = null;
+
+    }
+
+    document.getElementById('Instruction4-nextBtn').onclick = function() {
+        this.disabled = true;
+        captureCamera(function(camera) {
+            video.muted = true;
+            video.volume = 0;
+            video.srcObject = camera;
+
+            cameraRecorder = RecordRTC(camera, {
+                type: 'video',
+                mimeType: 'video/webm;codecs=vp9',
+                getNativeBlob: true
+            });
+
+            cameraRecorder.startRecording();
+
+            // release camera on stopRecording
+            cameraRecorder.camera = camera;
+
+            gotoNextPage('Instruction4', 'Instruction5');
+        });
+    };
+</script>
+
+<script>
+    if(!navigator.getDisplayMedia && !navigator.mediaDevices.getDisplayMedia) {
+        var error = 'Your browser does NOT support the getDisplayMedia API.';
+        alert(error);
+
+        document.querySelector('video').style.display = 'none';
+        document.getElementById('btn-start-recording').style.display = 'none';
+        document.getElementById('btn-stop-recording').style.display = 'none';
+        throw new Error(error);
+    }
+
+
+    var screenRecorder; // globally accessible
+
+    document.getElementById('btn-start-recording').onclick = function() {
+        this.disabled = true;
+        captureScreen(function(screen) {
+            //video.srcObject = screen;
+
+            screenRecorder = RecordRTC(screen, {
+                type: 'video',
+                mimeType: 'video/webm;codecs=vp9',
+                getNativeBlob: true
+            });
+
+
+            screenRecorder.startRecording();
+
+            // release screen on stopRecording
+            screenRecorder.screen = screen;
+
+            //document.getElementById('btn-stop-recording').disabled = false;
+        });
+    };
+
+    document.getElementById('btn-stop-recording').onclick = function() {
+        this.disabled = true;
+        screenRecorder.stopRecording(stopRecordingCallback);
+    };
+
+    function invokeGetDisplayMedia(success, error) {
+        var displaymediastreamconstraints = {
+            video: {
+                displaySurface: 'monitor', // monitor, window, application, browser
+                logicalSurface: true,
+                cursor: 'always' // never, always, motion
+            }
+        };
+
+        // above constraints are NOT supported YET
+        // that's why overriding them
+        displaymediastreamconstraints = {
+            video: true
+        };
+
+        if(navigator.mediaDevices.getDisplayMedia) {
+            navigator.mediaDevices.getDisplayMedia(displaymediastreamconstraints).then(success).catch(error);
+        }
+        else {
+            navigator.getDisplayMedia(displaymediastreamconstraints).then(success).catch(error);
+        }
+    }
+
+    function captureScreen(callback) {
+        invokeGetDisplayMedia(function(screen) {
+            addStreamStopListener(screen, function() {
+                document.getElementById('btn-stop-recording').click();
+            });
+            callback(screen);
+        }, function(error) {
+            console.error(error);
+            alert('Unable to capture your screen. Please check console logs.\n' + error);
+        });
+    }
+
+    function stopRecordingCallback() {
+        //video.src = video.srcObject = null;
+        //video.src = URL.createObjectURL(recorder.getBlob());
+
+        this.save('file1.mp4');
+
+        screenRecorder.screen.stop();
+        screenRecorder.destroy();
+        screenRecorder = null;
+
+        document.getElementById('btn-start-recording').disabled = false;
+    }
+
+    function addStreamStopListener(stream, callback) {
+        stream.addEventListener('ended', function() {
+            callback();
+            callback = function() {};
+        }, false);
+        stream.addEventListener('inactive', function() {
+            callback();
+            callback = function() {};
+        }, false);
+        stream.getTracks().forEach(function(track) {
+            track.addEventListener('ended', function() {
+                callback();
+                callback = function() {};
+            }, false);
+            track.addEventListener('inactive', function() {
+                callback();
+                callback = function() {};
+            }, false);
+        });
     }
 </script>
 
@@ -491,7 +666,7 @@
         <p>We will now ask you to answer a few short questions. </p>
     </div>
 
-    <button id="End1-nextBtn" onclick="gotoNextPage('End1', 'Demographic')">NEXT</button>
+    <button id="End1-nextBtn" onclick="gotoNextPage('End1', 'PostTestQuestion')">NEXT</button>
 </section>
 
 

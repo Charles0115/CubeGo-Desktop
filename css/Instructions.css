@@ -12,13 +12,27 @@
     margin-top: -30rem;
 }
 
+#Instruction4{
+    display: none;
+    width: 110rem;
+    position: relative;
+    height: 60rem;
+    background: #FFFFFF;
+    text-align: center;
 
-#Instruction1-nextBtn, #Instruction2-nextBtn, #Instruction3-nextBtn, #Instruction4-nextBtn, #PreTask-nextBtn, #Task-nextBtn, #End1-nextBtn{
+    top: 50%;
+    left: 50%;
+    margin-left: -55rem;
+    margin-top: -30rem;
+}
+
+#Instruction1-nextBtn, #Instruction2-nextBtn, #Instruction3-nextBtn, #Instruction4-nextBtn, #Instruction5-nextBtn, #PreTask-nextBtn, #Task-nextBtn, #End1-nextBtn{
     width: 30rem;
     height: 5rem;
     position: absolute;
     bottom: 5rem;
-    margin-left: -15rem;
+    left: 50%;
+    transform: translate(-50%, 0);
     background: #5174A6;
     border: none;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -38,7 +52,7 @@
 
 #Instruction1 .progress{
     height: 1rem;
-    width: 18rem;
+    width: 22rem;
     background: #5174A6;
 }
 
@@ -95,7 +109,7 @@
 
 #Instruction2 .progress{
     height: 1rem;
-    width: 36rem;
+    width: 44rem;
     background: #5174A6;
 }
 
@@ -151,7 +165,7 @@
 
 #Instruction3 .progress{
     height: 1rem;
-    width: 54rem;
+    width: 66rem;
     background: #5174A6;
 }
 
@@ -206,7 +220,7 @@
 
 #Instruction4 .progress{
     height: 1rem;
-    width: 72rem;
+    width: 88rem;
     background: #5174A6;
 }
 
@@ -259,6 +273,90 @@
     margin-top: 2rem;
 }
 
+
+#Instruction5{
+    display: none;
+    width: 110rem;
+    position: relative;
+    height: 60rem;
+    background: #FFFFFF;
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+    margin-left: -55rem;
+    margin-top: -30rem;
+}
+
+#Instruction5 .progress{
+    height: 1rem;
+    width: 110rem;
+    background: #5174A6;
+}
+
+#Instruction5 .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#Instruction5 .title h2:nth-child(1){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 1rem;
+    color: #6F6F6F;
+
+}
+
+#Instruction5 .title h2:nth-child(2){
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#Instruction5 .content{
+    display: inline-block;
+    margin-top: 1rem;
+    position: relative;
+}
+
+#Instruction5 .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#Instruction5 .video{
+    margin: 2rem auto 0;
+    width: 40rem;
+}
+
+#Instruction5 .video {
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
+}
+
+
+#Instruction5 .content img{
+    width: 20rem;
+    height: 20rem;
+    position: absolute;
+    z-index:100;
+    left: 25%;
+    top: 25%;
+}
 
 
 #PreTask .title{
@@ -354,7 +452,7 @@
 }
 
 #End1{
-    display: block;
+    display: none;
     width: 110rem;
     position: relative;
     height: 60rem;
@@ -386,7 +484,6 @@
 
 #End1 .content{
     width: 100%;
-    /*background: red;*/
     height: 30rem;
     margin-top: 15rem;
 }

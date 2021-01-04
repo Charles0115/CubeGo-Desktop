@@ -15,14 +15,11 @@ function startCalibration() {
         setTimeout( function () {
             function1();
             setTimeout( function () {
-                document.getElementById('calibration-circle').style.background = '#0ffc03';
-
-                setTimeout( function () {
-                    document.getElementById('calibration-circle').style.display = 'none';
-                }, 1000);
-            }, 158000);
+                document.body.style.background = "#E5E5E5";
+                gotoNextPage('calibration-circle', 'PreTask');
+            }, 160000);
         }, 50);
-        }, 1000);
+    }, 1000);
 }
 
 function function1() {
@@ -162,5 +159,13 @@ function function18(e) {
 function function19(e) {
     e.target.removeEventListener(e.type, arguments.callee);
     document.getElementById('calibration-circle').style.transition = "all 15s linear";
+    document.getElementById('calibration-circle').style.transform = "translate("+leftEdge.toString()+"px,"+currentLength.toString()+"px)";
+    document.getElementById('calibration-circle').addEventListener("transitionend", function20);
+}
+
+function function20(e) {
+    e.target.removeEventListener(e.type, arguments.callee);
+    document.getElementById('calibration-circle').style.background = '#0ffc03';
+    document.getElementById('calibration-circle').style.transition = "all 0.05s linear";
     document.getElementById('calibration-circle').style.transform = "translate("+leftEdge.toString()+"px,"+currentLength.toString()+"px)";
 }
