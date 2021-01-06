@@ -13,9 +13,15 @@ function StartPageNextPage() {
     }
 }
 
+function Instruction5NextPage() {
+    document.getElementById("GO-BACK").style.display = 'block';
+    gotoNextPage('Instruction5', 'calibration-video');
+}
+
 function AgreementNextPage() {
     if (localStorage.getItem("NPS") === "1") {
         if (document.getElementById('Agreement') != null && document.getElementById('PreTestQuestion') != null) {
+            localStorage.setItem("CURRENT_PAGE", (parseInt(localStorage.getItem("CURRENT_PAGE"))+1).toString());
             document.body.style.background = "#E5E5E5";
             document.getElementById('PreTestQuestion').getElementsByClassName('question')[0]
                 .getElementsByTagName('p')[0].innerHTML = 'How likely are you to recommend '+localStorage.getItem("npsInput")+' to a friend or colleague?';
@@ -29,6 +35,7 @@ function AgreementNextPage() {
         }
     } else if (localStorage.getItem("hasPreviousQuestion") === "true") {
         if (document.getElementById('Agreement') != null && document.getElementById('PreCustomQuestions') != null) {
+            localStorage.setItem("CURRENT_PAGE", (parseInt(localStorage.getItem("CURRENT_PAGE"))+1).toString());
             document.body.style.background = "#E5E5E5";
             document.getElementById('Agreement').style.display = 'none';
             document.getElementById('PreCustomQuestions').style.display = 'block';
@@ -37,6 +44,7 @@ function AgreementNextPage() {
         }
     } else {
         if (document.getElementById('Agreement') != null && document.getElementById('Instruction1') != null) {
+            localStorage.setItem("CURRENT_PAGE", (parseInt(localStorage.getItem("CURRENT_PAGE"))+1).toString());
             document.body.style.background = "#E5E5E5";
             document.getElementById('Agreement').style.display = 'none';
             document.getElementById('Instruction1').style.display = 'block';
@@ -95,9 +103,37 @@ function PreCustomQuestionsNextPage(currentId, nextId) {
 }
 
 
-function StartTest() {
+function DemographicNextPage() {
+    let gender = $('#Demographic .INFOForm input[name=gender]:checked').val();
+    let age = document.getElementById("Demographic-age").value;
+    let country = document.getElementById("Demographic-country").value;
+    let city = document.getElementById("Demographic-city").value;
+    let income = document.getElementById("Demographic-income").value;
 
 
+    if (gender === undefined || age === '' || country ==='' || city === '' || income === 'No Election') {
+        alert("Please fill in all information!");
+    } else {
+        localStorage.setItem("gender", gender);
+        localStorage.setItem("age", age);
+        localStorage.setItem("country", country);
+        localStorage.setItem("city", city);
+        localStorage.setItem("income", income);
+
+        if (localStorage.getItem("NPS") === "1") {
+            gotoNextPage("Demographic", "PostTestQuestion");
+        } else if (localStorage.getItem("SEQ") === "1") {
+            gotoNextPage("Demographic", "SEQQuestion");
+        } else if (localStorage.getItem("SUS") === "1") {
+            gotoNextPage("Demographic", "SUSQuestion");
+        } else if (localStorage.getItem("NASA") === "1") {
+            gotoNextPage("Demographic", "NASAQuestion");
+        } else if (localStorage.getItem("hasPostQuestion") === "true") {
+            gotoNextPage("Demographic", "PostCustomQuestions");
+        } else {
+            gotoNextPage("Demographic", "CommentQuestion");
+        }
+    }
 }
 
 function PostTestQuestionNextPage() {
@@ -178,9 +214,9 @@ function SUSQuestionNextPage() {
 
 function NASAQuestionNextPage() {
     if (localStorage.getItem("hasPostQuestion") === "true") {
-        gotoNextPage('SEQQuestion', 'PostCustomQuestions');
+        gotoNextPage('NASAQuestion', 'PostCustomQuestions');
     } else {
-        gotoNextPage('SEQQuestion', 'CommentQuestion');
+        gotoNextPage('NASAQuestion', 'CommentQuestion');
     }
 }
 
@@ -224,49 +260,5 @@ function CommentQuestionNextPage(currentId, nextId) {
     gotoNextPage(currentId, nextId);
 }
 
-function DemographicNextPage() {
-    if (localStorage.getItem('customQuestion1') !== "" && localStorage.getItem('questionBefore1') === '1') {
-        document.getElementsByClassName("PreCustomQuestion1-question")[0].innerHTML = localStorage.getItem('customQuestion1');
-        document.getElementsByClassName("PreCustomQuestion1-question")[1].innerHTML = localStorage.getItem('customQuestion1');
-        if (localStorage.getItem('radioResponse1') === "1") {
-            gotoNextPage('Demographic', 'PreCustomQuestion1R');
-        } else {
-            gotoNextPage('Demographic', 'PreCustomQuestion1T');
-        }
-    } else if (localStorage.getItem('customQuestion2') !== "" && localStorage.getItem('questionBefore2') === '1') {
-        document.getElementsByClassName("PreCustomQuestion2-question")[0].innerHTML = localStorage.getItem('customQuestion2');
-        document.getElementsByClassName("PreCustomQuestion2-question")[1].innerHTML = localStorage.getItem('customQuestion2');
-        if (localStorage.getItem('radioResponse2') === "1") {
-            gotoNextPage('Demographic', 'PreCustomQuestion2R');
-        } else {
-            gotoNextPage('Demographic', 'PreCustomQuestion2T');
-        }
-    } else if (localStorage.getItem('customQuestion3') !== "" && localStorage.getItem('questionBefore3') === '1') {
-        document.getElementsByClassName("PreCustomQuestion3-question")[0].innerHTML = localStorage.getItem('customQuestion3');
-        document.getElementsByClassName("PreCustomQuestion3-question")[1].innerHTML = localStorage.getItem('customQuestion3');
-        if (localStorage.getItem('radioResponse3') === "1") {
-            gotoNextPage('Demographic', 'PreCustomQuestion3R');
-        } else {
-            gotoNextPage('Demographic', 'PreCustomQuestion3T');
-        }
-    } else if (localStorage.getItem('customQuestion4') !== "" && localStorage.getItem('questionBefor4') === '1') {
-        document.getElementsByClassName("PreCustomQuestion4-question")[0].innerHTML = localStorage.getItem('customQuestion4');
-        document.getElementsByClassName("PreCustomQuestion4-question")[1].innerHTML = localStorage.getItem('customQuestion4');
-        if (localStorage.getItem('radioResponse4') === "1") {
-            gotoNextPage('Demographic', 'PreCustomQuestion4R');
-        } else {
-            gotoNextPage('Demographic', 'PreCustomQuestion4T');
-        }
-    } else if (localStorage.getItem('customQuestion5') !== "" && localStorage.getItem('questionBefore5') === '1') {
-        document.getElementsByClassName("PreCustomQuestion5-question")[0].innerHTML = localStorage.getItem('customQuestion5');
-        document.getElementsByClassName("PreCustomQuestion5-question")[1].innerHTML = localStorage.getItem('customQuestion5');
-        if (localStorage.getItem('radioResponse5') === "1") {
-            gotoNextPage('Demographic', 'PreCustomQuestion5R');
-        } else {
-            gotoNextPage('Demographic', 'PreCustomQuestion5T');
-        }
-    } else {
-        gotoNextPage('Demographic', 'Instruction1');
-    }
-}
+
 

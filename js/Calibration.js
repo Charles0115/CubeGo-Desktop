@@ -16,6 +16,7 @@ function startCalibration() {
             function1();
             setTimeout( function () {
                 document.body.style.background = "#E5E5E5";
+                document.getElementById("GO-BACK").style.display = 'block';
                 gotoNextPage('calibration-circle', 'PreTask');
             }, 160000);
         }, 50);

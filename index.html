@@ -17,14 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
 
     <script type='text/javascript' >
-        let PAGES = [
-            ['', 'StartPage', 'Agreement'],
-            ['StartPage', 'Agreement', 'PreCustomQuestions'],
-            ['Agreement', 'PreCustomQuestions', 'Instruction1'],
-            ['PreCustomQuestions', 'Instruction1', 'Instruction2']
-        ];
 
-        let CURRENT_PAGE = 0;
     </script>
 
     <script src="js/index.js"></script>
@@ -393,7 +386,7 @@
         <img src="images/cross.png" alt="">
     </div>
 
-    <button id="Instruction5-nextBtn" onclick="gotoNextPage('Instruction5', 'calibration-video')">NEXT</button>
+    <button id="Instruction5-nextBtn" onclick="Instruction5NextPage()">NEXT</button>
 </section>
 
 
@@ -459,6 +452,18 @@
 </div>
 
 <script>
+    if(!navigator.getDisplayMedia && !navigator.mediaDevices.getDisplayMedia) {
+        var error = 'Your browser does NOT support the getDisplayMedia API.';
+        alert(error);
+
+        //document.querySelector('video').style.display = 'none';
+        //document.getElementById('btn-start-recording').style.display = 'none';
+        //document.getElementById('btn-stop-recording').style.display = 'none';
+        throw new Error(error);
+    }
+
+
+    /*------------------------- End Test Modal ---------------------------*/
     // Get the modal
     let modal = document.getElementById("EndTestModal");
 
@@ -471,8 +476,8 @@
     // When the user clicks the button, open the modal
     btn.onclick = function() {
         if (localStorage.getItem("startTest") === "1") {
-            //window.open(localStorage.getItem("invitation"));
-            window.open("https://www.google.ca/");
+            window.open(localStorage.getItem("invitation"));
+            //window.open("https://www.google.ca/");
             document.getElementById("Task-nextBtn").innerText = "END THE TEST";
             localStorage.setItem("startTest", "0");
         } else if (localStorage.getItem("startTest") === "0") {
@@ -487,6 +492,7 @@
     end.onclick = function() {
         modal.style.display = "none";
         cameraRecorder.stopRecording(stopCameraRecordingCallback);
+        screenRecorder.stopRecording(stopScreenRecordingCallback);
         gotoNextPage("Task", "End1");
     };
 
@@ -498,7 +504,7 @@
     };
 
 
-
+    /*--------------------- Camera Recording ---------------------*/
     var cameraRecorder; // globally accessible
     var video = document.querySelector('video');
     function captureCamera(callback) {
@@ -516,7 +522,9 @@
         //video.volume = 0;
         //video.src = URL.createObjectURL(recorder.getBlob());
         //console.log("hello");
-        this.save('file.mp4');
+        let name = localStorage.getItem("HASH_NAME") + "VIDEO.mp4";
+        localStorage.setItem("VIDEO_NAME", name);
+        this.save(name);
 
         cameraRecorder.camera.stop();
         cameraRecorder.destroy();
@@ -525,7 +533,6 @@
     }
 
     document.getElementById('Instruction4-nextBtn').onclick = function() {
-        this.disabled = true;
         captureCamera(function(camera) {
             video.muted = true;
             video.volume = 0;
@@ -533,7 +540,8 @@
 
             cameraRecorder = RecordRTC(camera, {
                 type: 'video',
-                mimeType: 'video/webm;codecs=vp9',
+                //mimeType: 'video/webm;codecs=vp9',
+                mimeType: 'video/webm;codecs=h264',
                 getNativeBlob: true
             });
 
@@ -541,51 +549,38 @@
 
             // release camera on stopRecording
             cameraRecorder.camera = camera;
-
-            gotoNextPage('Instruction4', 'Instruction5');
+            //gotoNextPage('Instruction4', 'Instruction5');
         });
-    };
-</script>
 
-<script>
-    if(!navigator.getDisplayMedia && !navigator.mediaDevices.getDisplayMedia) {
-        var error = 'Your browser does NOT support the getDisplayMedia API.';
-        alert(error);
-
-        document.querySelector('video').style.display = 'none';
-        document.getElementById('btn-start-recording').style.display = 'none';
-        document.getElementById('btn-stop-recording').style.display = 'none';
-        throw new Error(error);
-    }
+        setTimeout( function () {
+            captureScreen(function(screen) {
+                screenRecorder = RecordRTC(screen, {
+                    type: 'video',
+                    //mimeType: 'video/webm;codecs=vp9',
+                    mimeType: 'video/webm;codecs=h264',
+                    getNativeBlob: true
+                });
 
 
-    var screenRecorder; // globally accessible
+                screenRecorder.startRecording();
 
-    document.getElementById('btn-start-recording').onclick = function() {
-        this.disabled = true;
-        captureScreen(function(screen) {
-            //video.srcObject = screen;
+                // release screen on stopRecording
+                screenRecorder.screen = screen;
 
-            screenRecorder = RecordRTC(screen, {
-                type: 'video',
-                mimeType: 'video/webm;codecs=vp9',
-                getNativeBlob: true
+                gotoNextPage('Instruction4', 'Instruction5');
             });
+        }, 100);
 
 
-            screenRecorder.startRecording();
-
-            // release screen on stopRecording
-            screenRecorder.screen = screen;
-
-            //document.getElementById('btn-stop-recording').disabled = false;
-        });
     };
 
-    document.getElementById('btn-stop-recording').onclick = function() {
-        this.disabled = true;
-        screenRecorder.stopRecording(stopRecordingCallback);
-    };
+
+
+
+
+
+    /*--------------------- Screen Recording ---------------------*/
+    var screenRecorder; // globally accessible
 
     function invokeGetDisplayMedia(success, error) {
         var displaymediastreamconstraints = {
@@ -613,7 +608,7 @@
     function captureScreen(callback) {
         invokeGetDisplayMedia(function(screen) {
             addStreamStopListener(screen, function() {
-                document.getElementById('btn-stop-recording').click();
+                document.getElementById('EndTestModal-end').click();
             });
             callback(screen);
         }, function(error) {
@@ -622,17 +617,17 @@
         });
     }
 
-    function stopRecordingCallback() {
+    function stopScreenRecordingCallback() {
         //video.src = video.srcObject = null;
         //video.src = URL.createObjectURL(recorder.getBlob());
 
-        this.save('file1.mp4');
+        let name = localStorage.getItem("HASH_NAME") + "SCREEN.mp4";
+        localStorage.setItem("SCREEN_NAME", name);
+        this.save(name);
 
         screenRecorder.screen.stop();
         screenRecorder.destroy();
         screenRecorder = null;
-
-        document.getElementById('btn-start-recording').disabled = false;
     }
 
     function addStreamStopListener(stream, callback) {
@@ -666,21 +661,57 @@
         <p>We will now ask you to answer a few short questions. </p>
     </div>
 
-    <button id="End1-nextBtn" onclick="gotoNextPage('End1', 'PostTestQuestion')">NEXT</button>
+    <button id="End1-nextBtn" onclick="gotoNextPage('End1', 'Demographic')">NEXT</button>
 </section>
-
 
 <section id="Demographic">
     <div class="title">
         <h2>Tell us about yourself</h2>
     </div>
+
+    <form class="INFOForm">
+        <div class="input-field">
+            <h4>Gender</h4>
+            <div class="choices">
+                <input type="radio" name="gender" value="male">Male
+                <input type="radio" name="gender" value="female">Female
+                <input type="radio" name="gender" value="prefer-not-to-say">Prefer no to say
+            </div>
+        </div>
+
+        <div class="input-field">
+            <h4>Age</h4>
+            <label>
+                <input name="Age" id="Demographic-age" type="text" placeholder="Age">
+            </label>
+        </div>
+
+        <div class="input-field">
+            <h4>Location</h4>
+            <label>
+                <input name="Country" id="Demographic-country" type="text" placeholder="Country">
+            </label>
+            <label>
+                <input name="City" id="Demographic-city" type="text" placeholder="City">
+            </label>
+        </div>
+
+        <div class="input-field">
+            <h4>Yearly income (excluding taxes)</h4>
+            <select id="Demographic-income">
+                <option value="No Election" selected="selected">No Election</option>
+                <option value="$1k - $24k">$1k - $24k</option>
+                <option value="$25k - $49k">$25k - $49k</option>
+                <option value="$50k - $74k">$50k - $74k</option>
+                <option value="$75k +">$75k +</option>
+                <option value="No Income">No Income</option>
+            </select>
+
+        </div>
+    </form>
+
     <button id="Demographic-nextBtn" onclick="DemographicNextPage()">Next</button>
 </section>
-
-
-
-
-
 
 <section id="PostTestQuestion">
     <div class="title">

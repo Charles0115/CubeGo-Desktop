@@ -173,10 +173,49 @@ function ProjectGetRequest() {
 
 
         }).then( function () {
+            let CURRENT_PAGE = 0;
+            let PAGES = ["StartPage", "Agreement"];
 
+            if (localStorage.getItem("NPS") === "1") {
+                PAGES.push("PreTestQuestion");
+            }
+
+            if (localStorage.getItem("hasPreviousQuestion") === "true") {
+                PAGES.push("PreCustomQuestions");
+            }
+
+            PAGES.push("Instruction1","Instruction2","Instruction3","Instruction4", "Instruction5",
+                "calibration-video", "PreTask", "Task", "End1", "Demographic");
+
+            if (localStorage.getItem("NPS") === "1") {
+                PAGES.push("PostTestQuestion");
+            }
+
+            if (localStorage.getItem("SEQ") === "1") {
+                PAGES.push("SEQQuestion");
+            }
+            if (localStorage.getItem("SUS") === "1") {
+                PAGES.push("SUSQuestion");
+            }
+            if (localStorage.getItem("NASA") === "1") {
+                PAGES.push("NASAQuestion");
+            }
+            if (localStorage.getItem("hasPostQuestion") === "true") {
+                PAGES.push("PostCustomQuestions");
+            }
+
+            PAGES.push("CommentQuestion");
+
+            localStorage.setItem("PAGES", JSON.stringify(PAGES));
+            localStorage.setItem("CURRENT_PAGE", CURRENT_PAGE.toString());
+        }).then( function () {
+            let hash_name = localStorage.getItem('EMAIL') + "-" + localStorage.getItem('token') + "-d-" + RandomAlphaNumeric(16) + "-";
+            localStorage.setItem("HASH_NAME", hash_name);
+        }).then( function () {
             gotoNextPage('StartPage', 'Agreement');
             document.body.style.background = "#726B6B";
-        }).catch( (err)=>{
+        })
+        .catch( (err)=>{
             console.log('ProjectGetRequest ERROR:', err.message);
             alert("Wrong ProjectID!");
         });
@@ -200,4 +239,18 @@ function AnalysisPostRequest() {
         headers: header,
         body: JSON.stringify(json)
     });
+}
+
+
+/**
+ * @return {string}
+ */
+function RandomAlphaNumeric(length) {
+    let result           = '';
+    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }

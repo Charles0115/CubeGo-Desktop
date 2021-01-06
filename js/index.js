@@ -8,6 +8,7 @@ function getStyleAttr(obj, attr) {
 
 function gotoNextPage(currentId, nextId) {
     if (document.getElementById(currentId) != null && document.getElementById(nextId) != null) {
+        localStorage.setItem("CURRENT_PAGE", (parseInt(localStorage.getItem("CURRENT_PAGE"))+1).toString());
         document.getElementById(currentId).style.display = 'none';
         document.getElementById(nextId).style.display = 'block';
     } else {
@@ -18,13 +19,38 @@ function gotoNextPage(currentId, nextId) {
 
 //TODO: implemented this function
 function goBack() {
-    alert("TODO");
-    /*if (localStorage.getItem("currentPage") === "StartPage") {
+    if (localStorage.getItem("CURRENT_PAGE") === null) {
         alert("This is the first page.\nYou cannot go back. ");
     } else {
-        document.getElementById(localStorage.getItem("currentPage")).style.display = 'none';
-        document.getElementById(localStorage.getItem("previousPage")).style.display = 'block';
-    }*/
+        let PAGES = JSON.parse(localStorage.getItem("PAGES"));
+        let index = parseInt(localStorage.getItem("CURRENT_PAGE"));
+
+        if (PAGES[index] === "Instruction5") {
+            alert("Recording has started. You cannot go back!");
+        } else if (PAGES[index] === "PreTask") {
+            alert("Calibration has completed. You cannot go back!");
+        } else if (PAGES[index] === "End1") {
+            alert("Test has ended. You cannot go back!");
+        } else {
+            let realIndex = index - 1;
+            localStorage.setItem("CURRENT_PAGE", realIndex.toString());
+
+            if (PAGES[realIndex] === "Agreement") {
+                document.body.style.background = "#726B6B";
+            }
+            if (PAGES[index] === "Agreement") {
+                document.body.style.background = "#E5E5E5";
+            }
+
+
+            if (document.getElementById(PAGES[index]) != null && document.getElementById(PAGES[realIndex]) != null) {
+                document.getElementById(PAGES[index]).style.display = 'none';
+                document.getElementById(PAGES[realIndex]).style.display = 'block';
+            } else {
+                alert("WRONG ID! " + PAGES[index] + " " + PAGES[realIndex]);
+            }
+        }
+    }
 }
 
 function AgreementCheckBox() {

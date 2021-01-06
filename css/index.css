@@ -9,12 +9,7 @@
     box-sizing: border-box;
 }
 
-.clearfix::before,
-.clearfix::after{
-    content: '';
-    display: block;
-    clear: both;
-}
+
 
 input, button{
     outline: none;
@@ -251,8 +246,131 @@ body {
 
 #Demographic{
     display: none;
+    min-height: 100%;
+    margin: auto;
+    width: 60%;
+    background: #FFFFFF;
+    text-align: center;
 }
 
+#Demographic .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+#Demographic .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 8rem;
+    text-align: center;
+    color: #6F6F6F;
+}
+
+#Demographic .INFOForm{
+    width: 70%;
+    margin: 0 auto;
+}
+
+#Demographic .INFOForm .input-field{
+    overflow: auto;
+    margin-bottom: 3rem;
+}
+
+#Demographic .INFOForm h4{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    margin-top: 1rem;
+    color: #6F6F6F;
+    text-align: left;
+
+}
+
+#Demographic .INFOForm .input-field .choices{
+    margin-top: 1rem;
+    float: left;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
+
+#Demographic .INFOForm .input-field .choices input{
+    margin-left: 4rem;
+    margin-right: 0.5rem;
+}
+
+#Demographic .INFOForm .input-field .choices input:first-of-type{
+    margin-left: 0;
+}
+
+#Demographic .INFOForm .input-field #Demographic-age{
+    float: left;
+    width: 10rem;
+    height: 4rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-radius: 1rem;
+    border: 0.1rem solid #cccccc;
+    background: #F5F5F5;
+}
+
+#Demographic .INFOForm .input-field #Demographic-country{
+    float: left;
+    width: 30rem;
+    height: 4rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-radius: 1rem;
+    border: 0.1rem solid #cccccc;
+    background: #F5F5F5;
+}
+
+#Demographic .INFOForm .input-field #Demographic-city{
+    float: left;
+    width: 30rem;
+    height: 4rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-radius: 1rem;
+    border: 0.1rem solid #cccccc;
+    background: #F5F5F5;
+    clear: left;
+}
+
+#Demographic .INFOForm .input-field #Demographic-income{
+    float: left;
+    width: 30rem;
+    height: 4rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border: 0.1rem solid #cccccc;
+    background: #FFFFFF;
+}
+
+#Demographic-nextBtn{
+    width: 30rem;
+    height: 5rem;
+    position: absolute;
+    bottom: 5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
 
 #Upload{
     height: 100%;
