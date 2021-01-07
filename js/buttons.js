@@ -15,6 +15,7 @@ function StartPageNextPage() {
 
 function Instruction5NextPage() {
     document.getElementById("GO-BACK").style.display = 'block';
+    openFullscreen();
     gotoNextPage('Instruction5', 'calibration-video');
 }
 
@@ -114,7 +115,12 @@ function DemographicNextPage() {
     if (gender === undefined || age === '' || country ==='' || city === '' || income === 'No Election') {
         alert("Please fill in all information!");
     } else {
-        localStorage.setItem("gender", gender);
+        if (gender === 'male') {
+            localStorage.setItem("gender", "1");
+        } else if (gender === 'female') {
+            localStorage.setItem("gender", "0");
+        }
+
         localStorage.setItem("age", age);
         localStorage.setItem("country", country);
         localStorage.setItem("city", city);
@@ -190,7 +196,12 @@ function SUSQuestionNextPage() {
             bool = false;
             break;
         } else {
-            rates.push(parseInt(rate));
+            if (i % 2 === 1) {
+                rates.push(parseInt(rate)-1);
+            } else {
+                rates.push(5-parseInt(rate));
+            }
+
         }
     }
     if (bool) {
@@ -198,9 +209,8 @@ function SUSQuestionNextPage() {
         for(let i = 0; i < rates.length; i++) {
             total += rates[i];
         }
-        let avg = total / rates.length;
-        console.log(avg);
-        localStorage.setItem("sus", avg.toString());
+        let result = total * 2.5;
+        localStorage.setItem("sus", result.toString());
 
         if (localStorage.getItem('NASA') === '1') {
             gotoNextPage('SUSQuestion', 'NASAQuestion');

@@ -227,20 +227,102 @@ function AnalysisPostRequest() {
     header.append("Content-Type", "application/json");
     header.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
 
-    let token = $('#PINForm').serializeArray()[0].value;
-    localStorage.setItem('token', token);
+
     let json = {
-        "strategy":"token",
-        "token":token
+        "projectId": localStorage.getItem('projectId'),
+        "media": localStorage.getItem("VIDEO_NAME"),
+        "media2": localStorage.getItem("SCREEN_NAME"),
+        "timestamps": localStorage.getItem("TIMESTAMPS_NAME"),
+        "name": localStorage.getItem('EMAIL')
     };
 
-    let request = new Request('https://authentication.dev.cubehx.com/authentication', {
+    let request = new Request('https://analysis.dev.cubehx.com/analysis', {
         method: 'POST',
         headers: header,
         body: JSON.stringify(json)
     });
+
+    fetch(request)
+        .then( (response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("BAD HTTP REQUEST");
+            }
+        }).then( (jsonData)=>{
+        localStorage.setItem('analysisId', jsonData['id']);
+        return true;
+    }).then( function () {
+        ParticipantPostRequest();
+    }).catch( (err)=>{
+        console.log('AnalysisPostRequest ERROR:', err.message);
+        alert("AnalysisPostRequest ERROR! Check console. ");
+    });
 }
 
+
+function ParticipantPostRequest() {
+    let header = new Headers();
+    header.append("Charset", "UTF-8");
+    header.append("Content-Type", "application/json");
+    header.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
+
+
+    let json = {
+        "email": localStorage.getItem("email"),
+        "gender": localStorage.getItem("gender"),
+        "age": localStorage.getItem("age"),
+        "income": localStorage.getItem("income"),
+        "country": localStorage.getItem("country"),
+        "city": localStorage.getItem("city"),
+        "npsBefore": localStorage.getItem("npsBefore"),
+        "npsAfter": localStorage.getItem("npsAfter"),
+        "seq": localStorage.getItem("seq"),
+        "sus": localStorage.getItem("sus"),
+        "nasaMental": "0.00",
+        "nasaTemporal": "0.0",
+        "nasaPerformance": "0.0",
+        "nasaEffort": "0.0",
+        "customBeforeAnswer1": localStorage.getItem("customBeforeAnswer1"),
+        "customAfterAnswer1": localStorage.getItem("customAfterAnswer1"),
+        "customBeforeAnswer2": localStorage.getItem("customBeforeAnswer2"),
+        "customAfterAnswer2": localStorage.getItem("customAfterAnswer2"),
+        "customBeforeAnswer3": localStorage.getItem("customBeforeAnswer3"),
+        "customAfterAnswer3": localStorage.getItem("customAfterAnswer3"),
+        "customBeforeAnswer4": localStorage.getItem("customBeforeAnswer4"),
+        "customAfterAnswer4": localStorage.getItem("customAfterAnswer4"),
+        "customBeforeAnswer5": localStorage.getItem("customBeforeAnswer5"),
+        "customAfterAnswer5": localStorage.getItem("customAfterAnswer5"),
+        "screenName": localStorage.getItem("SCREEN_NAME"),
+        "videoName": localStorage.getItem("VIDEO_NAME"),
+        "projectID": localStorage.getItem('projectId'),
+        "comment": localStorage.getItem("comment"),
+        "cameraStart": localStorage.getItem("cameraStart"),
+        "cameraEnd": localStorage.getItem("cameraEnd"),
+        "screenStart": localStorage.getItem("screenStart"),
+        "screenEnd": localStorage.getItem("screenEnd"),
+        "platform": "desktop",
+        "analysisId": localStorage.getItem('analysisId')
+    };
+
+    let request = new Request("https://participants.dev.cubehx.com/participants", {
+        method: 'POST',
+        headers: header,
+        body: JSON.stringify(json)
+    });
+
+    fetch(request)
+        .then( (response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("BAD HTTP REQUEST");
+            }
+        }).catch( (err)=>{
+        console.log('ParticipantPostRequest ERROR:', err.message);
+        alert("ParticipantPostRequest ERROR! Check console. ");
+    });
+}
 
 /**
  * @return {string}

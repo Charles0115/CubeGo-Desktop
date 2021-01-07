@@ -55,8 +55,8 @@
 #calibration-circle{
     top:5px;
     left:5px;
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
     background: #0ffc03;
     border-radius: 50%;
     position: absolute;

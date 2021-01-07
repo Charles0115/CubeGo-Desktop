@@ -394,8 +394,8 @@
     <div class="title">
         <h2>Please follow the circle with your eyes.</h2>
     </div>
-    <svg height="60" width="60">
-        <circle cx="30" cy="30" r="25" stroke="black" stroke-width="0" fill="blue" />
+    <svg height="80" width="80">
+        <circle cx="40" cy="40" r="40" stroke="black" stroke-width="0" fill="blue" />
     </svg>
     <button id="start-calibration" onclick="startCalibration()">Start Calibration</button>
 </section>
@@ -493,7 +493,18 @@
         modal.style.display = "none";
         cameraRecorder.stopRecording(stopCameraRecordingCallback);
         screenRecorder.stopRecording(stopScreenRecordingCallback);
-        gotoNextPage("Task", "End1");
+
+        setTimeout( function () {
+            let times = {
+                cameraStart: localStorage.getItem("cameraStart"),
+                cameraEnd: localStorage.getItem("cameraEnd"),
+                screenStart: localStorage.getItem("screenStart"),
+                screenEnd: localStorage.getItem("screenEnd")
+            };
+            download(JSON.stringify(times), localStorage.getItem("HASH_NAME") + "TIMESTAMPS.json", 'text/plain');
+            localStorage.setItem("TIMESTAMPS_NAME", localStorage.getItem("HASH_NAME") + "TIMESTAMPS.json");
+            gotoNextPage("Task", "End1");
+        }, 200);
     };
 
     // When the user clicks anywhere outside of the modal, close it
@@ -502,6 +513,14 @@
             modal.style.display = "none";
         }
     };
+
+    function download(content, fileName, contentType) {
+        var a = document.createElement("a");
+        var file = new Blob([content], {type: contentType});
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        a.click();
+    }
 
 
     /*--------------------- Camera Recording ---------------------*/
@@ -521,7 +540,8 @@
         //video.muted = true;
         //video.volume = 0;
         //video.src = URL.createObjectURL(recorder.getBlob());
-        //console.log("hello");
+        localStorage.setItem("cameraEnd", (new Date().getTime()).toString());
+
         let name = localStorage.getItem("HASH_NAME") + "VIDEO.mp4";
         localStorage.setItem("VIDEO_NAME", name);
         this.save(name);
@@ -546,31 +566,28 @@
             });
 
             cameraRecorder.startRecording();
-
+            localStorage.setItem("cameraStart", (new Date().getTime()).toString());
             // release camera on stopRecording
             cameraRecorder.camera = camera;
             //gotoNextPage('Instruction4', 'Instruction5');
         });
 
-        setTimeout( function () {
-            captureScreen(function(screen) {
-                screenRecorder = RecordRTC(screen, {
-                    type: 'video',
-                    //mimeType: 'video/webm;codecs=vp9',
-                    mimeType: 'video/webm;codecs=h264',
-                    getNativeBlob: true
-                });
-
-
-                screenRecorder.startRecording();
-
-                // release screen on stopRecording
-                screenRecorder.screen = screen;
-
-                gotoNextPage('Instruction4', 'Instruction5');
+        captureScreen(function(screen) {
+            screenRecorder = RecordRTC(screen, {
+                type: 'video',
+                //mimeType: 'video/webm;codecs=vp9',
+                mimeType: 'video/webm;codecs=h264',
+                getNativeBlob: true
             });
-        }, 100);
 
+
+            screenRecorder.startRecording();
+            localStorage.setItem("screenStart", (new Date().getTime()).toString());
+            // release screen on stopRecording
+            screenRecorder.screen = screen;
+
+            gotoNextPage('Instruction4', 'Instruction5');
+        });
 
     };
 
@@ -620,7 +637,7 @@
     function stopScreenRecordingCallback() {
         //video.src = video.srcObject = null;
         //video.src = URL.createObjectURL(recorder.getBlob());
-
+        localStorage.setItem("screenEnd", (new Date().getTime()).toString());
         let name = localStorage.getItem("HASH_NAME") + "SCREEN.mp4";
         localStorage.setItem("SCREEN_NAME", name);
         this.save(name);
@@ -1424,26 +1441,7 @@
 <script>
     //<button onclick="openFullscreen();">Open Fullscreen</button>
     //<button onclick="closeFullscreen();">Close Fullscreen</button>
-    var elem = document.documentElement;
-    function openFullscreen() {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) { /* Safari */
-            elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE11 */
-            elem.msRequestFullscreen();
-        }
-    }
 
-    function closeFullscreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { /* Safari */
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE11 */
-            document.msExitFullscreen();
-        }
-    }
 </script>
 </body>
 </html>
