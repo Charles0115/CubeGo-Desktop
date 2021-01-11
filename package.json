@@ -1,0 +1,11 @@
+{
+  "name": "CubeGo Project",
+  "version": "1.0.0",
+  "dependencies": {
+    "aws-sdk": "^2.824.0",
+    "blob-to-buffer": "^1.2.9",
+    "nano-s3": "latest",
+    "uniq": "^1.0.1"
+  },
+  "devDependencies": {}
+}

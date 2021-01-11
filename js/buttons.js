@@ -267,6 +267,8 @@ function PostCustomQuestionsNextPage(currentId, nextId) {
 function CommentQuestionNextPage(currentId, nextId) {
     let comment = document.getElementById("CommentQuestion-comment").value;
     localStorage.setItem("comment", comment);
+    AnalysisPostRequest();
+    document.getElementById("GO-BACK").style.display = 'none';
     gotoNextPage(currentId, nextId);
 }
 

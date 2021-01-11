@@ -1,4 +1,4 @@
-#Instruction1, #Instruction2, #Instruction3, #Instruction4, #PreTask, #Task{
+#Instruction1, #Instruction2, #Instruction3, #Instruction4, #Instruction5, #PreTask, #Task, #End1{
     display: none;
     width: 110rem;
     position: relative;
@@ -25,6 +25,8 @@
     margin-left: -55rem;
     margin-top: -30rem;
 }
+
+
 
 #Instruction1-nextBtn, #Instruction2-nextBtn, #Instruction3-nextBtn, #Instruction4-nextBtn, #Instruction5-nextBtn, #PreTask-nextBtn, #Task-nextBtn, #End1-nextBtn{
     width: 30rem;
@@ -274,20 +276,6 @@
 }
 
 
-#Instruction5{
-    display: none;
-    width: 110rem;
-    position: relative;
-    height: 60rem;
-    background: #FFFFFF;
-    text-align: center;
-
-    top: 50%;
-    left: 50%;
-    margin-left: -55rem;
-    margin-top: -30rem;
-}
-
 #Instruction5 .progress{
     height: 1rem;
     width: 110rem;
@@ -449,20 +437,6 @@
     padding-top: 2rem;
     letter-spacing: 0.01em;
     color: #605F5F;
-}
-
-#End1{
-    display: none;
-    width: 110rem;
-    position: relative;
-    height: 60rem;
-    background: #FFFFFF;
-    text-align: center;
-
-    top: 50%;
-    left: 50%;
-    margin-left: -55rem;
-    margin-top: -30rem;
 }
 
 #End1 .title{

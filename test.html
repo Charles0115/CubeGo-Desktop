@@ -1,32 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
 <head>
-    <meta charset="UTF-8">
-    <title>Test</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.357.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
 
-        html, body {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-        }
+        //Bucket Configurations
 
-        iframe {
-            border: 0;
-        }
-    </style>
+        var bucketName = 'cubego-video-test-bucket';
+        var bucketRegion = 'us-east-2';
+        var IdentityPoolId = 'us-east-2:3594645c-ff76-49fc-a171-242ab429ca94';
+
+        AWS.config.update({
+            region: bucketRegion,
+            credentials: new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: IdentityPoolId
+            })
+        });
+
+        var s3 = new AWS.S3({
+            apiVersion: '2006-03-01',
+            params: {Bucket: bucketName}
+        });
+    </script>
 </head>
 <body>
-<iframe id="mainContent" width="100%" height="100%"></iframe>
-</body>
-<script>
+<!-- A functional html code-->
+<div>
+    <input type="file" id="fileUpload">
+</div>
 
-    var mainContent = document.getElementById('mainContent');
-    mainContent.src = "https://www.cubehx.com"//嵌套网址
+<div>
+    <button onclick="s3upload()">Submit</button>
+</div>
 
+<progress max=”100” value=”0”></progress>
+
+<script type="text/javascript">
+
+    function s3upload() {
+        var files = document.getElementById('fileUpload').files;
+        if (files)
+        {
+            var file = files[0];
+            var fileName = file.name;
+            var filePath = 'cubego-video-test-bucket/' + fileName;
+            var fileUrl = 'https://' + 'us-east-2' + '.amazonaws.com/my-first-bucket/' +  filePath;
+
+            s3.upload({
+                Key: filePath,
+                Body: file,
+                ACL: 'public-read'
+            }, function(err, data) {
+                if(err) {
+                    reject('error');
+                }
+
+                alert('Successfully Uploaded!');
+            }).on('httpUploadProgress', function (progress) {
+                var uploaded = parseInt((progress.loaded * 100) / progress.total);
+                $("progress").attr('value', uploaded);
+            });
+        }
+    };
 </script>
+</body>
 </html>

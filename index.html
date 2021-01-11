@@ -16,9 +16,6 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
 
-    <script type='text/javascript' >
-
-    </script>
 
     <script src="js/index.js"></script>
     <script src="js/requests.js"></script>
@@ -501,7 +498,7 @@
                 screenStart: localStorage.getItem("screenStart"),
                 screenEnd: localStorage.getItem("screenEnd")
             };
-            download(JSON.stringify(times), localStorage.getItem("HASH_NAME") + "TIMESTAMPS.json", 'text/plain');
+            uploadFile(JSON.stringify(times), localStorage.getItem("HASH_NAME") + "TIMESTAMPS.json");
             localStorage.setItem("TIMESTAMPS_NAME", localStorage.getItem("HASH_NAME") + "TIMESTAMPS.json");
             gotoNextPage("Task", "End1");
         }, 200);
@@ -524,8 +521,9 @@
 
 
     /*--------------------- Camera Recording ---------------------*/
-    var cameraRecorder; // globally accessible
-    var video = document.querySelector('video');
+    let cameraRecorder; // globally accessible
+    let video = document.querySelector('video');
+    let cameraProgressPercentage;
     function captureCamera(callback) {
         navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
             callback(camera);
@@ -544,11 +542,30 @@
 
         let name = localStorage.getItem("HASH_NAME") + "VIDEO.mp4";
         localStorage.setItem("VIDEO_NAME", name);
-        this.save(name);
+        //this.save(name);
+        let blob = cameraRecorder.getBlob();
 
         cameraRecorder.camera.stop();
         cameraRecorder.destroy();
         cameraRecorder = null;
+
+        setTimeout( function () {
+            uploadFile(blob, name).on('httpUploadProgress', function(progress) {
+                cameraProgressPercentage = Math.round(progress.loaded / progress.total * 100);
+                document.getElementById("CameraProgress").innerHTML = cameraProgressPercentage + "%";
+                document.getElementById("CameraProgress").style.width = cameraProgressPercentage + "%";
+                //console.log(cameraProgressPercentage);
+
+                if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
+                    document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
+                    document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
+                    document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
+                    document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                    document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+                }
+            });
+        }, 100);
+
 
     }
 
@@ -598,6 +615,7 @@
 
     /*--------------------- Screen Recording ---------------------*/
     var screenRecorder; // globally accessible
+    var screenProgressPercentage;
 
     function invokeGetDisplayMedia(success, error) {
         var displaymediastreamconstraints = {
@@ -640,11 +658,30 @@
         localStorage.setItem("screenEnd", (new Date().getTime()).toString());
         let name = localStorage.getItem("HASH_NAME") + "SCREEN.mp4";
         localStorage.setItem("SCREEN_NAME", name);
-        this.save(name);
+        //this.save(name);
+        let blob = screenRecorder.getBlob();
 
         screenRecorder.screen.stop();
         screenRecorder.destroy();
         screenRecorder = null;
+
+
+        setTimeout( function () {
+            uploadFile(blob, name).on('httpUploadProgress', function(progress) {
+                screenProgressPercentage = Math.round(progress.loaded / progress.total * 100);
+                document.getElementById("ScreenProgress").innerHTML =  screenProgressPercentage + "%";
+                document.getElementById("ScreenProgress").style.width =  screenProgressPercentage + "%";
+                //console.log(screenProgressPercentage);
+
+                if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
+                    document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
+                    document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
+                    document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
+                    document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                    document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+                }
+            });
+        }, 100);
     }
 
     function addStreamStopListener(stream, callback) {
@@ -665,6 +702,45 @@
                 callback();
                 callback = function() {};
             }, false);
+        });
+    }
+
+
+
+
+    /*--------------------- AWS Uploading ---------------------*/
+    const s3 = new AWS.S3({
+        accessKeyId: 'AKIAZ7C44YZFAHK26JHY',
+        secretAccessKey: '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',
+        maxRetries: 10
+    });
+
+    const options = {
+        partSize: 10 * 1024 * 1024,
+        // how many concurrent uploads
+        queueSize: 5
+    };
+
+    function uploadFile(fileContent, fileName) {
+        // Read content from the file
+        // const fileContent = fs.readFileSync(fileName);
+
+
+        // Setting up S3 upload parameters
+        const params = {
+            Bucket: 'cubego-video-test-bucket',
+            Key: fileName, // File name you want to save as in S3
+            Body: fileContent
+        };
+
+        // Uploading files to the bucket
+        return s3.upload(params, options, function(err, data) {
+            if (err) {
+                alert("An error occurred! Please check console. ");
+                console.log('There was an error uploading your file: ', err);
+            } else {
+                console.log(`File uploaded successfully. ${data.Location}`);
+            }
         });
     }
 </script>
@@ -1413,16 +1489,34 @@
 
 <section id="Upload">
     <div class="title">
-        <h2>Upload</h2>
+        <h2>Give us a second...</h2>
     </div>
 
+    <div class="content">
+        <p>Please wait while we upload your test files.</p>
+        <div class="progress1">
+            <label for="ScreenProgress">Screen Recording progress:</label>
+            <div class="progressBar">
+                <div id="ScreenProgress">0%</div>
+            </div>
+        </div>
+        <div class="progress2">
+            <label for="CameraProgress">Camera Recording progress:</label>
+            <div class="progressBar">
+                <div id="CameraProgress">0%</div>
+            </div>
+        </div>
+    </div>
 
+    <div class="instructions">
+        <p>Please <b>do not</b> close your browser window before the upload is done.</p>
+        <p>Doing so may lead to losing your test data, and not receiving payment for this test.</p>
+    </div>
+
+    <div class="finishUploading">
+        <p>You may now close your browser window or tab.</p>
+    </div>
 </section>
-
-
-
-
-
 
 
 
@@ -1437,11 +1531,5 @@
     };
 </script>
 
-<!--full screen-->
-<script>
-    //<button onclick="openFullscreen();">Open Fullscreen</button>
-    //<button onclick="closeFullscreen();">Close Fullscreen</button>
-
-</script>
 </body>
 </html>

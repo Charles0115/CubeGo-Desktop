@@ -373,14 +373,145 @@ body {
 }
 
 #Upload{
-    height: 100%;
-    margin: auto;
-    width: 60%;
+    display: none;
+    width: 110rem;
+    position: relative;
+    height: 60rem;
     background: #FFFFFF;
     text-align: center;
-    display: none;
+
+    top: 50%;
+    left: 50%;
+    margin-left: -55rem;
+    margin-top: -30rem;
 }
 
+#Upload .title{
+    width: 100%;
+    height: 8rem;
+    text-align: center;
+}
+
+
+#Upload .title h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 8rem;
+    color: #6F6F6F;
+}
+
+#Upload .content{
+    display: inline-block;
+    width: 100%;
+    /*background: red;*/
+    margin-top: 10rem;
+}
+
+#Upload .content p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    margin-bottom: 5rem;
+    color: #FF3030;
+}
+
+#Upload .content .progress1{
+    width: 90rem;
+    margin: 0 auto;
+}
+
+#Upload .content .progress2{
+    width: 90rem;
+    margin: 10rem auto 0;
+}
+
+#Upload .content .progress1 .progressBar, #Upload .content .progress2 .progressBar{
+    width: 60rem;
+    background-color: #FFFFFF;
+    border: 0.1rem solid #C0C0C0;
+    float: right;
+}
+
+#ScreenProgress, #CameraProgress {
+    width: 0%;
+    height: 3rem;
+    background-color: #5174A6;
+    text-align: center;
+    line-height: 3rem;
+    color: white;
+}
+
+/*
+
+#Upload .content .progress2 .progressBar{
+    width: 60rem;
+    background-color: #0ffc03;
+}*/
+
+
+#Upload .content .progress1 label, #Upload .content .progress2 label{
+    height: 3rem;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;;
+    letter-spacing: 0.01em;
+    color: #6F6F6F;
+    float: left;
+    line-height: 3rem;
+}
+/*
+#Upload .content .progress1 progress, #Upload .content .progress2 progress{
+    height: 3rem;
+    width: 65rem;
+    float: right;
+
+}*/
+
+#Upload .instructions{
+    width: 100%;
+    margin-top: 5rem;
+    height: 20rem;
+}
+
+#Upload .finishUploading{
+    display: none;
+    width: 100%;
+    margin-top: 5rem;
+    height: 10rem;
+}
+
+#Upload .finishUploading p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    font-weight: normal;
+    color: #605F5F;
+    margin: 0 auto 2rem;
+}
+
+#Upload .instructions p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    font-weight: normal;
+    color: #605F5F;
+    margin: 0 auto 2rem;
+}
+
+#Upload .instructions p:last-of-type{
+    font-size: 1.2rem;
+}
 
 
 

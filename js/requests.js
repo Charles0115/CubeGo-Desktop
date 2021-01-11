@@ -253,6 +253,7 @@ function AnalysisPostRequest() {
         localStorage.setItem('analysisId', jsonData['id']);
         return true;
     }).then( function () {
+        console.log("Analysis done");
         ParticipantPostRequest();
     }).catch( (err)=>{
         console.log('AnalysisPostRequest ERROR:', err.message);
@@ -314,13 +315,17 @@ function ParticipantPostRequest() {
     fetch(request)
         .then( (response) => {
             if (response.ok) {
+
                 return response.json();
             } else {
                 throw new Error("BAD HTTP REQUEST");
             }
+        }).then( (jsonData)=>{
+            console.log("Participants done");
+            return true;
         }).catch( (err)=>{
-        console.log('ParticipantPostRequest ERROR:', err.message);
-        alert("ParticipantPostRequest ERROR! Check console. ");
+            console.log('ParticipantPostRequest ERROR:', err.message);
+            alert("ParticipantPostRequest ERROR! Check console. ");
     });
 }
 
