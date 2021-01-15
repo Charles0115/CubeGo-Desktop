@@ -8,6 +8,7 @@
 
 
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="https://www.webrtc-experiment.com/EBML.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -391,8 +392,8 @@
     <div class="title">
         <h2>Please follow the circle with your eyes.</h2>
     </div>
-    <svg height="80" width="80">
-        <circle cx="40" cy="40" r="40" stroke="black" stroke-width="0" fill="blue" />
+    <svg height="8rem" width="8rem">
+        <circle cx="4rem" cy="4rem" r="4rem" stroke="black" stroke-width="0" fill="blue" />
     </svg>
     <button id="start-calibration" onclick="startCalibration()">Start Calibration</button>
 </section>
@@ -542,31 +543,31 @@
 
         let name = localStorage.getItem("HASH_NAME") + "VIDEO.mp4";
         localStorage.setItem("VIDEO_NAME", name);
-        //this.save(name);
-        let blob = cameraRecorder.getBlob();
-
-        cameraRecorder.camera.stop();
-        cameraRecorder.destroy();
-        cameraRecorder = null;
-
-        setTimeout( function () {
-            uploadFile(blob, name).on('httpUploadProgress', function(progress) {
-                cameraProgressPercentage = Math.round(progress.loaded / progress.total * 100);
-                document.getElementById("CameraProgress").innerHTML = cameraProgressPercentage + "%";
-                document.getElementById("CameraProgress").style.width = cameraProgressPercentage + "%";
-                //console.log(cameraProgressPercentage);
-
-                if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
-                    document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
-                    document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
-                    document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
-                    document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
-                    document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
-                }
-            });
-        }, 100);
 
 
+        getSeekableBlob(cameraRecorder.getBlob(), function(seekableBlob) {
+            cameraRecorder.camera.stop();
+            cameraRecorder.destroy();
+            cameraRecorder = null;
+
+            //invokeSaveAsDialog(seekableBlob, 'testC.mp4');
+            setTimeout( function () {
+                uploadFile(seekableBlob, name).on('httpUploadProgress', function(progress) {
+                    cameraProgressPercentage = Math.round(progress.loaded / progress.total * 100);
+                    document.getElementById("CameraProgress").innerHTML = cameraProgressPercentage + "%";
+                    document.getElementById("CameraProgress").style.width = cameraProgressPercentage + "%";
+                    //console.log(cameraProgressPercentage);
+
+                    if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
+                        document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
+                        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
+                        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
+                        document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                        document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+                    }
+                });
+            }, 100);
+        });
     }
 
     document.getElementById('Instruction4-nextBtn').onclick = function() {
@@ -576,9 +577,9 @@
             video.srcObject = camera;
 
             cameraRecorder = RecordRTC(camera, {
-                type: 'video',
-                //mimeType: 'video/webm;codecs=vp9',
                 mimeType: 'video/webm;codecs=h264',
+                bitsPerSecond: 51200000,
+                frameRate: {exact: 30 },
                 getNativeBlob: true
             });
 
@@ -591,9 +592,9 @@
 
         captureScreen(function(screen) {
             screenRecorder = RecordRTC(screen, {
-                type: 'video',
-                //mimeType: 'video/webm;codecs=vp9',
                 mimeType: 'video/webm;codecs=h264',
+                bitsPerSecond: 51200000,
+                frameRate: {exact: 30 },
                 getNativeBlob: true
             });
 
@@ -653,35 +654,35 @@
     }
 
     function stopScreenRecordingCallback() {
-        //video.src = video.srcObject = null;
-        //video.src = URL.createObjectURL(recorder.getBlob());
         localStorage.setItem("screenEnd", (new Date().getTime()).toString());
         let name = localStorage.getItem("HASH_NAME") + "SCREEN.mp4";
         localStorage.setItem("SCREEN_NAME", name);
-        //this.save(name);
-        let blob = screenRecorder.getBlob();
 
-        screenRecorder.screen.stop();
-        screenRecorder.destroy();
-        screenRecorder = null;
+        getSeekableBlob(screenRecorder.getBlob(), function(seekableBlob) {
+            screenRecorder.screen.stop();
+            screenRecorder.destroy();
+            screenRecorder = null;
+
+            //invokeSaveAsDialog(seekableBlob, 'testS.mp4');
+            setTimeout( function () {
+                uploadFile(seekableBlob, name).on('httpUploadProgress', function(progress) {
+                    screenProgressPercentage = Math.round(progress.loaded / progress.total * 100);
+                    document.getElementById("ScreenProgress").innerHTML =  screenProgressPercentage + "%";
+                    document.getElementById("ScreenProgress").style.width =  screenProgressPercentage + "%";
+                    //console.log(screenProgressPercentage);
+
+                    if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
+                        document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
+                        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
+                        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
+                        document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                        document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+                    }
+                });
+            }, 100);
+        });
 
 
-        setTimeout( function () {
-            uploadFile(blob, name).on('httpUploadProgress', function(progress) {
-                screenProgressPercentage = Math.round(progress.loaded / progress.total * 100);
-                document.getElementById("ScreenProgress").innerHTML =  screenProgressPercentage + "%";
-                document.getElementById("ScreenProgress").style.width =  screenProgressPercentage + "%";
-                //console.log(screenProgressPercentage);
-
-                if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
-                    document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
-                    document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
-                    document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
-                    document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
-                    document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
-                }
-            });
-        }, 100);
     }
 
     function addStreamStopListener(stream, callback) {
@@ -728,6 +729,9 @@
 
         // Setting up S3 upload parameters
         const params = {
+            Metadata: {
+                'projectId': localStorage.getItem('projectId'),
+            },
             Bucket: 'cubego-video-test-bucket',
             Key: fileName, // File name you want to save as in S3
             Body: fileContent
@@ -792,7 +796,7 @@
         <div class="input-field">
             <h4>Yearly income (excluding taxes)</h4>
             <select id="Demographic-income">
-                <option value="No Election" selected="selected">No Election</option>
+                <option value="No Election" selected="selected">No Selection</option>
                 <option value="$1k - $24k">$1k - $24k</option>
                 <option value="$25k - $49k">$25k - $49k</option>
                 <option value="$50k - $74k">$50k - $74k</option>
@@ -1282,16 +1286,16 @@
         .slider("float");
 
     $("#NASAQuestion .question1 .slider").on("slidechange", function(k, v) {
-        localStorage.setItem("", v['value']);
+        localStorage.setItem("nasaMental", v['value']);
     });
     $("#NASAQuestion .question2 .slider").on("slidechange", function(k, v) {
-        localStorage.setItem("", v['value']);
+        localStorage.setItem("nasaPerformance", v['value']);
     });
     $("#NASAQuestion .question3 .slider").on("slidechange", function(k, v) {
-        localStorage.setItem("", v['value']);
+        localStorage.setItem("nasaTemporal", v['value']);
     });
     $("#NASAQuestion .question4 .slider").on("slidechange", function(k, v) {
-        localStorage.setItem("", v['value']);
+        localStorage.setItem("nasaEffort", v['value']);
     });
 </script>
 
@@ -1528,7 +1532,18 @@
         localStorage.clear();
         localStorage.setItem("currentPage", "StartPage");
         localStorage.setItem("startTest", "1");
+
+        let w = screen.width;
+        let h = screen.height;
+        let DPR = window.devicePixelRatio;
+        w = Math.round(DPR * w);
+        h = Math.round(DPR * h);
+        document.documentElement.style.fontSize = 10 * (w / 1920) + 'px';
+
     };
+
+
+
 </script>
 
 </body>

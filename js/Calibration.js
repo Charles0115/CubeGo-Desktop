@@ -1,7 +1,9 @@
-length = (screen.height - 65) / 9;
-rightEdge = window.innerWidth - 60;
-leftEdge = 5;
-currentLength = 5;
+let w = Math.round(window.devicePixelRatio * screen.width);
+let h = Math.round(window.devicePixelRatio * screen.height);
+let length = (h - 35*10 * (w / 1920)) / 8;
+let rightEdge = w - 50*10 * (w / 1920);
+let leftEdge = 0.5*10 * (w / 1920);
+let currentLength = 0.5*10 * (w / 1920);
 
 function startCalibration() {
     document.getElementById('calibration-video').style.display = 'none';
@@ -19,7 +21,7 @@ function startCalibration() {
                 document.getElementById("GO-BACK").style.display = 'block';
                 closeFullscreen();
                 gotoNextPage('calibration-circle', 'PreTask');
-            }, 105000);
+            }, 95000);
         }, 50);
     }, 1000);
 }
@@ -151,22 +153,7 @@ function function17(e) {
 
 function function18(e) {
     e.target.removeEventListener(e.type, arguments.callee);
-    currentLength+=length;
-    document.getElementById('calibration-circle').style.transition = "all 0.5s linear";
-    document.getElementById('calibration-circle').style.transform = "translate("+(-1*rightEdge).toString()+"px,"+currentLength.toString()+"px)";
-    document.getElementById('calibration-circle').addEventListener("transitionend", function19);
-}
-
-function function19(e) {
-    e.target.removeEventListener(e.type, arguments.callee);
-    document.getElementById('calibration-circle').style.transition = "all 10s linear";
-    document.getElementById('calibration-circle').style.transform = "translate("+(-1*leftEdge).toString()+"px,"+currentLength.toString()+"px)";
-    document.getElementById('calibration-circle').addEventListener("transitionend", function20);
-}
-
-function function20(e) {
-    e.target.removeEventListener(e.type, arguments.callee);
     document.getElementById('calibration-circle').style.background = '#0ffc03';
     document.getElementById('calibration-circle').style.transition = "all 0.05s linear";
-    document.getElementById('calibration-circle').style.transform = "translate("+(-1*leftEdge).toString()+"px,"+currentLength.toString()+"px)";
+    document.getElementById('calibration-circle').style.transform = "translate("+(-1*rightEdge).toString()+"px,"+currentLength.toString()+"px)";
 }

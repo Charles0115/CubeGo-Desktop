@@ -32,8 +32,8 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -30px;
-    margin-left: -30px;
+    margin-top: -4rem;
+    margin-left: -4rem;
 }
 
 #start-calibration{
@@ -55,8 +55,8 @@
 #calibration-circle{
     top:0.5rem;
     right:0.5rem;
-    height: 5rem;
-    width: 5rem;
+    height: 10rem;
+    width: 10rem;
     background: #0ffc03;
     border-radius: 50%;
     position: absolute;
