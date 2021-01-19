@@ -1540,6 +1540,12 @@
         h = Math.round(DPR * h);
         document.documentElement.style.fontSize = 10 * (w / 1920) + 'px';
 
+        /*if (h < 1000) {
+            window.parent.document.body.style.zoom = '1';
+        } else if ( h >= 1000 && h < 2000) {
+            window.parent.document.body.style.zoom = '0.8';
+        }*/
+
     };
 
 
