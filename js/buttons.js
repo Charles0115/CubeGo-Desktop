@@ -267,10 +267,74 @@ function PostCustomQuestionsNextPage(currentId, nextId) {
 function CommentQuestionNextPage(currentId, nextId) {
     let comment = document.getElementById("CommentQuestion-comment").value;
     localStorage.setItem("comment", comment);
-    AnalysisPostRequest();
     document.getElementById("GO-BACK").style.display = 'none';
     gotoNextPage(currentId, nextId);
 }
 
 
+function downloadVideos() {
+    download(screenSeekableBlob, localStorage.getItem("SCREEN_NAME"), "video/webm");
+    download(cameraSeekableBlob, localStorage.getItem("VIDEO_NAME"), "video/webm");
+}
 
+function download(content, fileName, contentType) {
+    let a = document.createElement("a");
+    let file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
+function reUploadVideos() {
+    document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
+    document.getElementById("Upload").getElementsByClassName("error-message")[0].style.display = 'none';
+    document.getElementById("ScreenProgress").innerHTML = "0%";
+    document.getElementById("ScreenProgress").style.width = "0%";
+    let screenProgressPercentage = 0;
+    document.getElementById("CameraProgress").innerHTML = "0%";
+    document.getElementById("CameraProgress").style.width = "0%";
+    let cameraProgressPercentage = 0;
+
+    setTimeout( function () {
+        uploadFile(localStorage.getItem("TIMESTAMPS_CONTENT"), localStorage.getItem("TIMESTAMPS_NAME"));
+
+        uploadFile(cameraSeekableBlob, localStorage.getItem("VIDEO_NAME")).on('httpUploadProgress', function(progress) {
+            cameraProgressPercentage = Math.round(progress.loaded / progress.total * 100);
+            document.getElementById("CameraProgress").innerHTML = cameraProgressPercentage + "%";
+            document.getElementById("CameraProgress").style.width = cameraProgressPercentage + "%";
+            //console.log(cameraProgressPercentage);
+
+            if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
+                SendAnalysisAndParticipantRequests();
+                document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
+                document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
+                document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
+                document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                document.getElementById("Upload").getElementsByClassName("error-message")[0].style.display = 'none';
+                document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
+                document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+            }
+        });
+
+        uploadFile(screenSeekableBlob, localStorage.getItem("SCREEN_NAME")).on('httpUploadProgress', function(progress) {
+            screenProgressPercentage = Math.round(progress.loaded / progress.total * 100);
+            document.getElementById("ScreenProgress").innerHTML =  screenProgressPercentage + "%";
+            document.getElementById("ScreenProgress").style.width =  screenProgressPercentage + "%";
+            //console.log(screenProgressPercentage);
+
+            if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
+                SendAnalysisAndParticipantRequests();
+                document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
+                document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
+                document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
+                document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                document.getElementById("Upload").getElementsByClassName("error-message")[0].style.display = 'none';
+                document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
+                document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+            }
+        });
+    }, 500);
+
+
+
+}

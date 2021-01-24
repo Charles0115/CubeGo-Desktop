@@ -184,7 +184,7 @@ function ProjectGetRequest() {
                 PAGES.push("PreCustomQuestions");
             }
 
-            PAGES.push("Instruction1","Instruction2","Instruction3","Instruction4", "Instruction5",
+            PAGES.push("Instruction1","Instruction2","Instruction3","Instruction3-1", "Instruction4", "Instruction5",
                 "calibration-video", "PreTask", "Task", "End1", "Demographic");
 
             if (localStorage.getItem("NPS") === "1") {

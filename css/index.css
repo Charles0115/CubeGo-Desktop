@@ -50,7 +50,7 @@ body {
     width: 60%;
     background: #FFFFFF;
     text-align: center;
-    display: block;
+    display: none;
 
 }
 
@@ -372,7 +372,7 @@ body {
 }
 
 #Upload{
-    display: none;
+    display: block;
     width: 110rem;
     position: relative;
     height: 60rem;
@@ -402,11 +402,31 @@ body {
     color: #6F6F6F;
 }
 
+#Upload .error-message{
+    width: 100%;
+    margin-bottom: 5rem;
+    display: none;
+}
+
+#Upload .error-message p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #FF3030;
+}
+
+#Upload .error-message p:first-child{
+    font-weight: bold;
+}
+
 #Upload .content{
     display: inline-block;
     width: 100%;
     /*background: red;*/
-    margin-top: 10rem;
+    /*margin-top: 10rem;*/
 }
 
 #Upload .content p{
@@ -438,7 +458,7 @@ body {
 }
 
 #ScreenProgress, #CameraProgress {
-    width: 0%;
+    width: 0;
     height: 3rem;
     background-color: #5174A6;
     text-align: center;
@@ -465,18 +485,26 @@ body {
     float: left;
     line-height: 3rem;
 }
-/*
-#Upload .content .progress1 progress, #Upload .content .progress2 progress{
-    height: 3rem;
-    width: 65rem;
-    float: right;
-
-}*/
 
 #Upload .instructions{
     width: 100%;
     margin-top: 5rem;
-    height: 20rem;
+    height: 10rem;
+}
+
+#Upload .instructions p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    font-weight: normal;
+    color: #605F5F;
+    margin: 0 auto 2rem;
+}
+
+#Upload .instructions p:last-of-type{
+    font-size: 1.2rem;
 }
 
 #Upload .finishUploading{
@@ -497,26 +525,34 @@ body {
     margin: 0 auto 2rem;
 }
 
-#Upload .instructions p{
+#Upload .buttons{
+    width: 100%;
+    height: 10rem;
+    margin-top: 2.5rem;
+}
+
+#Upload .buttons button{
+    width: 25rem;
+    height: 5rem;
+    background: #5174A6;
+    border: none;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-style: normal;
-    font-size: 1.6rem;
-    text-align: center;
+    font-weight: 500;
+    font-size: 2rem;
     letter-spacing: 0.01em;
-    font-weight: normal;
-    color: #605F5F;
-    margin: 0 auto 2rem;
+    color: #FFFFFF;
 }
 
-#Upload .instructions p:last-of-type{
-    font-size: 1.2rem;
+#Upload-redo{
+    float: left;
+    margin-left: 10rem;
 }
 
-
-
-
-
-
+#Upload-download{
+    float: right;
+    margin-right: 10rem;
+}
 
 /* The Modal (background) */
 .modal {

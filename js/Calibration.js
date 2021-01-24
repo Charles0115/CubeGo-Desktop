@@ -9,11 +9,11 @@ function startCalibration() {
     document.body.style.background = "#FFFFFF";
     document.getElementById('GO-BACK').style.display = 'none';
 
-    console.log(getComputedStyle(document.documentElement).fontSize);
-    console.log(convertPixelsToRems(w));
+    //console.log(getComputedStyle(document.documentElement).fontSize);
+    //console.log(convertPixelsToRems(w));
 
     setTimeout(function () {
-        document.getElementById('calibration-circle').style.background = '#5174A6';
+        document.getElementById('calibration-circle').style.background = '#FFFF00';
         setTimeout( function () {
             function1();
             setTimeout( function () {
@@ -38,8 +38,6 @@ function convertPixelsToRems(pixel) {
 function function1() {
     let rightEdge = convertPixelsToRems(w) - 10 - 1;
 
-    console.log("w: " + w);
-    console.log("right: " + rightEdge);
     document.getElementById('calibration-circle').style.transition = "all 10s linear";
     document.getElementById('calibration-circle').style.transform = "translate("+(-1*rightEdge).toString()+"rem,"+currentLength.toString()+"rem)";
     document.getElementById('calibration-circle').addEventListener("transitionend", function2);

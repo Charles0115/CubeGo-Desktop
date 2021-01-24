@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CubeGO Desktop</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.2/jquery-ui.min.js"></script>
-
+    <link rel="shortcut icon" href="images/cubego_logo_tab.png" type="image/x-icon">
 
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
     <script src="https://www.webrtc-experiment.com/EBML.js"></script>
@@ -17,11 +17,11 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
 
-
     <script src="js/index.js"></script>
     <script src="js/requests.js"></script>
     <script src="js/buttons.js"></script>
     <script src="js/Calibration.js"></script>
+
 
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -355,12 +355,41 @@
         <img src="images/instruction3.png" alt="">
     </div>
 
-    <button id="Instruction3-nextBtn" onclick="gotoNextPage('Instruction3', 'Instruction4')">NEXT</button>
+    <button id="Instruction3-nextBtn" onclick="gotoNextPage('Instruction3', 'Instruction3-1')">NEXT</button>
 </section>
-<section id="Instruction4">
+<section id="Instruction3-1">
     <div class="progress"></div>
     <div class="title">
         <h2>4</h2>
+        <h2>Change your System Scaling (WINDOWS 10)</h2>
+    </div>
+
+    <div class="content">
+        <p>IMPORTANT: Please go to Setting -> Display -> change "Scale and layout" to 100%. </p>
+        <img src="images/scaling.png" alt="">
+    </div>
+
+    <button id="Instruction3-1-nextBtn" onclick="gotoNextPage('Instruction3-1', 'Instruction4')">NEXT</button>
+</section>
+<!--<section id="Instruction3-2">
+    <div class="progress"></div>
+    <div class="title">
+        <h2>4</h2>
+        <h2>Change your System Scaling (MacBook Pro)</h2>
+    </div>
+
+    <div class="content">
+        <p>IMPORTANT: If you are using MacBook Pro, please <b>ZOOM OUT to 50%. </b></p>
+        <img src="images/scaling.png" alt="">
+    </div>
+
+    <button id="Instruction3-2-nextBtn" onclick="gotoNextPage('Instruction3-2', 'Instruction4')">NEXT</button>
+</section>-->
+
+<section id="Instruction4">
+    <div class="progress"></div>
+    <div class="title">
+        <h2>5</h2>
         <h2>Start the recordings</h2>
     </div>
 
@@ -374,8 +403,8 @@
 <section id="Instruction5">
     <div class="progress"></div>
     <div class="title">
-        <h2>5</h2>
-        <h2>Center your face on the square</h2>
+        <h2>6</h2>
+        <h2>Change your face on the square</h2>
     </div>
 
     <div class="content">
@@ -393,7 +422,7 @@
         <h2>Please follow the circle with your eyes.</h2>
     </div>
     <svg height="8rem" width="8rem">
-        <circle cx="4rem" cy="4rem" r="4rem" stroke="black" stroke-width="0" fill="blue" />
+        <circle cx="4rem" cy="4rem" r="4rem" stroke="black" stroke-width="0" fill="yellow" />
     </svg>
     <button id="start-calibration" onclick="startCalibration()">Start Calibration</button>
 </section>
@@ -454,9 +483,6 @@
         var error = 'Your browser does NOT support the getDisplayMedia API.';
         alert(error);
 
-        //document.querySelector('video').style.display = 'none';
-        //document.getElementById('btn-start-recording').style.display = 'none';
-        //document.getElementById('btn-stop-recording').style.display = 'none';
         throw new Error(error);
     }
 
@@ -499,6 +525,7 @@
                 screenStart: localStorage.getItem("screenStart"),
                 screenEnd: localStorage.getItem("screenEnd")
             };
+            localStorage.setItem("TIMESTAMPS_CONTENT", JSON.stringify(times));
             uploadFile(JSON.stringify(times), localStorage.getItem("HASH_NAME") + "TIMESTAMPS.json");
             localStorage.setItem("TIMESTAMPS_NAME", localStorage.getItem("HASH_NAME") + "TIMESTAMPS.json");
             gotoNextPage("Task", "End1");
@@ -512,12 +539,16 @@
         }
     };
 
-    function download(content, fileName, contentType) {
-        var a = document.createElement("a");
-        var file = new Blob([content], {type: contentType});
-        a.href = URL.createObjectURL(file);
-        a.download = fileName;
-        a.click();
+
+
+    function SendAnalysisAndParticipantRequests() {
+        if (localStorage.getItem("finishUploading") === "false") {
+            localStorage.setItem("finishUploading", "true");
+            setTimeout( function () {
+                AnalysisPostRequest();
+            }, 1000);
+        }
+
     }
 
 
@@ -525,6 +556,8 @@
     let cameraRecorder; // globally accessible
     let video = document.querySelector('video');
     let cameraProgressPercentage;
+    let cameraSeekableBlob;
+
     function captureCamera(callback) {
         navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
             callback(camera);
@@ -550,7 +583,8 @@
             cameraRecorder.destroy();
             cameraRecorder = null;
 
-            //invokeSaveAsDialog(seekableBlob, 'testC.mp4');
+            cameraSeekableBlob = seekableBlob;
+
             setTimeout( function () {
                 uploadFile(seekableBlob, name).on('httpUploadProgress', function(progress) {
                     cameraProgressPercentage = Math.round(progress.loaded / progress.total * 100);
@@ -559,10 +593,12 @@
                     //console.log(cameraProgressPercentage);
 
                     if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
+                        SendAnalysisAndParticipantRequests();
                         document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
                         document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
                         document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
                         document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                        document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
                         document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
                     }
                 });
@@ -615,8 +651,9 @@
 
 
     /*--------------------- Screen Recording ---------------------*/
-    var screenRecorder; // globally accessible
-    var screenProgressPercentage;
+    let screenRecorder; // globally accessible
+    let screenProgressPercentage;
+    let screenSeekableBlob;
 
     function invokeGetDisplayMedia(success, error) {
         var displaymediastreamconstraints = {
@@ -663,7 +700,8 @@
             screenRecorder.destroy();
             screenRecorder = null;
 
-            //invokeSaveAsDialog(seekableBlob, 'testS.mp4');
+            screenSeekableBlob = seekableBlob;
+
             setTimeout( function () {
                 uploadFile(seekableBlob, name).on('httpUploadProgress', function(progress) {
                     screenProgressPercentage = Math.round(progress.loaded / progress.total * 100);
@@ -672,10 +710,12 @@
                     //console.log(screenProgressPercentage);
 
                     if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
+                        SendAnalysisAndParticipantRequests();
                         document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
                         document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
                         document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
                         document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                        document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
                         document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
                     }
                 });
@@ -740,8 +780,9 @@
         // Uploading files to the bucket
         return s3.upload(params, options, function(err, data) {
             if (err) {
-                alert("An error occurred! Please check console. ");
                 console.log('There was an error uploading your file: ', err);
+                document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'block';
+                document.getElementById("Upload").getElementsByClassName("error-message")[0].style.display = 'block';
             } else {
                 console.log(`File uploaded successfully. ${data.Location}`);
             }
@@ -1496,6 +1537,12 @@
         <h2>Give us a second...</h2>
     </div>
 
+    <div class="error-message">
+        <p>An error occurred! Please try again. You can either: </p>
+        <p>A. Click "Re-Upload Videos" to upload again; OR</p>
+        <p>B. Click "Download Videos" and upload them manually.</p>
+    </div>
+
     <div class="content">
         <p>Please wait while we upload your test files.</p>
         <div class="progress1">
@@ -1517,6 +1564,10 @@
         <p>Doing so may lead to losing your test data, and not receiving payment for this test.</p>
     </div>
 
+    <div class="buttons">
+        <button id="Upload-redo" onclick="reUploadVideos()">Re-Upload Videos</button>
+        <button id="Upload-download" onclick="downloadVideos()">Download Videos</button>
+    </div>
     <div class="finishUploading">
         <p>You may now close your browser window or tab.</p>
     </div>
@@ -1532,6 +1583,7 @@
         localStorage.clear();
         localStorage.setItem("currentPage", "StartPage");
         localStorage.setItem("startTest", "1");
+        localStorage.setItem("finishUploading", "false");
 
         let w = screen.width;
         let h = screen.height;
@@ -1539,13 +1591,12 @@
         w = Math.round(DPR * w);
         h = Math.round(DPR * h);
         document.documentElement.style.fontSize = 10 * (w / 1920) + 'px';
-
+        window.parent.document.body.style.zoom = '1';
         /*if (h < 1000) {
             window.parent.document.body.style.zoom = '1';
         } else if ( h >= 1000 && h < 2000) {
             window.parent.document.body.style.zoom = '0.8';
         }*/
-
     };
 
 

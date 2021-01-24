@@ -4,6 +4,7 @@
   "dependencies": {
     "aws-sdk": "^2.824.0",
     "blob-to-buffer": "^1.2.9",
+    "brightness": "^3.0.0",
     "nano-s3": "latest",
     "uniq": "^1.0.1"
   },
