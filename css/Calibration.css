@@ -53,7 +53,7 @@
 }
 
 #calibration-circle{
-    top:0.5rem;
+    top:0.5rem;   /*0.5*/
     right:0.5rem;
     height: 10rem;
     width: 10rem;

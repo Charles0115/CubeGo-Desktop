@@ -50,7 +50,7 @@ body {
     width: 60%;
     background: #FFFFFF;
     text-align: center;
-    display: none;
+    display: block;
 
 }
 
@@ -372,7 +372,7 @@ body {
 }
 
 #Upload{
-    display: block;
+    display: none;
     width: 110rem;
     position: relative;
     height: 60rem;
@@ -529,6 +529,7 @@ body {
     width: 100%;
     height: 10rem;
     margin-top: 2.5rem;
+    display: none;
 }
 
 #Upload .buttons button{

@@ -8,46 +8,6 @@
 </head>
 <body>
 
-<!--<script>
-    //S3_ACCESS_KEY_ID=AKIAZ7C44YZFAHK26JHY
-    //S3_SECRET_ACCESS_KEY=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
-    const fs = require('fs');
-    const path = require('path');
-    const nanoS3 = require('nano-s3');
-
-    const options = {
-        // AWS Config
-        // Environment variables strongly recommended for keys
-        accessKeyId: 'abc',
-        secretAccessKey: 'xyz',
-
-        // protocol is optional, defaults to https
-        protocol: 'https',
-        host: 's3.us-west-1.amazonaws.com',
-        bucket: 'your-bucket-name',
-
-        // Name of uploaded file on S3
-        filename: 'image.jpg',
-
-        // MIME type of file
-        contentType: `image/jpeg`,
-
-        // File data (Should be a Buffer)
-        data: fs.readFileSync(path.join(__dirname, 'image.jpg')),
-
-        // Directory path in bucket (optional)
-        path: 'path/in/bucket',
-
-        // Max file size, default 2MB (optional).
-        // Required by AWS for upload policy.
-        maxFileSize: 2 * 1024 * 1024
-    }
-
-    nanoS3(options, function (err, res) {
-        if (err) throw err
-        console.log(res.statusCode, res.statusMessage)
-    })
-</script>-->
 
 <script>
     const fs = require('fs');
@@ -75,5 +35,6 @@
 
 
 <button id="StartPage-nextBtn" type="button" onclick="uploadFile('favicon.ico')">Start</button>
+
 </body>
 </html>

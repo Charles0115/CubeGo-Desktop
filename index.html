@@ -413,7 +413,7 @@
         <img src="images/cross.png" alt="">
     </div>
 
-    <button id="Instruction5-nextBtn" onclick="Instruction5NextPage()">NEXT</button>
+    <button id="Instruction5-nextBtn" onclick="gotoNextPage('Instruction5', 'PreTask')">NEXT</button>
 </section>
 
 
@@ -440,6 +440,7 @@
         <img src="images/preTask.png" alt="">
     </div>
 
+<!--    <button id="PreTask-cameraPreview" onclick="OpenCameraPreview()">Click here to open camera preview</button>-->
     <button id="PreTask-nextBtn" onclick="gotoNextPage('PreTask', 'Task')">NEXT</button>
 </section>
 
@@ -1591,12 +1592,16 @@
         w = Math.round(DPR * w);
         h = Math.round(DPR * h);
         document.documentElement.style.fontSize = 10 * (w / 1920) + 'px';
-        window.parent.document.body.style.zoom = '1';
-        /*if (h < 1000) {
+        console.log(window.devicePixelRatio);
+        console.log("w=" + w + " h=" + h);
+
+        //window.parent.document.body.style.zoom = (1/DPR).toString();
+
+        if (window.devicePixelRatio === 2) {
+            window.parent.document.body.style.zoom = '0.5';
+        } else {
             window.parent.document.body.style.zoom = '1';
-        } else if ( h >= 1000 && h < 2000) {
-            window.parent.document.body.style.zoom = '0.8';
-        }*/
+        }
     };
 
 

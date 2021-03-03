@@ -19,6 +19,32 @@ function Instruction5NextPage() {
     gotoNextPage('Instruction5', 'calibration-video');
 }
 
+function OpenCameraPreview() {
+    let cameraWindow = window.open("", "CameraWindow", "width=160,height=120");
+
+    console.log(cameraWindow.document);
+    cameraWindow.document.write("<!DOCTYPE html>\n" +
+        "<html lang=\"en\">\n" +
+        "<head>\n" +
+        "    <meta charset=\"UTF-8\">\n" +
+        "    <title>CubeGO Desktop Camera Preview</title>\n" +
+        "    <link rel=\"shortcut icon\" href=\"images/cubego_logo_tab.png\" type=\"image/x-icon\">\n" +
+        "    <link rel=\"stylesheet\" href=\"css/CameraPreviewWindow.css\">\n" +
+        "</head>\n" +
+        "<body>\n" +
+        "<video class=\"video\" autoplay playsinline></video>\n" +
+        "<img src=\"images/cross.png\" alt=\"\">\n" +
+        "</body>\n" +
+        "</html>\n");
+
+    let cameraPreview = cameraWindow.document.querySelector('video');
+
+    cameraPreview.srcObject = video.srcObject;
+    cameraPreview.muted = true;
+    cameraPreview.volume = 0;
+
+}
+
 function AgreementNextPage() {
     if (localStorage.getItem("NPS") === "1") {
         if (document.getElementById('Agreement') != null && document.getElementById('PreTestQuestion') != null) {
