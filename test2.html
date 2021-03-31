@@ -7,34 +7,50 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-
-
 <script>
-    const fs = require('fs');
-    const AWS = require('aws-sdk');
-    const uploadFile = (fileName) => {
-        // Read content from the file
-        const fileContent = fs.readFileSync(fileName);
-
-        // Setting up S3 upload parameters
-        const params = {
-            Bucket: 'cubego-video-test-bucket',
-            Key: 'favicon.ico', // File name you want to save as in S3
-            Body: fileContent
-        };
-
-        // Uploading files to the bucket
-        s3.upload(params, function(err, data) {
-            if (err) {
-                throw err;
-            }
-            console.log(`File uploaded successfully. ${data.Location}`);
-        });
-    };
+    // if(window.name == ''){
+    //     //first load (or Nth load in a new Tab/Window)
+    //     if(!SOME_VALUE_SET_FOR_2ND_TO_NTH_LOADS){
+    //         //set name so we can catch new Tab/Window
+    //         window.name = 'myWinName';
+    //     } else {
+    //         //we have a new Tab/Window (or something funky)
+    //         alert('What?! One window not cool enough for ya?\n' +
+    //             'Calling the InterWeb Police!');
+    //     }
+    // } else if(window.name == 'myWinName'){
+    //     //2nd-Nth load
+    //     document.title = 'All is well... we think';
+    // }
+    console.log(window.history.length);
 </script>
 
+<!--<script>-->
+<!--    const fs = require('fs');-->
+<!--    const AWS = require('aws-sdk');-->
+<!--    const uploadFile = (fileName) => {-->
+<!--        // Read content from the file-->
+<!--        const fileContent = fs.readFileSync(fileName);-->
 
-<button id="StartPage-nextBtn" type="button" onclick="uploadFile('favicon.ico')">Start</button>
+<!--        // Setting up S3 upload parameters-->
+<!--        const params = {-->
+<!--            Bucket: 'cubego-video-test-bucket',-->
+<!--            Key: 'favicon.ico', // File name you want to save as in S3-->
+<!--            Body: fileContent-->
+<!--        };-->
+
+<!--        // Uploading files to the bucket-->
+<!--        s3.upload(params, function(err, data) {-->
+<!--            if (err) {-->
+<!--                throw err;-->
+<!--            }-->
+<!--            console.log(`File uploaded successfully. ${data.Location}`);-->
+<!--        });-->
+<!--    };-->
+<!--</script>-->
+
+
+<!--<button id="StartPage-nextBtn" type="button" onclick="uploadFile('favicon.ico')">Start</button>-->
 
 </body>
 </html>

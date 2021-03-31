@@ -413,7 +413,7 @@
         <img src="images/cross.png" alt="">
     </div>
 
-    <button id="Instruction5-nextBtn" onclick="gotoNextPage('Instruction5', 'calibration-video')">NEXT</button>
+    <button id="Instruction5-nextBtn" onclick="Instruction5NextPage()">NEXT</button>
 </section>
 
 
@@ -524,7 +524,9 @@
                 cameraStart: localStorage.getItem("cameraStart"),
                 cameraEnd: localStorage.getItem("cameraEnd"),
                 screenStart: localStorage.getItem("screenStart"),
-                screenEnd: localStorage.getItem("screenEnd")
+                screenEnd: localStorage.getItem("screenEnd"),
+                calibrationStart: localStorage.getItem("CalibrationStart"),
+                calibrationEnd: localStorage.getItem("CalibrationEnd")
             };
             localStorage.setItem("TIMESTAMPS_CONTENT", JSON.stringify(times));
             uploadFile(JSON.stringify(times), localStorage.getItem("HASH_NAME") + "TIMESTAMPS.json");

@@ -13,12 +13,14 @@ function startCalibration() {
     document.getElementById('calibration-circle').style.display = 'block';
     document.body.style.background = "#FFFFFF";
     document.getElementById('GO-BACK').style.display = 'none';
+    localStorage.setItem("CalibrationStart", (new Date().getTime()).toString());
 
     setTimeout(function () {
         document.getElementById('calibration-circle').style.background = '#FFFF00';
         setTimeout( function () {
             function1();
             setTimeout( function () {
+                localStorage.setItem("CalibrationEnd", (new Date().getTime()).toString());
                 document.body.style.background = "#E5E5E5";
                 document.getElementById("GO-BACK").style.display = 'block';
                 closeFullscreen();
