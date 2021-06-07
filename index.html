@@ -31,7 +31,7 @@
 
 <section id="StartPage">
     <div class="logo">
-        <img src="images/cubego_logo.png" alt="">
+        <img src="images/cubelogo-2-black.png" alt="">
     </div>
     <h2 class="title">WELCOME</h2>
     <p class="text">To start a test, enter your email address and the test PIN</p>
@@ -488,7 +488,10 @@
 
     end.onclick = function() {
         modal.style.display = "none";
+        localStorage.setItem("cameraEnd", (new Date().getTime()).toString());
         cameraRecorder.stopRecording(stopCameraRecordingCallback);
+
+        localStorage.setItem("screenEnd", (new Date().getTime()).toString());
         screenRecorder.stopRecording(stopScreenRecordingCallback);
 
         setTimeout( function () {
@@ -497,8 +500,8 @@
                 cameraEnd: localStorage.getItem("cameraEnd"),
                 screenStart: localStorage.getItem("screenStart"),
                 screenEnd: localStorage.getItem("screenEnd"),
-                calibrationStart: localStorage.getItem("CalibrationStart"),
-                calibrationEnd: localStorage.getItem("CalibrationEnd")
+                CalibrationStart: localStorage.getItem("CalibrationStart"),
+                CalibrationEnd: localStorage.getItem("CalibrationEnd")
             };
             localStorage.setItem("TIMESTAMPS_CONTENT", JSON.stringify(times));
             uploadFile(JSON.stringify(times), localStorage.getItem("HASH_NAME") + "TIMESTAMPS.json");
@@ -515,7 +518,6 @@
     };
 
 
-
     function SendAnalysisAndParticipantRequests() {
         if (localStorage.getItem("finishUploading") === "false") {
             localStorage.setItem("finishUploading", "true");
@@ -523,7 +525,6 @@
                 AnalysisPostRequest();
             }, 1000);
         }
-
     }
 
 
@@ -534,7 +535,13 @@
     let cameraSeekableBlob;
 
     function captureCamera(callback) {
-        navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
+        navigator.mediaDevices.getUserMedia({
+                audio: true,
+                video: {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                }
+            }).then(function(camera) {
             callback(camera);
         }).catch(function(error) {
             alert('Unable to capture your camera. Please check console logs.');
@@ -547,7 +554,6 @@
         //video.muted = true;
         //video.volume = 0;
         //video.src = URL.createObjectURL(recorder.getBlob());
-        localStorage.setItem("cameraEnd", (new Date().getTime()).toString());
 
         let name = localStorage.getItem("HASH_NAME") + "VIDEO.mp4";
         localStorage.setItem("VIDEO_NAME", name);
@@ -568,13 +574,16 @@
                     //console.log(cameraProgressPercentage);
 
                     if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
-                        SendAnalysisAndParticipantRequests();
-                        document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
-                        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
-                        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
-                        document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
-                        document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
-                        document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+                        localStorage.setItem("FinishVideoUploading", "True");
+                        if (localStorage.getItem("AnalysisAndParticipantRequest") === "complete") {
+                            SendAnalysisAndParticipantRequests();
+                            document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
+                            document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
+                            document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
+                            document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                            document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
+                            document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+                        }
                     }
                 });
             }, 100);
@@ -589,7 +598,7 @@
 
             cameraRecorder = RecordRTC(camera, {
                 mimeType: 'video/webm;codecs=h264',
-                bitsPerSecond: 51200000,
+                bitsPerSecond: 6000000,
                 frameRate: {exact: 30 },
                 getNativeBlob: true
             });
@@ -604,7 +613,7 @@
         captureScreen(function(screen) {
             screenRecorder = RecordRTC(screen, {
                 mimeType: 'video/webm;codecs=h264',
-                bitsPerSecond: 51200000,
+                bitsPerSecond: 6000000,
                 frameRate: {exact: 30 },
                 getNativeBlob: true
             });
@@ -666,7 +675,6 @@
     }
 
     function stopScreenRecordingCallback() {
-        localStorage.setItem("screenEnd", (new Date().getTime()).toString());
         let name = localStorage.getItem("HASH_NAME") + "SCREEN.mp4";
         localStorage.setItem("SCREEN_NAME", name);
 
@@ -685,13 +693,17 @@
                     //console.log(screenProgressPercentage);
 
                     if (screenProgressPercentage === 100 && cameraProgressPercentage === 100) {
-                        SendAnalysisAndParticipantRequests();
-                        document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
-                        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
-                        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
-                        document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
-                        document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
-                        document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+                        localStorage.setItem("FinishVideoUploading", "True");
+                        if (localStorage.getItem("AnalysisAndParticipantRequest") === "complete") {
+                            SendAnalysisAndParticipantRequests();
+                            document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
+                            document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
+                            document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
+                            document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+                            document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
+                            document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+                        }
+
                     }
                 });
             }, 100);
@@ -767,11 +779,7 @@
 
 <section id="End1">
     <div class="title">
-        <h2>You have completed the test. </h2>
-    </div>
-
-    <div class="content">
-        <p>We will now ask you to answer a few short questions. </p>
+        <h2>We will now ask you to answer a few short questions. </h2>
     </div>
 
     <button id="End1-nextBtn" onclick="gotoNextPage('End1', 'Demographic')">NEXT</button>
@@ -1537,6 +1545,8 @@
     <div class="instructions">
         <p>Please <b>do not</b> close your browser window before the upload is done.</p>
         <p>Doing so may lead to losing your test data, and not receiving payment for this test.</p>
+        <p>If you are having problems uploading the data (example the progress bar keeps getting stuck) please
+            connect your mobile phone and use the phone's network for the data upload.</p>
     </div>
 
     <div class="buttons">
@@ -1559,6 +1569,7 @@
         localStorage.setItem("currentPage", "StartPage");
         localStorage.setItem("startTest", "1");
         localStorage.setItem("finishUploading", "false");
+
 
         let w = screen.width;
         let h = screen.height;

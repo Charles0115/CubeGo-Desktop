@@ -293,6 +293,17 @@ function PostCustomQuestionsNextPage(currentId, nextId) {
 function CommentQuestionNextPage(currentId, nextId) {
     let comment = document.getElementById("CommentQuestion-comment").value;
     localStorage.setItem("comment", comment);
+    if (localStorage.getItem("FinishVideoUploading") === "True") {
+        SendAnalysisAndParticipantRequests();
+        document.getElementById("Upload").getElementsByClassName("title")[0].getElementsByTagName("h2")[0].innerHTML = "Thank you!";
+        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].innerHTML = "All your test data has been sent.";
+        document.getElementById("Upload").getElementsByClassName("content")[0].getElementsByTagName("p")[0].style.color = "#2FCC71";
+        document.getElementById("Upload").getElementsByClassName("instructions")[0].style.display = 'none';
+        document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'none';
+        document.getElementById("Upload").getElementsByClassName("finishUploading")[0].style.display = 'block';
+    }
+
+    localStorage.setItem("AnalysisAndParticipantRequest", "complete");
     document.getElementById("GO-BACK").style.display = 'none';
     gotoNextPage(currentId, nextId);
 }
@@ -301,6 +312,7 @@ function CommentQuestionNextPage(currentId, nextId) {
 function downloadVideos() {
     download(screenSeekableBlob, localStorage.getItem("SCREEN_NAME"), "video/webm");
     download(cameraSeekableBlob, localStorage.getItem("VIDEO_NAME"), "video/webm");
+    download(localStorage.getItem("TIMESTAMPS_CONTENT"), localStorage.getItem("TIMESTAMPS_NAME"), "application/json")
 }
 
 function download(content, fileName, contentType) {
