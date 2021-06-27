@@ -1,4 +1,4 @@
-@import "Instructions.css";
+@import "Instructions-fr.css";
 @import "Qustions.css";
 @import "Calibration.css";
 *{
@@ -74,7 +74,7 @@ body {
     display: inline-block;
     width: 3.2rem;
     height: 3.2rem;
-    background-image: url(https://www.countryflags.io/ca/flat/32.png);
+    background-image: url(https://www.countryflags.io/fr/flat/32.png);
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -110,7 +110,6 @@ body {
 
 .lang-menu ul li:hover {
     background-color: #f2f2f2;
-    cursor: pointer;
 }
 
 .lang-menu ul li a:before {
@@ -128,7 +127,7 @@ body {
     background-image: url(https://www.countryflags.io/ca/flat/32.png);
 }
 .fr:before {
-    background-image: url(https://www.countryflags.io/ca/flat/32.png);
+    background-image: url(https://www.countryflags.io/fr/flat/32.png);
 }
 
 
@@ -141,15 +140,13 @@ body {
 
 
 
-
-
 #StartPage{
     height: 100%;
     margin: auto;
     width: 60%;
     background: #FFFFFF;
     text-align: center;
-    display: block;
+    display: none;
 
 }
 
@@ -308,10 +305,12 @@ body {
     font-size: 1.8rem;
     letter-spacing: 0.01em;
     color: #6F6F6F;
+    position: relative;
 }
 
 #Agreement .submit-section .checkbox label{
-    margin-left: 0.5rem;
+    position: absolute;
+    left: 3rem;
 }
 
 #Agreement .submit-section .checkbox input[type=checkbox]
@@ -469,7 +468,7 @@ body {
 }
 
 #Upload{
-    display: none;
+    display: block;
     width: 110rem;
     position: relative;
     height: 60rem;
@@ -499,6 +498,26 @@ body {
     color: #6F6F6F;
 }
 
+#Upload .error-message{
+    width: 100%;
+    margin-bottom: 5rem;
+    display: none;
+}
+
+#Upload .error-message p{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #FF3030;
+}
+
+#Upload .error-message p:first-child{
+    font-weight: bold;
+}
+
 #Upload .content{
     display: inline-block;
     width: 100%;
@@ -518,12 +537,12 @@ body {
 }
 
 #Upload .content .progress1{
-    width: 90rem;
+    width: 95rem;
     margin: 0 auto;
 }
 
 #Upload .content .progress2{
-    width: 90rem;
+    width: 95rem;
     margin: 10rem auto 0;
 }
 
@@ -611,7 +630,7 @@ body {
 #Upload .buttons{
     width: 100%;
     height: 10rem;
-    margin-top: 10rem;
+    margin-top: 2.5rem;
     display: block;
 }
 
@@ -628,23 +647,15 @@ body {
     color: #FFFFFF;
 }
 
-/*#Upload-redo{*/
-/*    float: left;*/
-/*    display: none;*/
-/*    margin-left: 10rem;*/
-/*}*/
-
-/*#Upload-download{*/
-/*    float: right;*/
-/*    margin-right: 10rem;*/
-/*}*/
-
-
-#Upload-download{
-    margin: 0 auto;
+#Upload-redo{
+    float: left;
+    margin-left: 10rem;
 }
 
-
+#Upload-download{
+    float: right;
+    margin-right: 10rem;
+}
 
 /* The Modal (background) */
 .modal {

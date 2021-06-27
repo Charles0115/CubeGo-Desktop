@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>CubeGO Desktop</title>
@@ -19,81 +19,82 @@
 
     <script src="js/index.js"></script>
     <script src="js/requests.js"></script>
-    <script src="js/buttons.js"></script>
+    <script src="js/buttons-fr.js"></script>
     <script src="js/Calibration.js"></script>
 
 
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/index-fr.css">
 </head>
 
 <body>
-<button id="GO-BACK" onclick="goBack()" translate key="GO-BACK">Go Back</button>
+<button id="GO-BACK" onclick="goBack()">Retour</button>
 
 
 <div class="lang-menu">
     <div class="selected-lang">
-        English
+        French
     </div>
     <ul class="lang-list">
         <li>
-            <a class="en" onclick="return ToEnglish()">English</a>
+            <a href="#" language="english" class="en">English</a>
         </li>
         <li>
-            <a class="fr" onclick="return ToFrench()">French</a>
+            <a href="#" language="french" class="fr">French</a>
         </li>
     </ul>
 </div>
+
 
 <section id="StartPage">
     <div class="logo">
         <img src="images/cubelogo-2-black.png" alt="">
     </div>
-    <h2 class="title" translate key="WELCOME">WELCOME</h2>
-    <p class="text" translate key="to_start_a_test">To start a test, enter your email address and the test PIN</p>
+    <h2 class="title">BIENVENUE</h2>
+    <p class="text">Pour démarrer le test, veuillez saisir le code PIN du test</p>
 
     <form class="PINForm">
         <div class="input-field">
-            <h4 translate key="Email">Email</h4>
+            <h4>Adresse courriel</h4>
             <label>
-                <input name="email" id="StartPage-email" type="text" placeholder="EMAIL">
+                <input name="email" id="StartPage-email" type="text" placeholder="ADRESSE COURRIEL">
             </label>
         </div>
 
         <div class="input-field">
-            <h4 translate key="TEST-PIN">Test PIN</h4>
+            <h4>Code PIN du test</h4>
             <label>
                 <input name="token" type="text" id="StartPage-pin" placeholder="PIN" maxlength="4">
             </label>
         </div>
-        <button id="StartPage-nextBtn" type="button" onclick="StartPageNextPage()" translate key="Start">Start</button>
+        <button id="StartPage-nextBtn" type="button" onclick="StartPageNextPage()">Démarrer</button>
     </form>
 </section>
 
 <section id="Agreement">
     <div class="important">
-        <h2 translate key="IMPORTANT">IMPORTANT</h2>
+        <h2>IMPORTANT</h2>
     </div>
 
     <div class="content">
-        <p translate key="you_will_now">You will now see instructions on how to prepare for the test.</p>
-        <p translate key="payment_is_conditional">Payment is <b>conditional</b> upon following these instructions.</p>
-        <p translate key="please_note_that">Please note that you will not have a second chance to submit a test.</p>
+        <p>Vous verrez maintenant des instructions sur comment vous préparer au test.</p>
+        <p>Le paiement est <b>conditionnel</b> au respect de ces instructions.</p>
+        <p>Veuillez noter que vous ne pourrez pas soumettre le test une seconde foi.</p>
     </div>
 
     <div class="submit-section">
         <div class="checkbox">
             <input type="checkbox" id="Agreement-checkbox" onclick="AgreementCheckBox()"/>
-            <label translate key="i_understand_that">I understand that I may not receive payment if I do not follow the next instructions.</label>
+            <label>Je comprends que je pourrais ne pas recevoir de paiement si je ne suis pas les instructions suivantes.</label>
         </div>
 
 
-        <button id="Agreement-nextBtn" disabled onclick="AgreementNextPage()" translate key="Start">Start</button>
+        <button id="Agreement-nextBtn" disabled onclick="AgreementNextPage()">Démarrer</button>
     </div>
 </section>
 
 <section id="PreTestQuestion">
     <div class="title">
-        <h2 translate key="please_answer_the">Please answer the question below</h2>
+        <h2>Veuillez répondre à la question ci-dessous</h2>
     </div>
     <div class="question">
         <p class="question-text"></p>
@@ -144,17 +145,17 @@
                     <input type="radio" name="rate" value="10" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extrêmement Improbable</p>
+            <p class="right-text">Extrêmement Probable</p>
         </div>
     </div>
 
-    <button id="PreTestQuestion-nextBtn" onclick="PreTestQuestionNextPage()" translate key="NEXT">Next</button>
+    <button id="PreTestQuestion-nextBtn" onclick="PreTestQuestionNextPage()">Suivant</button>
 </section>
 
 <section id="PreCustomQuestions">
     <div class="title">
-        <h2 translate key="custom_questions">Custom Questions</h2>
+        <h2>Questions Personnalisées</h2>
     </div>
 
     <div class="question1">
@@ -182,12 +183,12 @@
                     <input type="radio" name="rate1" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extrêmement Improbable</p>
+            <p class="right-text">Extrêmement Probable</p>
         </div>
 
         <form class="textures">
-            <input type="text" id="PreCustomQuestion1T-answer" name="answer" placeholder="Please type your answer here."><br>
+            <input type="text" id="PreCustomQuestion1T-answer" name="answer" placeholder="Veuillez saisir votre réponse ici."><br>
         </form>
     </div>
 
@@ -216,12 +217,12 @@
                     <input type="radio" name="rate2" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extrêmement Improbable</p>
+            <p class="right-text">Extrêmement Probable</p>
         </div>
 
         <form class="textures">
-            <input type="text" id="PreCustomQuestion2T-answer" name="answer" placeholder="Please type your answer here."><br>
+            <input type="text" id="PreCustomQuestion2T-answer" name="answer" placeholder="Veuillez saisir votre réponse ici."><br>
         </form>
     </div>
 
@@ -250,12 +251,12 @@
                     <input type="radio" name="rate3" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extrêmement Improbable</p>
+            <p class="right-text">Extrêmement Probable</p>
         </div>
 
         <form class="textures">
-            <input type="text" id="PreCustomQuestion3T-answer" name="answer" placeholder="Please type your answer here."><br>
+            <input type="text" id="PreCustomQuestion3T-answer" name="answer" placeholder="Veuillez saisir votre réponse ici."><br>
         </form>
     </div>
 
@@ -284,12 +285,12 @@
                     <input type="radio" name="rate4" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extrêmement Improbable</p>
+            <p class="right-text">Extrêmement Probable</p>
         </div>
 
         <form class="textures">
-            <input type="text" id="PreCustomQuestion4T-answer" name="answer" placeholder="Please type your answer here."><br>
+            <input type="text" id="PreCustomQuestion4T-answer" name="answer" placeholder="Veuillez saisir votre réponse ici."><br>
         </form>
     </div>
 
@@ -318,133 +319,133 @@
                     <input type="radio" name="rate5" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extrêmement Improbable</p>
+            <p class="right-text">Extrêmement Probable</p>
         </div>
 
         <form class="textures">
-            <input type="text" id="PreCustomQuestion5T-answer" name="answer" placeholder="Please type your answer here."><br>
+            <input type="text" id="PreCustomQuestion5T-answer" name="answer" placeholder="Veuillez saisir votre réponse ici."><br>
         </form>
     </div>
 
-    <button id="PreCustomQuestions-nextBtn" onclick="PreCustomQuestionsNextPage('PreCustomQuestions', 'Instruction1')" translate key="NEXT">Next</button>
+    <button id="PreCustomQuestions-nextBtn" onclick="PreCustomQuestionsNextPage('PreCustomQuestions', 'Instruction1')">Suivant</button>
 </section>
 
 <section id="Instruction1">
     <div class="progress"></div>
     <div class="title">
         <h2>1</h2>
-        <h2 translate key="eliminate_distractions">Eliminate distractions</h2>
+        <h2>Éliminer toute distraction</h2>
     </div>
 
     <div class="content">
-        <p translate key="make_sure_that">Make sure that there are no noises in the room and that you will not be interrupted for the next 10-20 minutes.</p>
+        <p>Assurez-vous d’être dans une pièce calme et de ne pas être  interrompu pendant les 10 à 20 prochaines minutes.</p>
         <img src="images/instruction1.png" alt="">
     </div>
 
-    <button id="Instruction1-nextBtn" onclick="gotoNextPage('Instruction1', 'Instruction2')" translate key="NEXT">NEXT</button>
+    <button id="Instruction1-nextBtn" onclick="gotoNextPage('Instruction1', 'Instruction2')">Suivant</button>
 </section>
 <section id="Instruction2">
     <div class="progress"></div>
     <div class="title">
         <h2>2</h2>
-        <h2 translate key="face_your_webcam">Face your webcam</h2>
+        <h2>Fait face à votre caméra</h2>
     </div>
 
     <div class="content">
-        <p translate key="make_sure_that_your">Make sure that your webcam is in front of you, and not to the side.</p>
+        <p>Assurez-vous que votre caméra se trouve devant vous et non sur le côté.</p>
         <img src="images/instruction2.png" alt="">
     </div>
 
-    <button id="Instruction2-nextBtn" onclick="gotoNextPage('Instruction2', 'Instruction3')" translate key="NEXT">NEXT</button>
+    <button id="Instruction2-nextBtn" onclick="gotoNextPage('Instruction2', 'Instruction3')">Suivant</button>
 </section>
 <section id="Instruction3">
     <div class="progress"></div>
     <div class="title">
         <h2>3</h2>
-        <h2 translate key="close_other_open_tabs">Close other open tabs</h2>
+        <h2>Fermer les autres onglets ouverts</h2>
     </div>
 
     <div class="content">
-        <p translate key="close_any_other">Close any other open tabs in your browser window.</p>
+        <p>Fermer les autres onglets ouverts dans la fenêtre de votre navigateur.</p>
         <img src="images/instruction3.png" alt="">
     </div>
 
-    <button id="Instruction3-nextBtn" onclick="gotoNextPage('Instruction3', 'Instruction4')" translate key="NEXT">NEXT</button>
+    <button id="Instruction3-nextBtn" onclick="gotoNextPage('Instruction3', 'Instruction4')">Suivant</button>
 </section>
 
 <section id="Instruction4">
     <div class="progress"></div>
     <div class="title">
         <h2>4</h2>
-        <h2 translate key="start_the_recording">Start the recordings</h2>
+        <h2>Démarrer les enregistrements</h2>
     </div>
 
     <div class="content">
-        <p translate key="when_youre_ready">When you’re ready, press ‘Start Recording’ and select <b>‘Entire Screen’ or ‘Application Window’</b></p>
+        <p>Quand vous êtes prêt, appuyer sur ‘Démarrer l’enregistrement’ et sélectionner <b>‘Écran entier’ ou ‘Fenêtre d’application’</b></p>
         <img src="images/instruction4.png" alt="">
     </div>
 
-    <button id="Instruction4-nextBtn" translate key="start_recording">Start Recording</button>
+    <button id="Instruction4-nextBtn">Démarrer l’enregistrement</button>
 </section>
 <section id="Instruction5">
     <div class="progress"></div>
     <div class="title">
         <h2>5</h2>
-        <h2 translate key="change_your_face">Change your face on the square</h2>
+        <h2>Positionnez votre visage dans le carré</h2>
     </div>
 
     <div class="content">
-        <p translate key="make_sure_you_can">Make sure you can hold this position during the test.</p>
+        <p>Assurez-vous de pouvoir maintenir cette position pendant le test.</p>
         <video class="video" autoplay playsinline></video>
-        <img src="images/cross.png" alt="" key="cross">
+        <img src="images/cross.png" alt="">
     </div>
 
-    <button id="Instruction5-nextBtn" onclick="Instruction5NextPage()" translate key="NEXT">NEXT</button>
+    <button id="Instruction5-nextBtn" onclick="Instruction5NextPage()">Suivant</button>
 </section>
 
 
 <section id="calibration-video">
     <div class="title">
-        <h2 translate key="please_follow_the">Please follow the circle with your eyes.</h2>
+        <h2>Veuillez suivre des yeux le cercle.</h2>
     </div>
     <svg height="8rem" width="8rem">
         <circle cx="4rem" cy="4rem" r="4rem" stroke="black" stroke-width="0" fill="yellow" />
     </svg>
-    <button id="start-calibration" onclick="startCalibration()" translate key="start_calibration">Start Calibration</button>
+    <button id="start-calibration" onclick="startCalibration()">Démarrer le calibrage</button>
 </section>
 <div id="calibration-circle"></div>
 
 
 <section id="PreTask">
     <div class="title">
-        <h2 translate key="almost_ready">Almost Ready!</h2>
+        <h2>Vous êtes presque prêt!</h2>
     </div>
 
     <div class="content">
-        <p translate key="you_will_now_complete">You will now complete a test on a different website.</p>
-        <p translate key="the_webste_will">The website will open on a new tab.</p>
-        <img src="images/preTask.png" alt="">
+        <p>Vous allez maintenant compléter un test sur un autre site Web.</p>
+        <p>Le site Web s’ouvrira dans un autre onglet.</p>
+        <img src="images/preTask.png" alt="" key="preTask">
     </div>
 
 <!--    <button id="PreTask-cameraPreview" onclick="OpenCameraPreview()">Click here to open camera preview</button>-->
-    <button id="PreTask-nextBtn" onclick="gotoNextPage('PreTask', 'Task')" translate key="NEXT">NEXT</button>
+    <button id="PreTask-nextBtn" onclick="gotoNextPage('PreTask', 'Task')">Suivant</button>
 </section>
 
 <section id="Task">
     <div class="title">
-        <h2 translate key="your_task">Your Task</h2>
+        <h2>Votre tâche</h2>
     </div>
 
     <div class="content">
-        <p translate key="once_on_the_website">Once on the website, please do the following: </p>
+        <p>Une fois sur le site Web, veuillez procéder comme suit: </p>
     </div>
 
     <div class="instructions">
 
     </div>
 
-    <button id="Task-nextBtn" translate key="Start">Start</button>
+    <button id="Task-nextBtn">Démarrer</button>
 </section>
 
 <div id="EndTestModal" class="modal">
@@ -452,15 +453,15 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-            <h2 translate key="end_the_test_">End the test?</h2>
+            <h2>Terminer le test?</h2>
         </div>
         <div class="modal-body">
-            <p translate key="did_you_complete">Did you complete the task?</p>
-            <p translate key="if_youre_not">If you’re not done yet, press ‘Cancel’ and then select the test tab on your browser (this is the tab that opened after you started the test)</p>
+            <p>Did you complete the task?</p>
+            <p>Si vous n’avez pas encore terminé, appuyer sur ‘Annuler’ puis sélectionnez l’onglet de test sur votre navigateur (c’est l’onglet qui s’est ouvert après avoir commencé le test)</p>
         </div>
         <div class="modal-footer">
-           <button id="EndTestModal-cancel" translate key="CANCEL">CANCEL</button>
-            <button id="EndTestModal-end" translate key="end_the_test">END THE TEST</button>
+           <button id="EndTestModal-cancel">ANNULER</button>
+            <button id="EndTestModal-end">TERMINER LE TEST</button>
         </div>
     </div>
 
@@ -490,7 +491,7 @@
         if (localStorage.getItem("startTest") === "1") {
             window.open(localStorage.getItem("invitation"));
             //window.open("https://www.google.ca/");
-            document.getElementById("Task-nextBtn").innerText = localStorage.getItem("language") === "english"? "END THE TEST": "TERMINER LE TEST";
+            document.getElementById("Task-nextBtn").innerText = "END THE TEST";
             localStorage.setItem("startTest", "0");
         } else if (localStorage.getItem("startTest") === "0") {
             modal.style.display = "block";
@@ -784,6 +785,7 @@
             if (err) {
                 console.log('There was an error uploading your file: ', err);
                 document.getElementById("Upload").getElementsByClassName("buttons")[0].style.display = 'block';
+                document.getElementById("Upload").getElementsByClassName("error-message")[0].style.display = 'block';
             } else {
                 console.log(`File uploaded successfully. ${data.Location}`);
             }
@@ -793,24 +795,24 @@
 
 <section id="End1">
     <div class="title">
-        <h2 translate key="we_will_now">We will now ask you to answer a few short questions. </h2>
+        <h2>Nous allons maintenant vous demander de répondre à quelques brèves questions. </h2>
     </div>
 
-    <button id="End1-nextBtn" onclick="gotoNextPage('End1', 'Demographic')" translate key="NEXT">NEXT</button>
+    <button id="End1-nextBtn" onclick="gotoNextPage('End1', 'Demographic')">Suivant</button>
 </section>
 
 <section id="Demographic">
     <div class="title">
-        <h2 translate key="tell_us_about">Tell us about yourself</h2>
+        <h2>Dites-nous en plus sur vous</h2>
     </div>
 
     <form class="INFOForm">
         <div class="input-field">
-            <h4 translate key="gender">Gender</h4>
+            <h4>Genre</h4>
             <div class="choices">
-                <input type="radio" name="gender" value="male"><span translate key="male">Male</span>
-                <input type="radio" name="gender" value="female"><span translate key="female">Female</span>
-                <input type="radio" name="gender" value="prefer-not-to-say"><span translate key="prefer_not_to_say">Prefer no to say</span>
+                <input type="radio" name="gender" value="male">Homme
+                <input type="radio" name="gender" value="female">Femme
+                <input type="radio" name="gender" value="prefer-not-to-say">Je ne préfère pas répondre
             </div>
         </div>
 
@@ -822,35 +824,35 @@
         </div>
 
         <div class="input-field">
-            <h4 translate key="location">Location</h4>
+            <h4>Emplacement</h4>
             <label>
-                <input name="Country" id="Demographic-country" type="text" placeholder="Country">
+                <input name="Country" id="Demographic-country" type="text" placeholder="Pays">
             </label>
             <label>
-                <input name="City" id="Demographic-city" type="text" placeholder="City">
+                <input name="City" id="Demographic-city" type="text" placeholder="Ville">
             </label>
         </div>
 
         <div class="input-field">
-            <h4 translate key="yearly_income">Yearly income (excluding taxes)</h4>
+            <h4>Revenu annuel avant impôts</h4>
             <select id="Demographic-income">
-                <option value="No Election" selected="selected" translate key="no_selection">No Selection</option>
+                <option value="No Election" selected="selected">Aucune sélection</option>
                 <option value="$1k - $24k">$1k - $24k</option>
                 <option value="$25k - $49k">$25k - $49k</option>
                 <option value="$50k - $74k">$50k - $74k</option>
                 <option value="$75k +">$75k +</option>
-                <option value="No Income" translate key="no_income">No Income</option>
+                <option value="No Income">No Income</option>
             </select>
 
         </div>
     </form>
 
-    <button id="Demographic-nextBtn" onclick="DemographicNextPage()" translate key="NEXT">Next</button>
+    <button id="Demographic-nextBtn" onclick="DemographicNextPage()">Suivant</button>
 </section>
 
 <section id="PostTestQuestion">
     <div class="title">
-        <h2 translate key="please_answer_the">Please answer the question below</h2>
+        <h2>Veuillez répondre à la question ci-dessous</h2>
     </div>
 
     <div class="question">
@@ -902,21 +904,21 @@
                     <input type="radio" name="rate" value="10" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extrêmement Improbable</p>
+            <p class="right-text">Extrêmement Probable</p>
         </div>
     </div>
 
-    <button id="PostTestQuestion-nextBtn" onclick="PostTestQuestionNextPage()" translate key="NEXT">NEXT</button>
+    <button id="PostTestQuestion-nextBtn" onclick="PostTestQuestionNextPage()">Suivant</button>
 </section>
 
 <section id="SEQQuestion">
     <div class="title">
-        <h2 translate key="please_answer_the">Please answer the question below</h2>
+        <h2>Veuillez répondre à la question ci-dessous</h2>
     </div>
 
     <div class="question">
-        <p class="question-text" translate key="overall_this_task">Overall, this task was?</p>
+        <p class="question-text">Dans l’ensemble, cette tâche était?</p>
         <div class="radioGroup">
             <div class="radioButtons">
                 <div class="wrap">
@@ -948,17 +950,17 @@
                     <input type="radio" name="rate" value="7" />
                 </div>
             </div>
-            <p class="left-text" translate key="very_difficult">Very Difficult</p>
-            <p class="right-text" translate key="very_easy">Very Easy</p>
+            <p class="left-text">Très Difficile</p>
+            <p class="right-text">Très Facile</p>
         </div>
     </div>
 
-    <button id="SEQQuestion-nextBtn" onclick="SEQQuestionNextPage()" translate key="NEXT">NEXT</button>
+    <button id="SEQQuestion-nextBtn" onclick="SEQQuestionNextPage()">Suivant</button>
 </section>
 
 <section id="SUSQuestion">
     <div class="title">
-        <h2 translate key="please_answer_the">Please answer the questions below</h2>
+        <h2>Veuillez répondre à la question ci-dessous</h2>
     </div>
 
     <div class="question1">
@@ -986,8 +988,8 @@
                     <input type="radio" name="rate1" value="5" />
                 </div>
             </div>
-            <p class="left-text">Strongly Disagree</p>
-            <p class="right-text">Strongly Agree</p>
+            <p class="left-text">Pas du tout d’accord</p>
+            <p class="right-text">Tout à fait d’accord</p>
         </div>
     </div>
 
@@ -1016,8 +1018,8 @@
                     <input type="radio" name="rate2" value="5" />
                 </div>
             </div>
-            <p class="left-text">Strongly Disagree</p>
-            <p class="right-text">Strongly Agree</p>
+            <p class="left-text">Pas du tout d’accord</p>
+            <p class="right-text">Tout à fait d’accord</p>
         </div>
     </div>
 
@@ -1046,8 +1048,8 @@
                     <input type="radio" name="rate3" value="5" />
                 </div>
             </div>
-            <p class="left-text">Strongly Disagree</p>
-            <p class="right-text">Strongly Agree</p>
+            <p class="left-text">Pas du tout d’accord</p>
+            <p class="right-text">Tout à fait d’accord</p>
         </div>
     </div>
 
@@ -1076,8 +1078,8 @@
                     <input type="radio" name="rate4" value="5" />
                 </div>
             </div>
-            <p class="left-text">Strongly Disagree</p>
-            <p class="right-text">Strongly Agree</p>
+            <p class="left-text">Pas du tout d’accord</p>
+            <p class="right-text">Tout à fait d’accord</p>
         </div>
     </div>
 
@@ -1106,8 +1108,8 @@
                     <input type="radio" name="rate5" value="5" />
                 </div>
             </div>
-            <p class="left-text">Strongly Disagree</p>
-            <p class="right-text">Strongly Agree</p>
+            <p class="left-text">Pas du tout d’accord</p>
+            <p class="right-text">Tout à fait d’accord</p>
         </div>
     </div>
 
@@ -1136,8 +1138,8 @@
                     <input type="radio" name="rate6" value="5" />
                 </div>
             </div>
-            <p class="left-text">Strongly Disagree</p>
-            <p class="right-text">Strongly Agree</p>
+            <p class="left-text">Pas du tout d’accord</p>
+            <p class="right-text">Tout à fait d’accord</p>
         </div>
     </div>
 
@@ -1339,7 +1341,7 @@
 
 <section id="PostCustomQuestions">
     <div class="title">
-        <h2 translate key="custom_questions">Custom Questions</h2>
+        <h2>Custom Questions</h2>
     </div>
 
     <div class="question1">
@@ -1367,8 +1369,8 @@
                     <input type="radio" name="rate1" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
         </div>
 
         <form class="textures">
@@ -1402,8 +1404,8 @@
                     <input type="radio" name="rate2" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
         </div>
 
         <form class="textures">
@@ -1436,8 +1438,8 @@
                     <input type="radio" name="rate3" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
         </div>
 
         <form class="textures">
@@ -1470,8 +1472,8 @@
                     <input type="radio" name="rate4" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
         </div>
 
         <form class="textures">
@@ -1504,8 +1506,8 @@
                     <input type="radio" name="rate5" value="5" />
                 </div>
             </div>
-            <p class="left-text" translate key="extremely_unlikely">Extremely Unlikely</p>
-            <p class="right-text" translate key="extremely_likely">Extremely Likely</p>
+            <p class="left-text">Extremely Unlikely</p>
+            <p class="right-text">Extremely Likely</p>
         </div>
 
         <form class="textures">
@@ -1513,37 +1515,43 @@
         </form>
     </div>
 
-    <button id="PostCustomQuestions-nextBtn" onclick="PostCustomQuestionsNextPage('PostCustomQuestions', 'CommentQuestion')" translate key="NEXT">Next</button>
+    <button id="PostCustomQuestions-nextBtn" onclick="PostCustomQuestionsNextPage('PostCustomQuestions', 'CommentQuestion')">Next</button>
 </section>
 
 <section id="CommentQuestion">
     <div class="title">
-        <h2 translate key="the_test_has_ended">The test has ended.</h2>
+        <h2>The test has ended.</h2>
     </div>
 
     <div class="content">
-        <p translate key="did_you_experience">Did you experience any difficulties with this test?</p>
+        <p>Did you experience any difficulties with this test?</p>
         <textarea name="comment" id="CommentQuestion-comment" cols="60" rows="15" placeholder="Let us know if you encountered any bugs, if the instructions were unclear, or if something went wrong."></textarea>
     </div>
 
-    <button id="CommentQuestion-nextBtn" onclick="CommentQuestionNextPage('CommentQuestion', 'Upload')" translate key="NEXT">Next</button>
+    <button id="CommentQuestion-nextBtn" onclick="CommentQuestionNextPage('CommentQuestion', 'Upload')">Next</button>
 </section>
 
 <section id="Upload">
     <div class="title">
-        <h2 translate key="give_us_a_second">Give us a second...</h2>
+        <h2>Give us a second...</h2>
+    </div>
+
+    <div class="error-message">
+        <p>An error occurred! Please try again. You can either: </p>
+        <p>A. Click "Re-Upload Videos" to upload again; OR</p>
+        <p>B. Click "Download Videos" and upload them manually.</p>
     </div>
 
     <div class="content">
-        <p translate key="please_wait_while_we">Please wait while we upload your test files.</p>
+        <p>Please wait while we upload your test files.</p>
         <div class="progress1">
-            <label for="ScreenProgress" translate key="screen_recording_progress">Screen Recording progress:</label>
+            <label for="ScreenProgress">Progression de l’enregistrement de l’écran:</label>
             <div class="progressBar">
                 <div id="ScreenProgress">0%</div>
             </div>
         </div>
         <div class="progress2">
-            <label for="CameraProgress" translate key="camera_recording_progress">Camera Recording progress:</label>
+            <label for="CameraProgress">Progression de l’enregistrement de la caméra:</label>
             <div class="progressBar">
                 <div id="CameraProgress">0%</div>
             </div>
@@ -1551,18 +1559,19 @@
     </div>
 
     <div class="instructions">
-        <p translate key="please_do_not">Please <b>do not</b> close your browser window before the upload is done.</p>
-        <p translate key="doing_so_may">Doing so may lead to losing your test data, and not receiving payment for this test.</p>
-        <p translate key="if_the_videos">If the videos are not uploading we request you download the videos onto your computer (press the button below)
-            and contact us (particpants@cubehx.com) so you can send them manually to us.</p>
+        <p>Please <b>do not</b> close your browser window before the upload is done.</p>
+        <p>Doing so may lead to losing your test data, and not receiving payment for this test.</p>
+        <p>Si les vidéos ne sont pas téléchargées, nous vous demandons de télécharger les vidéos sur votre ordinateur
+            (appuyez sur le bouton ci-dessous) et de nous contacter (particpants@cubehx.com) afin que vous puissiez nous
+            les envoyer manuellement.</p>
     </div>
 
     <div class="buttons">
-<!--        <button id="Upload-redo" onclick="reUploadVideos()">Re-Upload Videos</button>-->
-        <button id="Upload-download" onclick="downloadVideos()" translate key="download_videos">Download Videos</button>
+        <button id="Upload-redo" onclick="reUploadVideos()">Re-Upload Videos</button>
+        <button id="Upload-download" onclick="downloadVideos()">Download Videos</button>
     </div>
     <div class="finishUploading">
-        <p translate key="you_may_now_close">You may now close your browser window or tab.</p>
+        <p>Vous pouvez maintenant fermer la fenêtre ou l’onglet de votre navigateur.</p>
     </div>
 </section>
 
@@ -1573,7 +1582,7 @@
         localStorage.setItem("currentPage", "StartPage");
         localStorage.setItem("startTest", "1");
         localStorage.setItem("finishUploading", "false");
-        localStorage.setItem("language", "english");
+
 
         let w = screen.width;
         let h = screen.height;
@@ -1593,10 +1602,5 @@
         }
     };
 </script>
-
-
-<script src="js/Language-List.js"></script>
-<script src="js/Language.js"></script>
-
 </body>
 </html>

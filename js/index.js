@@ -42,6 +42,9 @@ function goBack() {
                 document.body.style.background = "#E5E5E5";
             }
 
+            if (PAGES[realIndex] === "StartPage") {
+                document.getElementsByClassName("lang-menu")[0].style.display = "block";
+            }
 
             if (document.getElementById(PAGES[index]) != null && document.getElementById(PAGES[realIndex]) != null) {
                 document.getElementById(PAGES[index]).style.display = 'none';

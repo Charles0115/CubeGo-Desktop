@@ -45,7 +45,7 @@
 
 
 
-#Instruction1-nextBtn, #Instruction2-nextBtn, #Instruction3-nextBtn, #Instruction4-nextBtn, #Instruction5-nextBtn, #PreTask-nextBtn, #Task-nextBtn, #End1-nextBtn{
+#Instruction1-nextBtn, #Instruction2-nextBtn, #Instruction3-nextBtn, #Instruction5-nextBtn, #PreTask-nextBtn, #Task-nextBtn, #End1-nextBtn{
     width: 30rem;
     height: 5rem;
     position: absolute;
@@ -62,11 +62,35 @@
     color: #FFFFFF;
 }
 
-#Instruction4-nextBtn img{
+#Instruction4-nextBtn {
+    width: 30rem;
+    height: 5rem;
     position: absolute;
-    left: 2rem;
+    bottom: 5rem;
+    left: 50%;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    transform: translate(-50%, 0);
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    color: #FFFFFF;
+    display: flex;
+    line-height: 2;
+    justify-content: space-between;
+}
+
+#Instruction4-nextBtn:before {
+    content: '';
+    display: inline-block;
+    height: 3rem;
     width: 3rem;
-    top: 1rem;
+    margin-top: 0.5rem;
+    background-image: url("../images/video-camera.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 #Instruction1 .progress{
@@ -287,6 +311,11 @@
     color: #605F5F;
 }
 
+#Instruction4 .content img{
+    width: 60rem;
+    margin-top: 2rem;
+}
+
 
 #Instruction5 .progress{
     height: 1rem;
@@ -450,8 +479,10 @@
 }
 
 #End1 .title{
-    width: 100%;
+    width: 80%;
     height: 30rem;
+    margin: 0 auto;
+    padding-top: 20rem;
     text-align: center;
 }
 
@@ -461,7 +492,5 @@
     font-style: normal;
     font-weight: 500;
     font-size: 3rem;
-    text-align: center;
-    line-height: 30rem;
     color: #6F6F6F;
 }

@@ -3,11 +3,11 @@ function StartPageNextPage() {
     let email = document.getElementById("StartPage-email").value;
     let regular = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (email === "") {
-        localStorage.getItem("language") === "english"? alert("Email is empty!") : alert("Email is empty!");
+        alert("Email is empty!");
     } else if (email.match(regular) == null) {
-        localStorage.getItem("language") === "english"? alert("Please insert correct email!") : alert("Veuillez saisir la bonne adresse courriel!");
+        alert("Veuillez saisir la bonne adresse courriel!");
     } else if (pin === "" ) {
-        localStorage.getItem("language") === "english"? alert("PIN is empty!") : alert("PIN is empty!");
+        alert("PIN is empty!");
     } else {
         document.getElementsByClassName("lang-menu")[0].style.display = "none";
         PINPostRequest(email, pin);
@@ -86,7 +86,7 @@ function PreTestQuestionNextPage() {
     let rate = $('#PreTestQuestion .radioButtons input[name=rate]:checked').val();
 
     if (rate === undefined) {
-        localStorage.getItem("language") === "english"? alert("Please answer all questions!") : alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
+        alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
     } else {
         localStorage.setItem("npsBefore", rate);
         if (localStorage.getItem("hasPreviousQuestion") === "true") {
@@ -124,7 +124,7 @@ function PreCustomQuestionsNextPage(currentId, nextId) {
     }
 
     if (!isComplete) {
-        localStorage.getItem("language") === "english"? alert("Please answer all questions!") : alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
+        alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
     } else {
         gotoNextPage(currentId, nextId);
     }
@@ -140,7 +140,7 @@ function DemographicNextPage() {
 
 
     if (gender === undefined || age === '' || country ==='' || city === '' || income === 'No Election') {
-        localStorage.getItem("language") === "english"? alert("Please answer all questions!") : alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
+        alert("Please fill in all information!");
     } else {
         if (gender === 'male') {
             localStorage.setItem("gender", "1");
@@ -173,7 +173,7 @@ function PostTestQuestionNextPage() {
     let rate = $('#PostTestQuestion .radioButtons input[name=rate]:checked').val();
 
     if (rate === undefined) {
-        localStorage.getItem("language") === "english"? alert("Please answer all questions!") : alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
+        alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
     } else {
         localStorage.setItem("npsAfter", rate);
 
@@ -195,7 +195,7 @@ function SEQQuestionNextPage() {
     let rate = $('#SEQQuestion .radioButtons input[name=rate]:checked').val();
 
     if (rate === undefined) {
-        localStorage.getItem("language") === "english"? alert("Please answer all questions!") : alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
+        alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
     } else {
         localStorage.setItem("seq", rate);
 
@@ -219,7 +219,7 @@ function SUSQuestionNextPage() {
     for(let i = 1; i <= length; i++) {
         let rate = $('#SUSQuestion .radioButtons input[name=rate'+i+']:checked').val();
         if (rate === undefined) {
-            localStorage.getItem("language") === "english"? alert("Please answer all questions!") : alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
+            alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
             bool = false;
             break;
         } else {
@@ -285,7 +285,7 @@ function PostCustomQuestionsNextPage(currentId, nextId) {
     }
 
     if (!isComplete) {
-        localStorage.getItem("language") === "english"? alert("Please answer all questions!") : alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
+        alert("Veuillez r¨¦pondre ¨¤ toutes les questions!");
     } else {
         gotoNextPage(currentId, nextId);
     }
