@@ -590,6 +590,18 @@ body {
     font-weight: bold;
 }
 
+#Upload .instructions a{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    font-weight: normal;
+    color: #605F5F;
+    margin: 0 auto 2rem;
+}
+
+
 #Upload .finishUploading{
     display: none;
     width: 100%;

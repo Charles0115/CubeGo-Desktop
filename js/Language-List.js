@@ -60,7 +60,7 @@ let arrLang = {
         "camera_recording_progress": "Camera Recording progress:",
         "please_do_not": "Please <b>do not</b> close your browser window before the upload is done.",
         "doing_so_may": "Doing so may lead to losing your test data, and not receiving payment for this test.",
-        "if_the_videos": "If the videos are not uploading we request you download the videos onto your computer (press the button below) and contact us (particpants@cubehx.com) so you can send them manually to us.",
+        "if_the_videos": "If the videos are not uploading correctly,  please download the files onto your computer and then upload them to the following link:",
         "download_videos": "Download Videos",
         "you_may_now_close": "You may now close your browser window or tab.",
     },
@@ -125,7 +125,7 @@ let arrLang = {
         "camera_recording_progress": "Progression de l’enregistrement de la caméra:",
         "please_do_not": "Veuillez <b>ne pas</b> fermer la fenêtre de votre navigateur avant la fin du téléchargement.",
         "doing_so_may": "Cela peut entraîner la perte de vos données de test et ne pas recevoir de paiement pour ce test.",
-        "if_the_videos": "Si les vidéos ne sont pas téléchargées, nous vous demandons de télécharger les vidéos sur votre ordinateur (appuyez sur le bouton ci-dessous) et de nous contacter (particpants@cubehx.com) afin que vous puissiez nous les envoyer manuellement.",
+        "if_the_videos": "Si les vidéos ne sont pas téléchargées correctement, veuillez télécharger les fichiers sur votre ordinateur, puis les télécharger sur le lien suivant :",
         "download_videos": "Télécharger des vidéos",
         "you_may_now_close": "Vous pouvez maintenant fermer la fenêtre ou l'onglet de votre navigateur.",
     }
