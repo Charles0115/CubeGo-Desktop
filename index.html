@@ -18,6 +18,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-ui-Slider-Pips/1.11.4/jquery-ui-slider-pips.js"></script>
 
+    <script src="js/GazeCloudAPI.js"></script>
     <script src="js/index.js"></script>
     <script src="js/requests.js"></script>
     <script src="js/buttons.js"></script>
@@ -384,6 +385,11 @@
     <div class="content">
         <p translate key="when_youre_ready">When you’re ready, press ‘Start Recording’ and select <b>‘Entire Screen’ or ‘Application Window’</b></p>
         <img src="images/instruction4.png" alt="">
+        <p translate key="by_clicking_start_recording">By Clicking "Start Recording" I agree to let CubeGO record my screen for the duration
+            of this test. I understand CubeGO will use this information to understand how I am
+            using this website, in order to improve this website's user experience.</p>
+        <br>
+        <p translate key="for_more_information">For more information on the use of the data collected, visit <a href="https://www.cubego.io/participants" target="_blank">CubeGO.io/participants</a></p>
     </div>
 
     <button id="Instruction4-nextBtn" translate key="start_recording">Start Recording</button>
@@ -396,12 +402,55 @@
     </div>
 
     <div class="content">
+        <div id="errid" style="height:100%; width:100%; left: 0px; position: fixed; top: 0%;display:none;opacity: 0.9; background-color: black;z-index: 99999;" >
+            <h1 id="errmsgid" align="center" style="color: white;">Err</h1>
+            <p align="center">
+                <button class= "buttonRecalibrate" onclick=" GazeCloudAPI.RestartEyeTracking();"  type="button">Try again</button>
+            </p>
+        </div>
+
+        <div id="loadid" style="height:100%; width:100%; left: 0px; position: fixed; top: 0%;display:none;opacity: 0.93; background-color: black;z-index: 9999;" >
+            <h1 align="center" style="color: white;"> Loading...</h1>
+            <div class="loader"></div>
+        </div>
+
+        <div id="waitslotid" style="height:100%; width:100%; left: 0px; position: fixed; top: 0%;display:none;opacity: 0.93; background-color: black;z-index: 9999;" >
+            <h1 align="center" style="color: white;">Waiting for free slot...</h1>
+            <h1 id = "waitslottimeid" align="center" style="color: white;">30</h1>
+        </div>
+
+        <div id="CalDivId" style="display: none; z-index: 999;background-color:white; position:fixed; left:0px; top:0px ;width: 100%; height: 100% " >
+            <h1 id = "calinfoid"   style = " text-align: center; position: fixed;margin-left:auto; color:black; z-index: 999;top:25% ; width:100%" >Look at Dot</h1>
+            <h1 id = "calinfoWaitid"   style = " text-align: center; position: fixed;margin-left:auto; color:black; z-index: 999;top:60% ; width:100%" >3</h1>
+            <canvas id="CalCanvasId" style="background-color:white ;display: block;  left:0px; top:0px; width: 100%; height: 100%">
+            </canvas>
+        </div >
+
         <p translate key="make_sure_you_can">Make sure you can hold this position during the test.</p>
-        <video class="video" autoplay playsinline></video>
-        <img src="images/cross.png" alt="" key="cross">
+        <div id="camid">
+            <video id ="showvideoid" autoplay></video>
+            <img id="facecross" src="images/cross.png" alt="" key="cross">
+            <div id="facemaskimgok"></div>
+            <div id="facemaskimgno"></div>
+            <div id="showinit" style="text-align: center; display: none">
+                <br>
+                <div>
+                    <button class = "buttonCal" disabled id="_ButtonCalibrateId" type="button" onclick="GazeCloudAPI.ShowCalibration()">
+                        <img src="https://api.gazerecorder.com/calibrate.png" width="40" height="40" >
+                        <p style = " left:0%; top:0%; margin : 0"> Start Gaze Calibration </p>
+                    </button>
+                    <p id = "corectpositionid" style = " color: red;margin : 0; display:none"> Please, Corect your head position! </p>
+                </div>
+            </div >
+        </div>
+        <p translate key="by_clicking_next">By Clicking "Next" I agree to let CubeGO record my face for the duration of this test. I understand CubeGO will use this information to understand my eye-tracking and overall emotional response to this task</p>
+
+        <canvas id="bgcanvas" width="640" height="480" style="display:none"></canvas>
+        <div id="GazeFlowContainer" style=" background-color: white ;height:100%; width:100%; left: 0px; position: fixed; top: 0%;display:none;opacity: 1.0;z-index: 99;" > </div >
     </div>
 
     <button id="Instruction5-nextBtn" onclick="Instruction5NextPage()" translate key="NEXT">NEXT</button>
+<!--    <button id="Instruction5-nextBtn" onclick="GazeCloudAPI.StartEyeTracking();" translate key="NEXT">NEXT</button>-->
 </section>
 
 
@@ -510,6 +559,7 @@
         localStorage.setItem("screenEnd", (new Date().getTime()).toString());
         screenRecorder.stopRecording(stopScreenRecordingCallback);
 
+        GazeCloudAPI.StopEyeTracking();
         setTimeout( function () {
             let times = {
                 cameraStart: localStorage.getItem("cameraStart"),
@@ -641,6 +691,7 @@
             screenRecorder.screen = screen;
 
             gotoNextPage('Instruction4', 'Instruction5');
+            GazeCloudAPI.StartEyeTracking();
         });
 
     };

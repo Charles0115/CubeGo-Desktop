@@ -91,5 +91,7 @@ function ToFrench() {
 
         $("#Upload .content .progress1").css("width", "95rem");
         $("#Upload .content .progress2").css("width", "95rem");
+
+        $("#facecross").css("left", "40%");
     }
 }

@@ -63,6 +63,9 @@ let arrLang = {
         "if_the_videos": "If the videos are not uploading correctly,  please download the files onto your computer and then upload them to the following link:",
         "download_videos": "Download Videos",
         "you_may_now_close": "You may now close your browser window or tab.",
+        "by_clicking_start_recording": "By Clicking \"Start Recording\" I agree to let CubeGO record my screen for the duration of this test. I understand CubeGO will use this information to understand how I am using this website, in order to improve this website\'s user experience.",
+        "by_clicking_next": "By Clicking \"Next\" I agree to let CubeGO record my face for the duration of this test. I understand CubeGO will use this information to understand my eye-tracking and overall emotional response to this task",
+        "for_more_information": "For more information on the use of the data collected, visit <a href=\"https://www.cubego.io/participants\" target=\"_blank\">CubeGO.io/participants</a>"
     },
     "french": {
         "WELCOME": "BIENVENUE",
@@ -128,5 +131,8 @@ let arrLang = {
         "if_the_videos": "Si les vidéos ne sont pas téléchargées correctement, veuillez télécharger les fichiers sur votre ordinateur, puis les télécharger sur le lien suivant :",
         "download_videos": "Télécharger des vidéos",
         "you_may_now_close": "Vous pouvez maintenant fermer la fenêtre ou l'onglet de votre navigateur.",
+        "by_clicking_start_recording": "En cliquant sur \"Démarrer l’enregistrement\", j’accepte que CubeGO enregistre mon écran pour la durée de ce test. Je comprends que CubeGO utilisera ces informations pour comprendre comment j’utilise ce site internet, dans le but d’améliorer l’expérience utilisateur de ce dernier. ",
+        "by_clicking_next": "En cliquant sur \"Suivant\", j’accepte que CubeGO enregistre mon visage à l'aide de la caméra de mon appareil pour la durée de ce test. Je comprends que CubeGO utilisera ces informations pour comprendre où se pose mon regard durant la tâche ainsi que ma réaction émotionnelle générale. ",
+        "for_more_information": "Pour plus d’informations sur l’utilisation des données collectées, rendez-vous sur <a href=\"https://www.cubego.io/participants\" target=\"_blank\">CubeGO.io/participants</a>"
     }
 };

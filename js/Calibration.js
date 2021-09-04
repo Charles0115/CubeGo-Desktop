@@ -13,6 +13,7 @@ function startCalibration() {
     bottomEdge = convertPixelsToRems(height)-10;
     widthLength = convertPixelsToRems(width)-10;
 
+    document.getElementById('camid').style.display = 'none';
     document.getElementById('calibration-video').style.display = 'none';
     document.getElementById('calibration-circle').style.display = 'block';
     document.body.style.background = "#FFFFFF";

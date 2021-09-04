@@ -17,6 +17,12 @@ function StartPageNextPage() {
 function Instruction5NextPage() {
     document.getElementById("GO-BACK").style.display = 'block';
     openFullscreen();
+    document.body.appendChild(document.getElementById('camid'));
+    document.getElementById('camid').style = 'width: 20rem; height: 15rem; z-index: 1000; position:fixed; left:0%; top:0%; opacity: 0.7; display:block;';
+    document.getElementById('showvideoid').style = 'width: 100%; height: 100%;display: block;border-radius: 1.6rem;background-color:black;';
+    document.getElementById('facecross').style = 'width: 10rem;height: 10rem;position: absolute;z-index:100;left: 25%;top: 15%;';
+    document.getElementById('facemaskimgok').style = 'width: 20rem;height: 15rem;position:fixed;top:0%;opacity: 0;display: block;background: white;border-radius: 1.6rem;z-index: 99;margin-top: 2rem;';
+    document.getElementById('facemaskimgno').style = 'width: 20rem;height: 15rem;position:fixed;top:0%;opacity: 0.6;display: none;background: red;border-radius: 1.6rem;z-index: 99;margin-top: 2rem;';
     gotoNextPage('Instruction5', 'calibration-video');
 }
 
