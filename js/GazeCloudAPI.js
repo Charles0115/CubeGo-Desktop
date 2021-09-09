@@ -54,10 +54,6 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
     }
     RestlzwStream();
 //////////////////
-    function SendBinary(s) {
-        var uint8array = new TextEncoder("utf-8").encode(s);
-        ws.send(uint8array);
-    }
 //-----------------
     let eventsWebRec = [];
     var WebRecIx = 0;
@@ -112,9 +108,6 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
                         SendTxt += compres;
                         WebEventStringStream += compres;
                         WebRecIx++;
-
-                        //if (!bend)
-                        //if (!bend)
 
                         if (SendTxt.length > MaxBufforSize) break;
                     }
@@ -194,24 +187,32 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
     //====================================
     var _canvas = null;
     var canvasContext = null;
-    var bLastUseLowQuality = false;
 
     function getGrayFrameROIResize(_video, GazeD, bOnlyEyes = false, quality = .9) {
         try {
             if (_canvas == null) {
-                _canvas = document.createElement('canvas');
+                _canvas = document.getElementById('imagecanvas');
                 canvasContext = _canvas.getContext('2d');
 
-                if(true)
-                    canvasContext.filter = 'blur(1px)';
-
-
+                canvasContext.filter = 'blur(1px)';
             }
-            var rx = 0;
-            var ry = 0;
-            var rw = _video.videoWidth;
-            var rh = _video.videoHeight;
-            if (typeof GazeD === 'undefined' || GazeD.state == -1) {
+            var rx = 180;
+            var ry = 140;
+            var rw = 260;
+            var rh = 260;
+
+            _canvas.width = 130;
+            _canvas.height = 170;
+
+            // var rx = GazeD.rx;
+            // var ry = GazeD.ry;
+            // var rw = GazeD.rw;
+            // var rh = GazeD.rh;
+            // console.log("rw: " + rw);
+            // console.log("rh: " + rh);
+
+
+            /*if (typeof GazeD === 'undefined' || GazeD.state == -1) {
                 ;
             } else {
                 // if(GazeD.rw >= 0 && GazeD.rh >= 0)
@@ -221,16 +222,18 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
                     rw = GazeD.rw;
                     rh = GazeD.rh;
                 }
-            }
-            _canvas.width = 80; //120;//120;//150;
-            // _canvas.width =40;//tmp
-            //  _canvas.width =180;//tmp
-            var fff = .5;
-            if (bLastUseLowQuality) fff *= .7;
+            }*/
 
-            //   _canvas.width =180;//tmp
-            if (GazeD.state == -1) _canvas.width = 160; //200;// 160;
-            _canvas.height = _canvas.width;
+
+            // _canvas.width = 170; //120;//120;//150;
+            // // _canvas.width =40;//tmp
+            // //  _canvas.width =180;//tmp
+            //
+            // //   _canvas.width =180;//tmp
+            // if (GazeD.state == -1) _canvas.width = 170; //200;// 160;
+            // _canvas.height = _canvas.width;
+
+
             LastVideoTime = video.currentTime;
             canvasContext.drawImage(_video, rx, ry, rw, rh, 0, 0, _canvas.width, _canvas.height);
             ///////////
@@ -239,6 +242,7 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
             if (GazeD.state == -1) quality = .8;
             //   quality = .92;
             const datagray = _canvas.toDataURL('image/jpeg', quality);
+            //downloadImage(datagray, 'my-canvas.jpeg');
             var r;
             r = {
                 'imgdata': datagray,
@@ -254,6 +258,14 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
         } catch (ee) {
             if (Logg) Logg("getFrame exeption : " + ee.message, -2);
         }
+    }
+
+    function downloadImage(data, filename = 'untitled.jpeg') {
+        var a = document.createElement('a');
+        a.href = data;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
     }
     //--------------------------------------
 /////////////////GetFPS/////////////////
@@ -396,37 +408,29 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
         }
 
 
-        if (true) {
-
-            if (_GazeData.state == -1) // tracking lose
-            {
-                if (FrameCountDelay > 2) bSend = false;
-            } else {
-                if (FrameCountDelay > BuforMaxC) bSend = false;
-            }
-            if (bGazeCloundLowFpsSend) {
-                if (FrameCountDelay > 1) bSend = false;
-            }
-            var waitT = 33; //20;//_CamLoopInterval;
-
-            if (FrameCountDelay >= BuforMaxC) waitT = 66;
-
-            if (waitT < .8 * LastWaitT) waitT = .8 * LastWaitT;
-
-            waitT = 30;
-            var t = Date.now();
-            var dif = t - LastSendTime;
-
-            if (bSend)
-                if (dif < waitT) {
-                    bSend = false;
-                    // console.log("  wait send to hight cpu "  +dif  );
-                }
-            // console.log(" waitT " + waitT);
-            waitT = LastWaitT * .9 + .1 * waitT;
-            LastWaitT = waitT;
-            SendFrameCountDelay = FrameCountDelay;
+        if (_GazeData.state == -1) // tracking lose
+        {
+            if (FrameCountDelay > 2) bSend = false;
+        } else {
+            if (FrameCountDelay > BuforMaxC) bSend = false;
         }
+        if (bGazeCloundLowFpsSend) {
+            if (FrameCountDelay > 1) bSend = false;
+        }
+        var waitT = 33;
+        if (FrameCountDelay >= BuforMaxC) waitT = 66;
+        if (waitT < .8 * LastWaitT) waitT = .8 * LastWaitT;
+        waitT = 30;
+        var t = Date.now();
+        var dif = t - LastSendTime;
+        if (bSend)
+            if (dif < waitT) {
+                bSend = false;
+                // console.log("  wait send to hight cpu "  +dif  );
+            }
+        waitT = LastWaitT * .9 + .1 * waitT;
+        LastWaitT = waitT;
+        SendFrameCountDelay = FrameCountDelay;
         if (bNewVideoGrap) SkipCount++;
         if (bSend && !bNewVideoGrap) {
             //console.log("  no video change try resend prev " + LastSendVideoTime + "  ; " + LastVideoTime);
@@ -1039,7 +1043,7 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
             ConnectionOk = false;
             if ("WebSocket" in window) {
                 var port = GazeCloudServerPort;
-                var url = GazeCloudServerAdress + port;
+                var url = GazeCloudServerAdress + port;     //wss://cloud.gazerecorder.com:43334
                 if (_url == "") {
                     _url = GazeCloudServerAdress + GazeCloudServerPort; //"43334";
                     try {
@@ -1217,32 +1221,7 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
             } catch (e) {}
             /* */
         }
-        ///////////////////HeatMapLive//////////////
-        if (typeof heatmap !== 'undefined')
-            if (heatmap != null)
-                if (!bIsRunCalibration && !bIsProcesingCalibration && bIsCalibrated) {
-                    if (GazeData.state == 0) {
-                        var Precision = 1; //5;
-                        var _x = Math.round(x / Precision) * Precision + (.5 * Precision - .5);
-                        var _y = Math.round(y / Precision) * Precision + (.5 * Precision - .5);
-                        _x = Math.round(_x);
-                        _y = Math.round(_y);
-                        var timedif = _GazeData.time - _LastGazeData.time;
-                        // console.log("timedif " + timedif);
-                        var v = timedif / 33;
-                        if (v > 5) v = 5;
-                        try {
-                            //AddHeatMapDataWin(_x, _y, v, 0, 0);
-                            //if (false)
-                            heatmap.addData({
-                                x: _x,
-                                y: _y,
-                                value: v
-                            });
-                        } catch (e) {}
-                    }
-                }
-        ///////////////////end HeatMapLive//////////////
+
         UpdateGUI(GazeData);
     }
     /////////////////////////////////
@@ -1331,11 +1310,11 @@ var GazeCloudAPI = new function GazeCloudAPIInit() {
             ////////////////
             var showInit = false;
             showInit = (!bIsCalibrated && !bIsProcesingCalibration && !bIsRunCalibration);
-            var delayC = 5;
+            var delayC = 10;
             if (TrackingLostShow) {
                 if (GoodFrameCount > delayC) TrackingLostShow = false;
             } else {
-                if (BadFrameCount > delayC) TrackingLostShow = true;
+                if (BadFrameCount > delayC/2) TrackingLostShow = true;
             }
             var display = 'none';
             if (TrackingLostShow || (!bIsCalibrated && !bIsProcesingCalibration && !bIsRunCalibration)) display = 'block';
