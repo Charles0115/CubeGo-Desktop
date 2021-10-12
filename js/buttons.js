@@ -103,29 +103,39 @@ function PreTestQuestionNextPage() {
     }
 }
 
+let previousCustomanswersList;
+
 function PreCustomQuestionsNextPage(currentId, nextId) {
     let isComplete = true;
-    for (let i=1; i<=5; i++) {
-        if (localStorage.getItem("customQuestion"+i) !== "") {
-            if (localStorage.getItem("questionBefore"+i) === "1") {
-                if (localStorage.getItem("radioResponse"+i) === "1") {
-                    let rate = $('#PreCustomQuestions .radioButtons input[name=rate'+i+']:checked').val();
-                    if (rate === undefined) {
-                        isComplete = false;
-                    } else {
-                        localStorage.setItem("customBeforeAnswer"+i, rate);
-                    }
-                } else {
-                    let answer = document.getElementById("PreCustomQuestion"+i+"T-answer").value;
-                    if (answer === "") {
-                        isComplete = false;
-                    } else {
-                        localStorage.setItem("customBeforeAnswer"+i, answer);
-                    }
-                }
+    previousCustomanswersList = [];
+
+    for (let i=0; i<previousCustomQuestionsList.length; i++) {
+        if (previousCustomQuestionsList[i]['responseType'] === 'Likert') {
+            let rate = $('#PreCustomQuestions .radioButtons input[name=rate'+previousCustomQuestionsList[i]['id']+']:checked').val();
+            if (rate === undefined) {
+                isComplete = false;
+                break;
+            } else {
+                let answer = {
+                    before: true,
+                    customQuestionId: previousCustomQuestionsList[i]['id'],
+                    numericValue: rate
+                };
+                previousCustomanswersList.push(answer);
             }
-        } else {
-            break;
+        } else if (previousCustomQuestionsList[i]['responseType'] === 'Text') {
+            let answer = document.getElementById('PreCustomQuestionText-'+previousCustomQuestionsList[i]['id']+'-answer').value;
+            if (answer === "") {
+                isComplete = false;
+                break;
+            } else {
+                let Answer = {
+                    before: true,
+                    customQuestionId: previousCustomQuestionsList[i]['id'],
+                    textualValue: answer
+                };
+                previousCustomanswersList.push(Answer);
+            }
         }
     }
 
@@ -263,30 +273,37 @@ function NASAQuestionNextPage() {
     }
 }
 
+let postCustomanswersList;
 function PostCustomQuestionsNextPage(currentId, nextId) {
     let isComplete = true;
-    for (let i=1; i<=5; i++) {
-        if (localStorage.getItem("customQuestion"+i) !== "") {
-            if (localStorage.getItem("questionAfter"+i) === "1") {
-                if (localStorage.getItem("radioResponse"+i) === "1") {
-                    let rate = $('#PostCustomQuestions .radioButtons input[name=rate'+i+']:checked').val();
-
-                    if (rate === undefined) {
-                        isComplete = false;
-                    } else {
-                        localStorage.setItem("customAfterAnswer"+i, rate);
-                    }
-                } else {
-                    let answer = document.getElementById("PostCustomQuestion"+i+"T-answer").value;
-                    if (answer === "") {
-                        isComplete = false;
-                    } else {
-                        localStorage.setItem("customAfterAnswer"+i, answer);
-                    }
-                }
+    postCustomanswersList = [];
+    for (let i=0; i<postCustomQuestionsList.length; i++) {
+        if (postCustomQuestionsList[i]['responseType'] === 'Likert') {
+            let rate = $('#PostCustomQuestions .radioButtons input[name=rate'+postCustomQuestionsList[i]['id']+']:checked').val();
+            if (rate === undefined) {
+                isComplete = false;
+                break;
+            } else {
+                let answer = {
+                    before: true,
+                    customQuestionId: postCustomQuestionsList[i]['id'],
+                    numericValue: rate
+                };
+                postCustomanswersList.push(answer);
             }
-        } else {
-            break;
+        } else if (postCustomQuestionsList[i]['responseType'] === 'Text') {
+            let answer = document.getElementById('PostCustomQuestionText-'+postCustomQuestionsList[i]['id']+'-answer').value;
+            if (answer === "") {
+                isComplete = false;
+                break;
+            } else {
+                let Answer = {
+                    before: true,
+                    customQuestionId: postCustomQuestionsList[i]['id'],
+                    textualValue: answer
+                };
+                postCustomanswersList.push(Answer);
+            }
         }
     }
 

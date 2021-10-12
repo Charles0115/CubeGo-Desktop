@@ -421,3 +421,68 @@ function openFullscreen() {
     }
 }
 
+let calibrationCircleCoordinate = [];
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
+function calculateCoordinate() {
+    calibrationCircleCoordinate.push([0, convertPixelsToRems(width)/2-5]);
+    calibrationCircleCoordinate.push([0, 0]);
+    calibrationCircleCoordinate.push([0, convertPixelsToRems(width)-10]);
+
+    calibrationCircleCoordinate.push([convertPixelsToRems(height)/2-5, 0]);
+    calibrationCircleCoordinate.push([convertPixelsToRems(height)/2-5, convertPixelsToRems(width)/2-5]);
+    calibrationCircleCoordinate.push([convertPixelsToRems(height)/2-5, convertPixelsToRems(width)-10]);
+
+    calibrationCircleCoordinate.push([convertPixelsToRems(height-1)-10, 0]);
+    calibrationCircleCoordinate.push([convertPixelsToRems(height-1)-10, convertPixelsToRems(width)/2-5]);
+    calibrationCircleCoordinate.push([convertPixelsToRems(height-1)-10, convertPixelsToRems(width)-10]);
+
+    shuffle(calibrationCircleCoordinate);
+}
+
+function startSecondCalibration() {
+    body = document.querySelector("body");
+    width = body.offsetWidth;
+    height = body.offsetHeight;
+
+    document.getElementById('second-calibration-video').style.display = 'none';
+    document.getElementById('second-calibration-circle').style.display = 'block';
+    document.body.style.background = "#FFFFFF";
+    document.getElementById('GO-BACK').style.display = 'none';
+
+    calculateCoordinate();
+
+    calibrationCircleCoordinate.forEach((coordinate, index) => {
+        setTimeout( function () {
+            document.getElementById('second-calibration-circle').style.top = coordinate[0] + 'rem';
+            document.getElementById('second-calibration-circle').style.left = coordinate[1] + 'rem';
+            $('#second-calibration-circle').css('transform', 'scale('+1+')');
+
+            setTimeout( function () {
+                $('#second-calibration-circle').css('transform', 'scale('+0.1+')');
+            }, 2500);
+        }, index*5000);
+    });
+
+    setTimeout(function () {
+        document.body.style.background = "#E5E5E5";
+        document.getElementById("GO-BACK").style.display = 'block';
+        gotoNextPage('second-calibration-circle', 'Task');
+    }, 45000);
+}

@@ -1,4 +1,4 @@
-#calibration-video{
+#calibration-video, #second-calibration-video{
     display: none;
     width: 110rem;
     position: relative;
@@ -12,13 +12,13 @@
     margin-top: -30rem;
 }
 
-#calibration-video .title{
+#calibration-video .title, #second-calibration-video .title{
     width: 100%;
     height: 8rem;
     text-align: center;
 }
 
-#calibration-video .title h2{
+#calibration-video .title h2, #second-calibration-video .title h2{
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -52,6 +52,33 @@
     color: #FFFFFF;
 }
 
+#second-calibration-circle-canvas{
+    width: 20rem;
+    height: 20rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -10rem;
+    margin-left: -10rem;
+}
+
+#start-second-calibration{
+    width: 30rem;
+    height: 5rem;
+    position: absolute;
+    bottom: 5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: #5174A6;
+    border: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+
 #calibration-circle{
     top:0;   /*0.5*/
     right:0;
@@ -61,4 +88,20 @@
     border-radius: 50%;
     position: absolute;
     display: none;
+}
+
+#second-calibration-circle{
+    /*top: 0%;*/
+    /*left: 0%;*/
+    /*transform: translate(-50%, -50%);*/
+    top:0;   /*0.5*/
+    right:0;
+    height: 10rem;
+    width: 10rem;
+    background: #000000;
+    border-radius: 50%;
+    position: absolute;
+    display: none;
+    transform: scale(0.1);
+    transition: transform 2.5s ease-in-out;
 }

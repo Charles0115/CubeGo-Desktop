@@ -12,8 +12,8 @@
     margin-top: -30rem;
 }
 
-#Instruction4{
-    display: block;
+#PreTask{
+    display: none;
     width: 110rem;
     position: relative;
     height: 60rem;

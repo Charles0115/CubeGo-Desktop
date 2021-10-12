@@ -4,7 +4,7 @@ function PINPostRequest(email, token) {
     header.append("Content-Type", "application/json");
     localStorage.setItem('token', token);
     localStorage.setItem('email', email);
-    localStorage.setItem('EMAIL', email.split("@")[0].replaceAll(".", ""));
+    localStorage.setItem('EMAIL', email.split("@")[0].replaceAll(".", "").replaceAll("-", ""));
 
     let json = {
         "strategy":"token",
@@ -78,6 +78,19 @@ function CheckEmail() {
 
     }
 
+let previousCustomQuestionsList = [];
+let postCustomQuestionsList = [];
+
+function compare( a, b ) {
+    if ( a.order < b.order ){
+        return -1;
+    }
+    if ( a.order > b.order ){
+        return 1;
+    }
+    return 0;
+}
+
 function ProjectGetRequest() {
     let header = new Headers();
     header.append("Charset", "UTF-8");
@@ -97,9 +110,6 @@ function ProjectGetRequest() {
                 throw new Error("BAD HTTP REQUEST");
             }
         }).then( (jsonData)=>{
-
-            console.log(jsonData);
-
             localStorage.setItem("NPS", jsonData["NPS"]);
             localStorage.setItem("npsInput", jsonData['npsInput']);
             localStorage.setItem("SEQ", jsonData["SEQ"]);
@@ -113,65 +123,154 @@ function ProjectGetRequest() {
             element.innerHTML = localStorage.getItem("instruction");
             document.getElementById('Task').getElementsByClassName("instructions")[0].appendChild(element);
 
-            let i;
-            for (i=1; i<=5; i++) {
-                if (jsonData["customQuestion"+i]==null) {
-                    localStorage.setItem("customQuestion"+i, "");
-                    break;
-                } else {
-                    if (parseInt(jsonData["radioResponse"+i]) === 1) {
-                        if (parseInt(jsonData["questionBefore"+i]) === 1) {
-                            localStorage.setItem("hasPreviousQuestion", "true");
-                            document.getElementById("PreCustomQuestions").getElementsByClassName("question"+i)[0]
-                                .getElementsByClassName("question")[0].innerHTML = jsonData["customQuestion"+i];
-                            document.getElementById("PreCustomQuestions").getElementsByClassName("question"+i)[0]
-                                .getElementsByClassName("textures")[0].style.display = 'none';
-                        } else {
-                            document.getElementById("PreCustomQuestions").getElementsByClassName("question"+i)[0].style.display = 'none';
+            let questionList = jsonData["customQuestions"];
+            questionList.sort(compare);
+
+            for (let i=0; i<questionList.length; i++) {
+                if (questionList[i]['before']) {
+                    localStorage.setItem("hasPreviousQuestion", "true");
+                    previousCustomQuestionsList.push(questionList[i]);
+
+                    let PreCustomQuestions = document.getElementById('PreCustomQuestions');
+                    let question = document.createElement('div');
+                    question.className = 'question' + questionList[i]['id'];
+                    question.style.marginBottom = '10rem';
+
+                    let question_text = document.createElement('p');
+                    question_text.className = 'question';
+                    question_text.textContent = questionList[i]['body'];
+                    question.appendChild(question_text);
+
+                    if (questionList[i]['responseType'] === 'Likert') {
+                        let radioGroup = document.createElement('div');
+                        radioGroup.className = 'radioGroup';
+                        question.appendChild((radioGroup));
+
+                        let radioButtons = document.createElement('div');
+                        radioButtons.className = 'radioButtons';
+                        radioGroup.appendChild(radioButtons);
+
+                        for (let j=0; j<questionList[i]['numericMax']; j++) {
+                            let wrap = document.createElement('div');
+                            wrap.className = 'wrap';
+                            let label = document.createElement('label');
+                            label.textContent = (j+1).toString();
+                            let input = document.createElement('input');
+                            input.name = 'rate' + (questionList[i]['id']).toString();
+                            input.type = 'radio';
+                            input.value = (j+1).toString();
+                            wrap.appendChild(label);
+                            wrap.appendChild(input);
+                            radioButtons.appendChild(wrap);
                         }
 
-                        if (parseInt(jsonData["questionAfter"+i]) === 1) {
-                            localStorage.setItem("hasPostQuestion", "true");
-                            document.getElementById("PostCustomQuestions").getElementsByClassName("question"+i)[0]
-                                .getElementsByClassName("question")[0].innerHTML = jsonData["customQuestion"+i];
-                            document.getElementById("PostCustomQuestions").getElementsByClassName("question"+i)[0]
-                                .getElementsByClassName("textures")[0].style.display = 'none';
-                        } else {
-                            document.getElementById("PostCustomQuestions").getElementsByClassName("question"+i)[0].style.display = 'none';
-                        }
-                    } else {
-                        if (parseInt(jsonData["questionBefore"+i]) === 1) {
-                            localStorage.setItem("hasPreviousQuestion", "true");
-                            document.getElementById("PreCustomQuestions").getElementsByClassName("question"+i)[0]
-                                .getElementsByClassName("question")[0].innerHTML = jsonData["customQuestion"+i];
-                            document.getElementById("PreCustomQuestions").getElementsByClassName("question"+i)[0]
-                                .getElementsByClassName("radioGroup")[0].style.display = 'none';
-                        } else {
-                            document.getElementById("PreCustomQuestions").getElementsByClassName("question"+i)[0].style.display = 'none';
-                        }
+                        let left_text = document.createElement('p');
+                        left_text.className = 'left-text';
+                        left_text.setAttribute('translate', '');
+                        left_text.setAttribute('key', 'extremely_unlikely');
+                        left_text.textContent = questionList[i]['numericMinLabel'];
+                        radioGroup.appendChild(left_text);
 
-                        if (parseInt(jsonData["questionAfter"+i]) === 1) {
-                            localStorage.setItem("hasPostQuestion", "true");
-                            document.getElementById("PostCustomQuestions").getElementsByClassName("question"+i)[0]
-                                .getElementsByClassName("question")[0].innerHTML = jsonData["customQuestion"+i];
-                            document.getElementById("PostCustomQuestions").getElementsByClassName("question"+i)[0]
-                                .getElementsByClassName("radioGroup")[0].style.display = 'none';
-                        } else {
-                            document.getElementById("PostCustomQuestions").getElementsByClassName("question"+i)[0].style.display = 'none';
-                        }
+                        let right_text = document.createElement('p');
+                        right_text.className = 'right-text';
+                        right_text.setAttribute('translate', '');
+                        right_text.setAttribute('key', 'extremely_likely');
+                        right_text.textContent = questionList[i]['numericMaxLabel'];
+                        radioGroup.appendChild(right_text);
+
+                    } else if (questionList[i]['responseType'] === 'Text') {
+                        let textures = document.createElement('form');
+                        textures.className = 'textures';
+                        question.appendChild(textures);
+
+                        let PreCustomQuestionText_answer = document.createElement('input');
+                        PreCustomQuestionText_answer.id = 'PreCustomQuestionText-'+questionList[i]['id']+'-answer';
+                        PreCustomQuestionText_answer.className = 'PreCustomQuestionText-answer';
+                        PreCustomQuestionText_answer.type = 'text';
+                        PreCustomQuestionText_answer.name = 'answer';
+                        PreCustomQuestionText_answer.placeholder = 'Please type your answer here.';
+                        textures.appendChild(PreCustomQuestionText_answer);
+                        textures.appendChild(document.createElement("br"));
                     }
-                    localStorage.setItem("customQuestion"+i, jsonData["customQuestion"+i]);
-                    localStorage.setItem("questionBefore"+i, jsonData["questionBefore"+i]);
-                    localStorage.setItem("questionAfter"+i, jsonData["questionAfter"+i]);
-                    localStorage.setItem("radioResponse"+i, jsonData["radioResponse"+i]);
+
+
+                    let button = document.getElementById('PreCustomQuestions-nextBtn');
+
+                    PreCustomQuestions.insertBefore(question, button);
                 }
-            }
-            for (i; i<=5; i++) {
-                document.getElementById("PreCustomQuestions").getElementsByClassName("question"+i)[0].style.display = 'none';
-                document.getElementById("PostCustomQuestions").getElementsByClassName("question"+i)[0].style.display = 'none';
-            }
 
+                if (questionList[i]['after']) {
+                    localStorage.setItem("hasPostQuestion", "true");
+                    postCustomQuestionsList.push(questionList[i]);
 
+                    let PostCustomQuestions = document.getElementById('PostCustomQuestions');
+                    let question = document.createElement('div');
+                    question.className = 'question' + questionList[i]['id'];
+                    question.style.marginBottom = '10rem';
+
+                    let question_text = document.createElement('p');
+                    question_text.className = 'question';
+                    question_text.textContent = questionList[i]['body'];
+                    question.appendChild(question_text);
+
+                    if (questionList[i]['responseType'] === 'Likert') {
+                        let radioGroup = document.createElement('div');
+                        radioGroup.className = 'radioGroup';
+                        question.appendChild((radioGroup));
+
+                        let radioButtons = document.createElement('div');
+                        radioButtons.className = 'radioButtons';
+                        radioGroup.appendChild(radioButtons);
+
+                        for (let j=0; j<questionList[i]['numericMax']; j++) {
+                            let wrap = document.createElement('div');
+                            wrap.className = 'wrap';
+                            let label = document.createElement('label');
+                            label.textContent = (j+1).toString();
+                            let input = document.createElement('input');
+                            input.name = 'rate' + (questionList[i]['id']).toString();
+                            input.type = 'radio';
+                            input.value = (j+1).toString();
+                            wrap.appendChild(label);
+                            wrap.appendChild(input);
+                            radioButtons.appendChild(wrap);
+                        }
+
+                        let left_text = document.createElement('p');
+                        left_text.className = 'left-text';
+                        left_text.setAttribute('translate', '');
+                        left_text.setAttribute('key', 'extremely_unlikely');
+                        left_text.textContent = questionList[i]['numericMinLabel'];
+                        radioGroup.appendChild(left_text);
+
+                        let right_text = document.createElement('p');
+                        right_text.className = 'right-text';
+                        right_text.setAttribute('translate', '');
+                        right_text.setAttribute('key', 'extremely_likely');
+                        right_text.textContent = questionList[i]['numericMaxLabel'];
+                        radioGroup.appendChild(right_text);
+
+                    } else if (questionList[i]['responseType'] === 'Text') {
+                        let textures = document.createElement('form');
+                        textures.className = 'textures';
+                        question.appendChild(textures);
+
+                        let PreCustomQuestionText_answer = document.createElement('input');
+                        PreCustomQuestionText_answer.id = 'PostCustomQuestionText-'+questionList[i]['id']+'-answer';
+                        PreCustomQuestionText_answer.className = 'PostCustomQuestionText-answer';
+                        PreCustomQuestionText_answer.type = 'text';
+                        PreCustomQuestionText_answer.name = 'answer';
+                        PreCustomQuestionText_answer.placeholder = 'Please type your answer here.';
+                        textures.appendChild(PreCustomQuestionText_answer);
+                        textures.appendChild(document.createElement("br"));
+                    }
+
+                    let button = document.getElementById('PostCustomQuestions-nextBtn');
+
+                    PostCustomQuestions.insertBefore(question, button);
+                }
+
+            }
         }).then( function () {
             let CURRENT_PAGE = 0;
             let PAGES = ["StartPage", "Agreement"];
@@ -185,7 +284,7 @@ function ProjectGetRequest() {
             }
 
             PAGES.push("Instruction1","Instruction2","Instruction3", "Instruction4", "Instruction5",
-                "calibration-video", "PreTask", "Task", "End1", "Demographic");
+                "calibration-video", "PreTask", "second-calibration-video", "Task", "End1", "Demographic");
 
             if (localStorage.getItem("NPS") === "1") {
                 PAGES.push("PostTestQuestion");
@@ -268,7 +367,6 @@ function ParticipantPostRequest() {
     header.append("Content-Type", "application/json");
     header.append("Authorization", "Bearer " + localStorage.getItem('accessToken'));
 
-
     let json = {
         "email": localStorage.getItem("email"),
         "gender": localStorage.getItem("gender"),
@@ -284,16 +382,7 @@ function ParticipantPostRequest() {
         "nasaTemporal": localStorage.getItem("nasaTemporal"),
         "nasaPerformance": localStorage.getItem("nasaPerformance"),
         "nasaEffort": localStorage.getItem("nasaEffort"),
-        "customBeforeAnswer1": localStorage.getItem("customBeforeAnswer1"),
-        "customAfterAnswer1": localStorage.getItem("customAfterAnswer1"),
-        "customBeforeAnswer2": localStorage.getItem("customBeforeAnswer2"),
-        "customAfterAnswer2": localStorage.getItem("customAfterAnswer2"),
-        "customBeforeAnswer3": localStorage.getItem("customBeforeAnswer3"),
-        "customAfterAnswer3": localStorage.getItem("customAfterAnswer3"),
-        "customBeforeAnswer4": localStorage.getItem("customBeforeAnswer4"),
-        "customAfterAnswer4": localStorage.getItem("customAfterAnswer4"),
-        "customBeforeAnswer5": localStorage.getItem("customBeforeAnswer5"),
-        "customAfterAnswer5": localStorage.getItem("customAfterAnswer5"),
+        "customAnswers": previousCustomanswersList.concat(postCustomanswersList),
         "screenName": localStorage.getItem("SCREEN_NAME"),
         "videoName": localStorage.getItem("VIDEO_NAME"),
         "projectID": localStorage.getItem('projectId'),

@@ -261,13 +261,13 @@
     color: #6F6F6F;
 }
 
-#PreCustomQuestions .question1, .question2, .question3, .question4, .question5{
-    margin-bottom: 10rem;
-}
+/*#PreCustomQuestions .question1, .question2, .question3, .question4, .question5{*/
+/*    margin-bottom: 10rem;*/
+/*}*/
 
-#PostCustomQuestions .question1, .question2, .question3, .question4, .question5{
-    margin-bottom: 10rem;
-}
+/*#PostCustomQuestions .question1, .question2, .question3, .question4, .question5{*/
+/*    margin-bottom: 10rem;*/
+/*}*/
 
 #PreCustomQuestions .question, #PostCustomQuestions .question{
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
