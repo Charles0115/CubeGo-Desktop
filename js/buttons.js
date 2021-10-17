@@ -103,8 +103,7 @@ function PreTestQuestionNextPage() {
     }
 }
 
-let previousCustomanswersList;
-
+let previousCustomanswersList = [];
 function PreCustomQuestionsNextPage(currentId, nextId) {
     let isComplete = true;
     previousCustomanswersList = [];
@@ -136,6 +135,14 @@ function PreCustomQuestionsNextPage(currentId, nextId) {
                 };
                 previousCustomanswersList.push(Answer);
             }
+        } else if (previousCustomQuestionsList[i]['responseType'] === 'Scale') {
+            let answer = document.getElementById('PreCustomQuestionSlider-'+previousCustomQuestionsList[i]['id']).value;
+            let Answer = {
+                before: true,
+                customQuestionId: previousCustomQuestionsList[i]['id'],
+                numericValue: answer
+            };
+            previousCustomanswersList.push(Answer);
         }
     }
 
@@ -273,7 +280,7 @@ function NASAQuestionNextPage() {
     }
 }
 
-let postCustomanswersList;
+let postCustomanswersList = [];
 function PostCustomQuestionsNextPage(currentId, nextId) {
     let isComplete = true;
     postCustomanswersList = [];
@@ -285,7 +292,7 @@ function PostCustomQuestionsNextPage(currentId, nextId) {
                 break;
             } else {
                 let answer = {
-                    before: true,
+                    before: false,
                     customQuestionId: postCustomQuestionsList[i]['id'],
                     numericValue: rate
                 };
@@ -298,12 +305,20 @@ function PostCustomQuestionsNextPage(currentId, nextId) {
                 break;
             } else {
                 let Answer = {
-                    before: true,
+                    before: false,
                     customQuestionId: postCustomQuestionsList[i]['id'],
                     textualValue: answer
                 };
                 postCustomanswersList.push(Answer);
             }
+        } else if (postCustomQuestionsList[i]['responseType'] === 'Scale') {
+            let answer = document.getElementById('PostCustomQuestionSlider-'+postCustomQuestionsList[i]['id']).value;
+            let Answer = {
+                before: false,
+                customQuestionId: postCustomQuestionsList[i]['id'],
+                numericValue: answer
+            };
+            postCustomanswersList.push(Answer);
         }
     }
 

@@ -191,6 +191,34 @@ function ProjectGetRequest() {
                         PreCustomQuestionText_answer.placeholder = 'Please type your answer here.';
                         textures.appendChild(PreCustomQuestionText_answer);
                         textures.appendChild(document.createElement("br"));
+                    } else if (questionList[i]['responseType'] === 'Scale') {
+                        let sliderContainer = document.createElement('div');
+                        sliderContainer.className = 'customQuestionSliderContainer';
+                        question.appendChild(sliderContainer);
+
+                        let PreCustomQuestionSlider = document.createElement('input');
+                        PreCustomQuestionSlider.id = 'PreCustomQuestionSlider-'+questionList[i]['id'];
+                        PreCustomQuestionSlider.className = 'PreCustomQuestionSlider';
+                        PreCustomQuestionSlider.type = 'range';
+                        PreCustomQuestionSlider.value = 'answer';
+                        PreCustomQuestionSlider.max = questionList[i]['numericMax'].toString();
+                        PreCustomQuestionSlider.min = '1';
+                        PreCustomQuestionSlider.value = ((1+questionList[i]['numericMax'])/2).toString();
+                        sliderContainer.appendChild(PreCustomQuestionSlider);
+
+                        let left_text = document.createElement('p');
+                        left_text.className = 'left-text';
+                        left_text.setAttribute('translate', '');
+                        left_text.setAttribute('key', 'extremely_unlikely');
+                        left_text.textContent = questionList[i]['numericMinLabel'];
+                        sliderContainer.appendChild(left_text);
+
+                        let right_text = document.createElement('p');
+                        right_text.className = 'right-text';
+                        right_text.setAttribute('translate', '');
+                        right_text.setAttribute('key', 'extremely_likely');
+                        right_text.textContent = questionList[i]['numericMaxLabel'];
+                        sliderContainer.appendChild(right_text);
                     }
 
 
@@ -263,7 +291,37 @@ function ProjectGetRequest() {
                         PreCustomQuestionText_answer.placeholder = 'Please type your answer here.';
                         textures.appendChild(PreCustomQuestionText_answer);
                         textures.appendChild(document.createElement("br"));
+
+                    } else if (questionList[i]['responseType'] === 'Scale') {
+                        let sliderContainer = document.createElement('div');
+                        sliderContainer.className = 'customQuestionSliderContainer';
+                        question.appendChild(sliderContainer);
+
+                        let PreCustomQuestionSlider = document.createElement('input');
+                        PreCustomQuestionSlider.id = 'PostCustomQuestionSlider-'+questionList[i]['id'];
+                        PreCustomQuestionSlider.className = 'PostCustomQuestionSlider';
+                        PreCustomQuestionSlider.type = 'range';
+                        PreCustomQuestionSlider.value = 'answer';
+                        PreCustomQuestionSlider.max = questionList[i]['numericMax'].toString();
+                        PreCustomQuestionSlider.min = '1';
+                        PreCustomQuestionSlider.value = ((1+questionList[i]['numericMax'])/2).toString();
+                        sliderContainer.appendChild(PreCustomQuestionSlider);
+
+                        let left_text = document.createElement('p');
+                        left_text.className = 'left-text';
+                        left_text.setAttribute('translate', '');
+                        left_text.setAttribute('key', 'extremely_unlikely');
+                        left_text.textContent = questionList[i]['numericMinLabel'];
+                        sliderContainer.appendChild(left_text);
+
+                        let right_text = document.createElement('p');
+                        right_text.className = 'right-text';
+                        right_text.setAttribute('translate', '');
+                        right_text.setAttribute('key', 'extremely_likely');
+                        right_text.textContent = questionList[i]['numericMaxLabel'];
+                        sliderContainer.appendChild(right_text);
                     }
+
 
                     let button = document.getElementById('PostCustomQuestions-nextBtn');
 
