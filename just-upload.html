@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>
-        AWS S3 File Upload
-    </title>
+    <meta charset="utf-8">
+    <title>MySliderValue</title>
 
-    <style>
-        .slider {
-            width: 100%;
-            height: 15px;
-            border-radius: 5px;
-            background: #d3d3d3;
-            outline: none;
-            opacity: 0.7;
-            -webkit-transition: .2s;
-            transition: opacity .2s;
-        }
-    </style>
 </head>
 <body>
-    <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-    </div>
+<h1>MySliderValue</h1>
 
-    <script>
-        var slider = document.getElementById("myRange");
-        var output = document.getElementById("demo");
-        output.innerHTML = slider.value; // Display the default slider value
+<div style="position:relative; margin:auto; width:90%">
+    <span style="position:absolute; color:red;">
+    <span id="myValue"></span>
+    </span>
+    <input type="range" id="myRange" max="1000" min="0" style="width:80%">
+</div>
 
-        // Update the current slider value (each time you drag the slider handle)
-        slider.oninput = function() {
-            output.innerHTML = this.value;
-        }
-    </script>
+<script type="text/javascript" charset="utf-8">
+    var myRange = document.querySelector('#myRange');
+    var myValue = document.querySelector('#myValue');
+    var myUnits = '';
+    var off = myRange.offsetWidth / (parseInt(myRange.max) - parseInt(myRange.min));
+    var px =  ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetParent.offsetWidth / 2);
+    console.log(myValue.offsetParent.offsetWidth);
+    myValue.parentElement.style.left = px + 'px';
+    myValue.parentElement.style.top = myRange.offsetHeight + 'px';
+    myValue.innerHTML = myRange.value + ' ' + myUnits;
+
+    myRange.oninput =function(){
+        let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.offsetWidth / 2);
+        myValue.innerHTML = myRange.value + ' ' + myUnits;
+        myValue.parentElement.style.left = px + 'px';
+    };
+</script>
+
 </body>
 </html>

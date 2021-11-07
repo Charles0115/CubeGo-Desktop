@@ -213,8 +213,8 @@
     </div>
 
     <div class="content">
-        <p translate key="when_youre_ready">When you’re ready, press ‘Start Recording’ and select <b>‘Entire Screen’ or ‘Application Window’</b></p>
-        <img src="images/instruction4.png" alt="">
+        <p translate key="when_youre_ready">When you’re ready, press ‘Start Recording’ and select <b>‘Window’ and then ‘CubeGO Screen’</b></p>
+        <img src="images/newinstruction4.png" alt="">
         <p translate key="by_clicking_start_recording">By Clicking "Start Recording" I agree to let CubeGO record my screen for the duration
             of this test. I understand CubeGO will use this information to understand how I am
             using this website, in order to improve this website's user experience.</p>
@@ -318,7 +318,7 @@
         <h2 translate key="please_follow_the">Please follow the circle with your eyes.</h2>
     </div>
     <canvas width="200" height="200" id="second-calibration-circle-canvas"></canvas>
-    <button id="start-second-calibration" onclick="startSecondCalibration()" translate key="start_calibration">Start Calibration</button>
+    <button id="start-second-calibration" onclick="startSecondCalibration()" translate key="start_validation">Start Validation</button>
 </section>
 
 <script>
@@ -327,7 +327,7 @@
     var dir = 1;
     g_context.strokeStyle = 'white';
 
-    var g_radius = 10;
+    var g_radius = 100;
 
     function f_drawCircle() {
         g_context.fillStyle = "black";
@@ -358,7 +358,9 @@
         f_drawCircle();
     }
 
-    setInterval(f_loop, 20);
+    //setInterval(f_loop, 20);
+
+    f_drawCircle();
 </script>
 
 <div id="second-calibration-circle"></div>
@@ -395,7 +397,6 @@
             <button id="EndTestModal-end" translate key="end_the_test">END THE TEST</button>
         </div>
     </div>
-
 </div>
 
 <script>

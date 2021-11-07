@@ -117,7 +117,6 @@ function ProjectGetRequest() {
             localStorage.setItem("NASA", jsonData["NASA"]);
             localStorage.setItem("invitation", jsonData["invitation"]);
             localStorage.setItem("instruction", jsonData["instruction"]);
-            localStorage.setItem("npsInput", jsonData["npsInput"]);
 
             let element = document.createElement("p");
             element.innerHTML = localStorage.getItem("instruction");
@@ -200,11 +199,20 @@ function ProjectGetRequest() {
                         PreCustomQuestionSlider.id = 'PreCustomQuestionSlider-'+questionList[i]['id'];
                         PreCustomQuestionSlider.className = 'PreCustomQuestionSlider';
                         PreCustomQuestionSlider.type = 'range';
-                        PreCustomQuestionSlider.value = 'answer';
                         PreCustomQuestionSlider.max = questionList[i]['numericMax'].toString();
                         PreCustomQuestionSlider.min = '1';
                         PreCustomQuestionSlider.value = ((1+questionList[i]['numericMax'])/2).toString();
                         sliderContainer.appendChild(PreCustomQuestionSlider);
+
+                        let PreCustomQuestionSliderValue = document.createElement('output');
+                        PreCustomQuestionSliderValue.id = 'PreCustomQuestionSliderValue-'+questionList[i]['id'];
+                        PreCustomQuestionSliderValue.className = 'PreCustomQuestionSliderValue';
+                        PreCustomQuestionSliderValue.value = PreCustomQuestionSlider.value;
+
+                        sliderContainer.appendChild(PreCustomQuestionSliderValue);
+                        PreCustomQuestionSlider.oninput = function(){
+                            PreCustomQuestionSliderValue.value = PreCustomQuestionSlider.value;
+                        };
 
                         let left_text = document.createElement('p');
                         left_text.className = 'left-text';
@@ -307,6 +315,17 @@ function ProjectGetRequest() {
                         PreCustomQuestionSlider.value = ((1+questionList[i]['numericMax'])/2).toString();
                         sliderContainer.appendChild(PreCustomQuestionSlider);
 
+                        let PreCustomQuestionSliderValue = document.createElement('output');
+                        PreCustomQuestionSliderValue.style.display = 'block';
+                        PreCustomQuestionSliderValue.id = 'PostCustomQuestionSliderValue-'+questionList[i]['id'];
+                        PreCustomQuestionSliderValue.className = 'PostCustomQuestionSliderValue';
+                        PreCustomQuestionSliderValue.value = PreCustomQuestionSlider.value;
+
+                        sliderContainer.appendChild(PreCustomQuestionSliderValue);
+                        PreCustomQuestionSlider.oninput = function(){
+                            PreCustomQuestionSliderValue.value = PreCustomQuestionSlider.value;
+                        };
+
                         let left_text = document.createElement('p');
                         left_text.className = 'left-text';
                         left_text.setAttribute('translate', '');
@@ -333,7 +352,7 @@ function ProjectGetRequest() {
             let CURRENT_PAGE = 0;
             let PAGES = ["StartPage", "Agreement"];
 
-            if (localStorage.getItem("NPS") === "1") {
+            if (localStorage.getItem("NPS") === "true") {
                 PAGES.push("PreTestQuestion");
             }
 
@@ -344,17 +363,17 @@ function ProjectGetRequest() {
             PAGES.push("Instruction1","Instruction2","Instruction3", "Instruction4", "Instruction5",
                 "calibration-video", "PreTask", "second-calibration-video", "Task", "End1", "Demographic");
 
-            if (localStorage.getItem("NPS") === "1") {
+            if (localStorage.getItem("NPS") === "true") {
                 PAGES.push("PostTestQuestion");
             }
 
-            if (localStorage.getItem("SEQ") === "1") {
+            if (localStorage.getItem("SEQ") === "true") {
                 PAGES.push("SEQQuestion");
             }
-            if (localStorage.getItem("SUS") === "1") {
+            if (localStorage.getItem("SUS") === "true") {
                 PAGES.push("SUSQuestion");
             }
-            if (localStorage.getItem("NASA") === "1") {
+            if (localStorage.getItem("NASA") === "true") {
                 PAGES.push("NASAQuestion");
             }
             if (localStorage.getItem("hasPostQuestion") === "true") {

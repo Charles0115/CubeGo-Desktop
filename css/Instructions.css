@@ -283,6 +283,11 @@
     color: #605F5F;
 }
 
+#Instruction4 .content img{
+    width: 50rem;
+    margin: 2rem auto 2rem;
+}
+
 
 #Instruction5 .progress{
     height: 1rem;

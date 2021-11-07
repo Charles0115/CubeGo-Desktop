@@ -53,7 +53,7 @@ function OpenCameraPreview() {
 }
 
 function AgreementNextPage() {
-    if (localStorage.getItem("NPS") === "1") {
+    if (localStorage.getItem("NPS") === "true") {
         if (document.getElementById('Agreement') != null && document.getElementById('PreTestQuestion') != null) {
             localStorage.setItem("CURRENT_PAGE", (parseInt(localStorage.getItem("CURRENT_PAGE"))+1).toString());
             document.body.style.background = "#E5E5E5";
@@ -176,13 +176,13 @@ function DemographicNextPage() {
         localStorage.setItem("city", city);
         localStorage.setItem("income", income);
 
-        if (localStorage.getItem("NPS") === "1") {
+        if (localStorage.getItem("NPS") === "true") {
             gotoNextPage("Demographic", "PostTestQuestion");
-        } else if (localStorage.getItem("SEQ") === "1") {
+        } else if (localStorage.getItem("SEQ") === "true") {
             gotoNextPage("Demographic", "SEQQuestion");
-        } else if (localStorage.getItem("SUS") === "1") {
+        } else if (localStorage.getItem("SUS") === "true") {
             gotoNextPage("Demographic", "SUSQuestion");
-        } else if (localStorage.getItem("NASA") === "1") {
+        } else if (localStorage.getItem("NASA") === "true") {
             gotoNextPage("Demographic", "NASAQuestion");
         } else if (localStorage.getItem("hasPostQuestion") === "true") {
             gotoNextPage("Demographic", "PostCustomQuestions");
@@ -200,11 +200,11 @@ function PostTestQuestionNextPage() {
     } else {
         localStorage.setItem("npsAfter", rate);
 
-        if (localStorage.getItem('SEQ') === '1') {
+        if (localStorage.getItem('SEQ') === 'true') {
             gotoNextPage('PostTestQuestion', 'SEQQuestion');
-        } else if (localStorage.getItem('SUS') === '1') {
+        } else if (localStorage.getItem('SUS') === 'true') {
             gotoNextPage('PostTestQuestion', 'SUSQuestion');
-        } else if (localStorage.getItem('NASA') === '1') {
+        } else if (localStorage.getItem('NASA') === 'true') {
             gotoNextPage('PostTestQuestion', 'NASAQuestion');
         } else if (localStorage.getItem("hasPostQuestion") === "true") {
             gotoNextPage('PostTestQuestion', 'PostCustomQuestions');
@@ -222,9 +222,9 @@ function SEQQuestionNextPage() {
     } else {
         localStorage.setItem("seq", rate);
 
-        if (localStorage.getItem('SUS') === '1') {
+        if (localStorage.getItem('SUS') === 'true') {
             gotoNextPage('SEQQuestion', 'SUSQuestion');
-        } else if (localStorage.getItem('NASA') === '1') {
+        } else if (localStorage.getItem('NASA') === 'true') {
             gotoNextPage('SEQQuestion', 'NASAQuestion');
         } else if (localStorage.getItem("hasPostQuestion") === "true") {
             gotoNextPage('SEQQuestion', 'PostCustomQuestions');
@@ -262,7 +262,7 @@ function SUSQuestionNextPage() {
         let result = total * 2.5;
         localStorage.setItem("sus", result.toString());
 
-        if (localStorage.getItem('NASA') === '1') {
+        if (localStorage.getItem('NASA') === 'true') {
             gotoNextPage('SUSQuestion', 'NASAQuestion');
         } else if (localStorage.getItem("hasPostQuestion") === "true") {
             gotoNextPage('SUSQuestion', 'PostCustomQuestions');

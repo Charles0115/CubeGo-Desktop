@@ -74,7 +74,7 @@ body {
     display: inline-block;
     width: 3.2rem;
     height: 3.2rem;
-    background-image: url(https://www.countryflags.io/ca/flat/32.png);
+    background-image: url("../images/Canada-Flag.png");
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -125,10 +125,10 @@ body {
 }
 
 .en:before {
-    background-image: url(https://www.countryflags.io/ca/flat/32.png);
+    background-image: url("../images/Canada-Flag.png");
 }
 .fr:before {
-    background-image: url(https://www.countryflags.io/ca/flat/32.png);
+    background-image: url("../images/Canada-Flag.png");
 }
 
 

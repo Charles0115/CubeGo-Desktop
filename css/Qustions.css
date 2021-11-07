@@ -351,7 +351,7 @@
     display: inline-block;
 }
 
-#PreCustomQuestions .PreCustomQuestionSlider, #PreCustomQuestions .PreCustomQuestionSlider {
+#PreCustomQuestions .PreCustomQuestionSlider, #PostCustomQuestions .PostCustomQuestionSlider {
     display: block;
     width: 50rem;
     height: 1.5rem;
@@ -364,6 +364,16 @@
     transition: opacity .2s;
 }
 
+#PreCustomQuestions .PreCustomQuestionSliderValue, #PostCustomQuestions .PostCustomQuestionSliderValue {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    display: block;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #605F5F;
+}
 
 #PreCustomQuestions-nextBtn, #PostCustomQuestions-nextBtn{
     width: 30rem;
